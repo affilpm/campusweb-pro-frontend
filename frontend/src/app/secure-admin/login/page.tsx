@@ -31,10 +31,8 @@ export default function SecureAdminLoginPage() {
     if (result.success) {
       const redirect = searchParams.get('redirect') || '/secure-admin';
       console.log('[Login] Success, redirecting to:', redirect);
-      // Small delay to ensure state is settled before navigation
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Use replace to avoid back-button going to login again
       router.replace(redirect);
-      router.refresh(); // Force refresh to re-read auth state
     } else {
       setError(result.message);
       setIsSubmitting(false);
