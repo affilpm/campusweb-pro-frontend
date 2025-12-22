@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/auth-context';
 
@@ -14,6 +14,15 @@ export default function SecureAdminLoginPage() {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    const hasToken = localStorage.getItem('access_token');
+    if (hasToken) {
+      console.log('[Login] Already logged in, redirecting to dashboard');
+      window.location.href = '/secure-admin';
+    }
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
