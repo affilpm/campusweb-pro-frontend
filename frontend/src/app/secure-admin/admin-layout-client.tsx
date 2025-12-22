@@ -59,27 +59,19 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
   
   React.useEffect(() => {
     setMounted(true);
-    console.log('[AdminLayout] Component mounted');
   }, []);
 
-  // Simple auth check: if on admin pages (not login) and no token -> redirect
   useEffect(() => {
-    console.log('[AdminLayout] useEffect - mounted:', mounted, 'pathname:', pathname);
     if (!mounted) return;
     if (pathname === '/secure-admin/login') return;
     
-    // Check localStorage directly for token
     const hasToken = localStorage.getItem('access_token');
-    console.log('[AdminLayout] Token check:', hasToken ? 'present' : 'missing');
     if (!hasToken) {
-      console.log('[AdminLayout] No token, redirecting to login');
       window.location.href = '/secure-admin/login';
     }
   }, [mounted, pathname]);
 
-  // Show loading during SSR or while auth is initializing
   if (!mounted) {
-    console.log('[AdminLayout] Not mounted yet, showing loader');
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
@@ -90,17 +82,12 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
     );
   }
 
-  // Login page - no auth required
   if (pathname === '/secure-admin/login') {
-    console.log('[AdminLayout] On login page, rendering children');
     return <>{children}</>;
   }
 
-  // For admin pages: just check if token exists in localStorage
   const hasToken = localStorage.getItem('access_token');
-  console.log('[AdminLayout] Render check - hasToken:', !!hasToken);
   if (!hasToken) {
-    // No token - redirect will happen via useEffect, show nothing
     return null;
   }
 

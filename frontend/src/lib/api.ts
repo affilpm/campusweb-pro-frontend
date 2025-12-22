@@ -7,7 +7,6 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // API Base URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-console.log('[API] Using API URL:', API_URL);
 
 // 1. Setup Axios to support Cookies (Credential mode)
 const client = axios.create({
@@ -145,10 +144,8 @@ export const authApi = {
     const response = await client.post('/api/admin/auth/login/', { email, password });
     if (response.data.access) {
       localStorage.setItem('access_token', response.data.access);
-      // Save refresh token to localStorage for cross-origin compatibility
       if (response.data.refresh) {
         localStorage.setItem('refresh_token', response.data.refresh);
-        console.log('[Auth] Refresh token saved to localStorage');
       }
       return { success: true, ...response.data };
     }
@@ -171,10 +168,8 @@ export const authApi = {
   },
 
   refresh: async () => {
-      // Get refresh token from localStorage (for cross-origin) and send in request body
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) {
-        console.log('[Auth] No refresh token in localStorage');
         throw new Error('No refresh token available');
       }
       
