@@ -30,7 +30,7 @@ export default function SecureAdminLoginPage() {
 
     if (result.success) {
       const redirect = searchParams.get('redirect') || '/secure-admin';
-      window.location.href = redirect; // Force hard reload to ensure clean state
+      router.push(redirect);
     } else {
       setError(result.message);
       setIsSubmitting(false);

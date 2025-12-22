@@ -556,7 +556,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f
 // Fetch homepage data from Django API with ISR
 async function getHomepageData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
         const res = await fetch(`${apiUrl}/api/public/home/`, {
             next: {
                 revalidate: 60

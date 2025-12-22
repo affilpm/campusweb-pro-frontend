@@ -38,16 +38,15 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
       if (!data.success) {
         set({ isLoading: false });
-        // Clear token from storage on failed login
         if (typeof window !== 'undefined') {
-          localStorage.removeItem('accessToken');
+          localStorage.removeItem('access_token');
         }
         return { success: false, message: data.message || 'Login failed' };
       }
 
       // Persist access token to localStorage
       if (typeof window !== 'undefined' && data.access) {
-        localStorage.setItem('accessToken', data.access);
+        localStorage.setItem('access_token', data.access);
         setAccessToken(data.access);
       }
 
@@ -83,7 +82,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
       // Clear token from storage
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('accessToken');
+        localStorage.removeItem('access_token');
       }
       clearAccessToken();
 
@@ -100,7 +99,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       console.error('Logout error:', error);
       // Clear state even on error
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('accessToken');
+        localStorage.removeItem('access_token');
       }
       clearAccessToken();
       set({
@@ -134,13 +133,14 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       // Check for token in localStorage first (fallback for cross-domain)
       let token = null;
       if (typeof window !== 'undefined') {
-        token = localStorage.getItem('accessToken');
+        // Use 'access_token' to match api.ts
+        token = localStorage.getItem('access_token');
       }
 
       if (token) {
-        setAccessToken(token);
         // Verify token by fetching user info
         try {
+          // We don't need setAccessToken because api.ts reads from localStorage directly
           const userData = await authApi.getMe();
           if (userData.success) {
              set({
@@ -153,36 +153,41 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         } catch (e) {
              console.log('Stored token invalid');
              if (typeof window !== 'undefined') {
-               localStorage.removeItem('accessToken');
+               localStorage.removeItem('access_token');
              }
         }
       }
 
       // If no localStorage token, try standard cookie refresh (will likely fail cross-domain)
-      const refreshData = await authApi.refresh();
+      try {
+        const refreshData = await authApi.refresh();
 
-      if (refreshData.success && refreshData.access) {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('accessToken', refreshData.access);
+        if (refreshData.success && refreshData.access) {
+            // api.ts helper might have already set it, but ensure consistency
+            if (typeof window !== 'undefined') {
+            localStorage.setItem('access_token', refreshData.access);
+            }
+            // Get user info with the new access token
+            try {
+            const userData = await authApi.getMe();
+
+            if (userData.success) {
+                set({
+                user: userData.user,
+                isAuthenticated: true,
+                isLoading: false,
+                });
+
+                // Schedule token refresh
+                scheduleTokenRefresh(get);
+                return;
+            }
+            } catch (meError) {
+            console.error('Failed to get user info:', meError);
+            }
         }
-        // Get user info with the new access token
-        try {
-          const userData = await authApi.getMe();
-
-          if (userData.success) {
-            set({
-              user: userData.user,
-              isAuthenticated: true,
-              isLoading: false,
-            });
-
-            // Schedule token refresh
-            scheduleTokenRefresh(get);
-            return;
-          }
-        } catch (meError) {
-          console.error('Failed to get user info:', meError);
-        }
+      } catch (e) {
+          // Refresh failed, user is not logged in
       }
 
       // No valid session - this is expected for new visitors
@@ -192,7 +197,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isLoading: false,
       });
     } catch (error) {
-      // This is expected when there's no session
       set({
         user: null,
         isAuthenticated: false,

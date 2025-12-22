@@ -1,5 +1,8 @@
 {
   "/page": "app/page.js",
   "/public-disclosure/general/page": "app/public-disclosure/general/page.js",
-  "/secure-admin/login/page": "app/secure-admin/login/page.js"
+  "/secure-admin/hero/page": "app/secure-admin/hero/page.js",
+  "/secure-admin/login/page": "app/secure-admin/login/page.js",
+  "/secure-admin/page": "app/secure-admin/page.js",
+  "/secure-admin/public-disclosure/page": "app/secure-admin/public-disclosure/page.js"
 }

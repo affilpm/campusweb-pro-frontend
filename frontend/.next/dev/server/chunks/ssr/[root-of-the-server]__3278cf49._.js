@@ -100,7 +100,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function getAdmissionsData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "http://143.110.186.16") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
         const res = await fetch(`${apiUrl}/api/public/admissions/`, {
             next: {
                 revalidate: 60

@@ -22,129 +22,154 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 ;
 // API Base URL
 const API_URL = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
-// Create axios instance
-const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
+// 1. Setup Axios to support Cookies (Credential mode)
+const client = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: API_URL,
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json'
-    },
-    withCredentials: true
+    }
 });
-// Store for access token (in-memory, not localStorage)
-let accessToken = null;
-// Flag to prevent multiple refresh attempts
 let isRefreshing = false;
-const setAccessToken = (token)=>{
-    accessToken = token;
+let refreshSubscribers = [];
+// 2. Helper to queue requests while refreshing
+const subscribeToRefresh = (cb)=>{
+    refreshSubscribers.push(cb);
 };
-const getAccessToken = ()=>accessToken;
-const clearAccessToken = ()=>{
-    accessToken = null;
+const onRefreshed = (token)=>{
+    refreshSubscribers.forEach((cb)=>cb(token));
+    refreshSubscribers = [];
 };
-// Request interceptor - add access token to requests
-api.interceptors.request.use((config)=>{
-    if (accessToken && config.headers) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+// 3. Request Interceptor: Attach Access Token
+client.interceptors.request.use((config)=>{
+    if ("TURBOPACK compile-time truthy", 1) {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
     }
     return config;
-}, (error)=>{
-    return Promise.reject(error);
 });
-// Response interceptor - handle token refresh on 401
-api.interceptors.response.use((response)=>response, async (error)=>{
+// 4. Response Interceptor: Auto-Refresh on 401
+client.interceptors.response.use((response)=>response, async (error)=>{
     const originalRequest = error.config;
-    // Don't retry refresh requests to avoid infinite loop
-    if (originalRequest._isRefreshRequest) {
-        return Promise.reject(error);
-    }
-    // If 401 and we haven't retried yet and not currently refreshing
-    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshing) {
+    // Check if error is 401 (Unauthorized) and we haven't retried yet
+    if (error.response?.status === 401 && !originalRequest._retry) {
+        const url = originalRequest.url || '';
+        // Avoid infinite loop on login/refresh endpoints
+        if (url.includes('/login/') || url.includes('/refresh/') || url.includes('/verify/')) {
+            return Promise.reject(error);
+        }
         originalRequest._retry = true;
+        if (isRefreshing) {
+            // If already refreshing, wait for new token
+            return new Promise((resolve)=>{
+                subscribeToRefresh((token)=>{
+                    originalRequest.headers.Authorization = `Bearer ${token}`;
+                    resolve(client(originalRequest));
+                });
+            });
+        }
         isRefreshing = true;
         try {
-            // Try to refresh the token using raw axios (not the api instance)
-            const refreshResponse = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${API_URL}/api/admin/auth/refresh/`, {}, {
-                withCredentials: true
-            });
-            isRefreshing = false;
-            if (refreshResponse.data.success && refreshResponse.data.access) {
-                // Store new access token
-                setAccessToken(refreshResponse.data.access);
-                // Update the original request with new token
-                if (originalRequest.headers) {
-                    originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
-                }
-                // Retry the original request
-                return api(originalRequest);
-            }
+            // Call backend to refresh (Cookie is sent automatically)
+            const { data } = await client.post('/api/admin/auth/refresh/');
+            // Save new Access Token
+            const newToken = data.access;
+            localStorage.setItem('access_token', newToken);
+            // Notify pending requests
+            onRefreshed(newToken);
+            // Retry original request
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            return client(originalRequest);
         } catch (refreshError) {
-            isRefreshing = false;
-            // Refresh failed, clear token
-            clearAccessToken();
-            // Only redirect if we're on a protected page (not login)
+            // Refresh failed (Session expired) -> Logout user
+            localStorage.removeItem('access_token');
             if (("TURBOPACK compile-time value", "object") !== 'undefined' && !window.location.pathname.includes('/login')) {
-                window.location.href = '/admin/login';
+                window.location.href = '/secure-admin/login'; // Redirect to login
             }
             return Promise.reject(refreshError);
+        } finally{
+            isRefreshing = false;
         }
     }
     return Promise.reject(error);
 });
-const __TURBOPACK__default__export__ = api;
+const __TURBOPACK__default__export__ = client;
+const setAccessToken = (token)=>{
+    if (token) {
+        localStorage.setItem('access_token', token);
+    } else {
+        localStorage.removeItem('access_token');
+    }
+};
+const clearAccessToken = ()=>{
+    localStorage.removeItem('access_token');
+};
+const getAccessToken = ()=>{
+    if ("TURBOPACK compile-time truthy", 1) {
+        return localStorage.getItem('access_token');
+    }
+    //TURBOPACK unreachable
+    ;
+};
 const authApi = {
-    /**
-   * Login admin user
-   */ login: async (email, password)=>{
-        const response = await api.post('/api/admin/auth/login/', {
+    login: async (email, password)=>{
+        const response = await client.post('/api/admin/auth/login/', {
             email,
             password
         });
-        if (response.data.success && response.data.access) {
-            setAccessToken(response.data.access);
-        }
-        return response.data;
-    },
-    /**
-   * Logout admin user
-   */ logout: async ()=>{
-        try {
-            await api.post('/api/admin/auth/logout/');
-        } finally{
-            clearAccessToken();
-        }
-    },
-    /**
-   * Refresh access token - uses raw axios to avoid interceptor loop
-   */ refresh: async ()=>{
-        try {
-            // Use raw axios to avoid the interceptor trying to refresh on 401
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${API_URL}/api/admin/auth/refresh/`, {}, {
-                withCredentials: true
-            });
-            if (response.data.success && response.data.access) {
-                setAccessToken(response.data.access);
-            }
-            return response.data;
-        } catch (error) {
-            // Return a failed response object instead of throwing
+        if (response.data.access) {
+            localStorage.setItem('access_token', response.data.access);
+            // Shim: return success flag for compatibility
             return {
-                success: false,
-                message: error.response?.data?.message || 'Token refresh failed'
+                success: true,
+                ...response.data
             };
         }
-    },
-    /**
-   * Get current user
-   */ getMe: async ()=>{
-        const response = await api.get('/api/admin/auth/me/');
         return response.data;
     },
-    /**
-   * Verify token
-   */ verify: async ()=>{
-        const response = await api.post('/api/admin/auth/verify/');
+    logout: async ()=>{
+        try {
+            await client.post('/api/admin/auth/logout/'); // Clears cookie on server
+        } catch (e) {
+        // Ignore logout errors
+        }
+        localStorage.removeItem('access_token');
+    },
+    verify: async ()=>{
+        const response = await client.post('/api/admin/auth/verify/');
+        return {
+            success: true,
+            ...response.data
+        };
+    },
+    refresh: async ()=>{
+        // Wrapper to manually trigger refresh if needed
+        const response = await client.post('/api/admin/auth/refresh/');
+        if (response.data.access) {
+            localStorage.setItem('access_token', response.data.access);
+            return {
+                success: true,
+                ...response.data
+            };
+        }
         return response.data;
-    }
+    },
+    getMe: async ()=>{
+        // Check if we have a token first to rely on interceptor
+        const response = await client.get('/api/admin/auth/me/');
+        // Shim for compatibility
+        const data = response.data;
+        // If data has 'user' property, use it, otherwise assume data is the user
+        return {
+            success: true,
+            user: data.user || data,
+            ...data
+        };
+    },
+    // Generic axios instance for other parts of the app
+    client
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
@@ -189,10 +214,18 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                     set({
                         isLoading: false
                     });
+                    if ("TURBOPACK compile-time truthy", 1) {
+                        localStorage.removeItem('access_token');
+                    }
                     return {
                         success: false,
                         message: data.message || 'Login failed'
                     };
+                }
+                // Persist access token to localStorage
+                if (("TURBOPACK compile-time value", "object") !== 'undefined' && data.access) {
+                    localStorage.setItem('access_token', data.access);
+                    (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setAccessToken"])(data.access);
                 }
                 // Set user state
                 set({
@@ -227,6 +260,11 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                 }
                 // Call logout API
                 await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].logout();
+                // Clear token from storage
+                if ("TURBOPACK compile-time truthy", 1) {
+                    localStorage.removeItem('access_token');
+                }
+                (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearAccessToken"])();
                 // Clear state
                 set({
                     user: null,
@@ -238,6 +276,9 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
             } catch (error) {
                 console.error('Logout error:', error);
                 // Clear state even on error
+                if ("TURBOPACK compile-time truthy", 1) {
+                    localStorage.removeItem('access_token');
+                }
                 (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearAccessToken"])();
                 set({
                     user: null,
@@ -249,23 +290,10 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         },
         // Refresh token action
         refreshToken: async ()=>{
-            try {
-                const data = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].refresh();
-                if (!data.success) {
-                    // Refresh failed, clear auth state
-                    set({
-                        user: null,
-                        isAuthenticated: false
-                    });
-                    return false;
-                }
-                // Schedule next refresh
-                scheduleTokenRefresh(get);
-                return true;
-            } catch (error) {
-                console.error('Token refresh error:', error);
-                return false;
-            }
+            // For now, we rely on the access token being valid long enough
+            // Real refresh requires httpOnly cookie which fails cross-domain
+            // When checks fail, user will just have to login again
+            return true;
         },
         // Initialize auth state (check for existing session)
         initialize: async ()=>{
@@ -278,11 +306,16 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                 set({
                     isLoading: true
                 });
-                // Try to refresh the token (will use refresh token from cookie)
-                const refreshData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].refresh();
-                if (refreshData.success && refreshData.access) {
-                    // Get user info with the new access token
+                // Check for token in localStorage first (fallback for cross-domain)
+                let token = null;
+                if ("TURBOPACK compile-time truthy", 1) {
+                    // Use 'access_token' to match api.ts
+                    token = localStorage.getItem('access_token');
+                }
+                if (token) {
+                    // Verify token by fetching user info
                     try {
+                        // We don't need setAccessToken because api.ts reads from localStorage directly
                         const userData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].getMe();
                         if (userData.success) {
                             set({
@@ -290,13 +323,42 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                                 isAuthenticated: true,
                                 isLoading: false
                             });
-                            // Schedule token refresh
-                            scheduleTokenRefresh(get);
                             return;
                         }
-                    } catch (meError) {
-                        console.error('Failed to get user info:', meError);
+                    } catch (e) {
+                        console.log('Stored token invalid');
+                        if ("TURBOPACK compile-time truthy", 1) {
+                            localStorage.removeItem('access_token');
+                        }
                     }
+                }
+                // If no localStorage token, try standard cookie refresh (will likely fail cross-domain)
+                try {
+                    const refreshData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].refresh();
+                    if (refreshData.success && refreshData.access) {
+                        // api.ts helper might have already set it, but ensure consistency
+                        if ("TURBOPACK compile-time truthy", 1) {
+                            localStorage.setItem('access_token', refreshData.access);
+                        }
+                        // Get user info with the new access token
+                        try {
+                            const userData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].getMe();
+                            if (userData.success) {
+                                set({
+                                    user: userData.user,
+                                    isAuthenticated: true,
+                                    isLoading: false
+                                });
+                                // Schedule token refresh
+                                scheduleTokenRefresh(get);
+                                return;
+                            }
+                        } catch (meError) {
+                            console.error('Failed to get user info:', meError);
+                        }
+                    }
+                } catch (e) {
+                // Refresh failed, user is not logged in
                 }
                 // No valid session - this is expected for new visitors
                 set({
@@ -305,8 +367,6 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                     isLoading: false
                 });
             } catch (error) {
-                // This is expected when there's no session
-                console.log('No existing session found');
                 set({
                     user: null,
                     isAuthenticated: false,

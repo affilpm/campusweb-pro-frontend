@@ -5,7 +5,7 @@ type AppRoutes = "/" | "/about" | "/academics" | "/admissions" | "/contact" | "/
 type PageRoutes = never
 type LayoutRoutes = "/" | "/academics" | "/contact" | "/gallery" | "/secure-admin"
 type RedirectRoutes = never
-type RewriteRoutes = never
+type RewriteRoutes = "/api/[[...path]]"
 type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
 
 
@@ -14,6 +14,7 @@ interface ParamMap {
   "/about": {}
   "/academics": {}
   "/admissions": {}
+  "/api/[[...path]]": { "path"?: string[]; }
   "/contact": {}
   "/facilities": {}
   "/facilities/[slug]": { "slug": string; }

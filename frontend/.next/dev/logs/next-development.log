@@ -1,14 +1,877 @@
-[00:00:01.626] Server  LOG      ✓ Ready in 1298ms
-[00:00:04.783] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:04.872] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:29.194] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:31.312] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:07:37.461] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:09:53.870] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:12:34.896] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:13:02.032] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:30:27.660] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:30:29.412] Server  ERROR    ⨯ "upstream image response failed for" "https://pub-30421f2590ac4738b43f524395aa8a2b.r2.dev/media/achievements/dde4644e922a42439eb505f1d5715717.jpg" 404
-[00:30:29.431] Server  ERROR    ⨯ "upstream image response failed for" "https://pub-30421f2590ac4738b43f524395aa8a2b.r2.dev/media/achievements/6b8f5558a9a445579f1ece73d1cfdae2.jpg" 404
-[00:30:37.389] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
-[00:45:43.071] Server  LOG      ✓ Compiled in 397ms
+[00:00:01.662] Server  LOG      ✓ Ready in 1321ms
+[00:00:04.956] Server  LOG      ○ Compiling /public-disclosure/general ...
+[00:00:08.535] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:09.045] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:09.653] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:21.230] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:43.915] Server  LOG      ✓ Compiled in 461ms
+[00:05:43.928] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:43.945] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:05:45.521] Server  ERROR    ⨯ ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:05:45.727] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:46.677] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:46.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.367] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.563] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.658] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.658] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.664] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:47.664] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:48.921] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:48.947] Server  ERROR    ⨯ ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:05:49.566] Browser ERROR   uncaughtError: Error: ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:05:49.665] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:49.666] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:49.673] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:49.673] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:49.764] Browser ERROR   uncaughtError: Error: ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:05:49.916] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.045] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.677] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:05:50.678] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:34.238] Server  ERROR    ⨯ ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:06:34.608] Browser ERROR   uncaughtError: Error: ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+
+[00:06:34.687] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:34.688] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:34.719] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:34.719] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:34.837] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:35.673] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:35.673] Browser ERROR   ./src/stores/auth-store.ts:200:4
+Parsing ecmascript source code failed
+  198 |         isLoading: false,
+  199 |       });
+> 200 |   },
+      |    ^
+  201 | }));
+  202 |
+  203 | // Schedule token refresh before expiry
+
+Expected a semicolon
+
+Import traces:
+  Client Component Browser:
+    ./src/stores/auth-store.ts [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Client Component Browser]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/stores/auth-store.ts [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Client Component SSR]
+    ./src/contexts/auth-context.tsx [Server Component]
+    ./src/app/secure-admin/layout.tsx [Server Component]
+[00:06:58.312] Server  LOG      ✓ Compiled in 403ms
+[00:07:00.200] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:00.338] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:15.151] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:10:11.392] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:10:11.394] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:10:11.403] Server  LOG      ✓ Compiled in 306ms
+[00:10:12.690] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:12.919] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:11:01.495] Browser WARN    Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[00:13:13.456] Server  LOG        Reload env: .env.local
+[00:13:14.341] Server  LOG      ✓ Compiled in 459ms
+[00:13:14.457] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:13:14.457] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:13:15.759] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:15.768] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

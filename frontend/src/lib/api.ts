@@ -8,96 +8,96 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 // API Base URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-// Create axios instance
-const api = axios.create({
-  baseURL: API_URL,
+// 1. Setup Axios to support Cookies (Credential mode)
+const client = axios.create({
+  baseURL: API_URL, // Use environment variable
+  withCredentials: true, // IMPORTANT: Sends HttpOnly cookies
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Important for cookies
 });
 
-// Store for access token (in-memory, not localStorage)
-let accessToken: string | null = null;
-
-// Flag to prevent multiple refresh attempts
 let isRefreshing = false;
+let refreshSubscribers: ((token: string) => void)[] = [];
 
-export const setAccessToken = (token: string | null) => {
-  accessToken = token;
+// 2. Helper to queue requests while refreshing
+const subscribeToRefresh = (cb: (token: string) => void) => {
+  refreshSubscribers.push(cb);
 };
 
-export const getAccessToken = () => accessToken;
-
-export const clearAccessToken = () => {
-  accessToken = null;
+const onRefreshed = (token: string) => {
+  refreshSubscribers.forEach((cb) => cb(token));
+  refreshSubscribers = [];
 };
 
-// Request interceptor - add access token to requests
-api.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    if (accessToken && config.headers) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+// 3. Request Interceptor: Attach Access Token
+client.interceptors.request.use((config) => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
   }
-);
+  return config;
+});
 
-// Response interceptor - handle token refresh on 401
-api.interceptors.response.use(
+// 4. Response Interceptor: Auto-Refresh on 401
+client.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { 
-      _retry?: boolean;
-      _isRefreshRequest?: boolean;
-    };
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    // Don't retry refresh requests to avoid infinite loop
-    if (originalRequest._isRefreshRequest) {
-      return Promise.reject(error);
-    }
+    // Check if error is 401 (Unauthorized) and we haven't retried yet
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      const url = originalRequest.url || '';
+      
+      // Avoid infinite loop on login/refresh endpoints
+      if (
+        url.includes('/login/') || 
+        url.includes('/refresh/') || 
+        url.includes('/verify/') 
+      ) {
+        return Promise.reject(error);
+      }
 
-    // If 401 and we haven't retried yet and not currently refreshing
-    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshing) {
       originalRequest._retry = true;
+
+      if (isRefreshing) {
+        // If already refreshing, wait for new token
+        return new Promise((resolve) => {
+          subscribeToRefresh((token) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
+            resolve(client(originalRequest));
+          });
+        });
+      }
+
       isRefreshing = true;
 
       try {
-        // Try to refresh the token using raw axios (not the api instance)
-        const refreshResponse = await axios.post(
-          `${API_URL}/api/admin/auth/refresh/`,
-          {},
-          { withCredentials: true }
-        );
-
-        isRefreshing = false;
-
-        if (refreshResponse.data.success && refreshResponse.data.access) {
-          // Store new access token
-          setAccessToken(refreshResponse.data.access);
-
-          // Update the original request with new token
-          if (originalRequest.headers) {
-            originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
-          }
-
-          // Retry the original request
-          return api(originalRequest);
-        }
+        // Call backend to refresh (Cookie is sent automatically)
+        const { data } = await client.post('/api/admin/auth/refresh/');
+        
+        // Save new Access Token
+        const newToken = data.access;
+        localStorage.setItem('access_token', newToken);
+        
+        // Notify pending requests
+        onRefreshed(newToken);
+        
+        // Retry original request
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        return client(originalRequest);
+        
       } catch (refreshError) {
-        isRefreshing = false;
-        // Refresh failed, clear token
-        clearAccessToken();
-        
-        // Only redirect if we're on a protected page (not login)
+        // Refresh failed (Session expired) -> Logout user
+        localStorage.removeItem('access_token');
         if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
-          window.location.href = '/admin/login';
+          window.location.href = '/secure-admin/login'; // Redirect to login
         }
-        
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 
@@ -105,80 +105,77 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default client;
 
-// Auth-specific API functions
-export const authApi = {
-  /**
-   * Login admin user
-   */
-  login: async (email: string, password: string) => {
-    try {
-      const response = await api.post('/api/admin/auth/login/', {
-        email,
-        password,
-      });
+export const setAccessToken = (token: string | null) => {
+  if (token) {
+    localStorage.setItem('access_token', token);
+  } else {
+    localStorage.removeItem('access_token');
+  }
+};
 
-      if (response.data.success && response.data.access) {
-        setAccessToken(response.data.access);
-      }
-      
-      return response.data;
-    } catch (error: any) {
-      throw error;
+export const clearAccessToken = () => {
+    localStorage.removeItem('access_token');
+};
+
+export const getAccessToken = () => {
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem('access_token');
     }
+    return null;
+}
+
+// 5. API Methods
+// Exporting as authApi to match existing imports in the codebase
+export const authApi = {
+  login: async (email: string, password: string) => {
+    const response = await client.post('/api/admin/auth/login/', { email, password });
+    if (response.data.access) {
+      localStorage.setItem('access_token', response.data.access);
+      // Shim: return success flag for compatibility
+      return { success: true, ...response.data };
+    }
+    return response.data;
   },
 
-  /**
-   * Logout admin user
-   */
   logout: async () => {
     try {
-      await api.post('/api/admin/auth/logout/');
-    } finally {
-      clearAccessToken();
+        await client.post('/api/admin/auth/logout/'); // Clears cookie on server
+    } catch (e) {
+        // Ignore logout errors
     }
+    localStorage.removeItem('access_token');
   },
 
-  /**
-   * Refresh access token - uses raw axios to avoid interceptor loop
-   */
-  refresh: async () => {
-    try {
-      // Use raw axios to avoid the interceptor trying to refresh on 401
-      const response = await axios.post(
-        `${API_URL}/api/admin/auth/refresh/`,
-        {},
-        { withCredentials: true }
-      );
-      
-      if (response.data.success && response.data.access) {
-        setAccessToken(response.data.access);
-      }
-      
-      return response.data;
-    } catch (error: any) {
-      // Return a failed response object instead of throwing
-      return { 
-        success: false, 
-        message: error.response?.data?.message || 'Token refresh failed' 
-      };
-    }
-  },
-
-  /**
-   * Get current user
-   */
-  getMe: async () => {
-    const response = await api.get('/api/admin/auth/me/');
-    return response.data;
-  },
-
-  /**
-   * Verify token
-   */
   verify: async () => {
-    const response = await api.post('/api/admin/auth/verify/');
-    return response.data;
+    const response = await client.post('/api/admin/auth/verify/');
+    return { success: true, ...response.data };
   },
+
+  refresh: async () => {
+      // Wrapper to manually trigger refresh if needed
+      const response = await client.post('/api/admin/auth/refresh/');
+      if (response.data.access) {
+          localStorage.setItem('access_token', response.data.access);
+          return { success: true, ...response.data };
+      }
+      return response.data;
+  },
+
+  getMe: async () => {
+    // Check if we have a token first to rely on interceptor
+    const response = await client.get('/api/admin/auth/me/');
+    // Shim for compatibility
+    const data = response.data;
+    // If data has 'user' property, use it, otherwise assume data is the user
+    return { 
+        success: true, 
+        user: data.user || data,
+        ...data 
+    };
+  },
+  
+  // Generic axios instance for other parts of the app
+  client 
 };
