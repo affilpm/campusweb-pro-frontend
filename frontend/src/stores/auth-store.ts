@@ -15,8 +15,8 @@ interface AuthStore extends AuthState {
 // Token refresh timer
 let refreshTimer: NodeJS.Timeout | null = null;
 
-// Flag to prevent multiple initializations
-let isInitialized = false;
+// Flag to track if initialization is currently in progress (prevents concurrent calls)
+let isInitializing = false;
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
   // Initial state
@@ -33,8 +33,10 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   login: async (credentials) => {
     try {
       set({ isLoading: true });
+      console.log('[Auth] Login attempt for:', credentials.email);
 
       const data = await authApi.login(credentials.email, credentials.password);
+      console.log('[Auth] Login response:', { success: data.success, hasAccess: !!data.access, hasUser: !!data.user });
 
       if (!data.success) {
         set({ isLoading: false });
@@ -48,6 +50,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       if (typeof window !== 'undefined' && data.access) {
         localStorage.setItem('access_token', data.access);
         setAccessToken(data.access);
+        console.log('[Auth] Token saved to localStorage');
       }
 
       // Set user state
@@ -56,12 +59,14 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isAuthenticated: true,
         isLoading: false,
       });
+      console.log('[Auth] State updated - user authenticated:', data.user?.email);
 
       // Schedule token refresh
       scheduleTokenRefresh(get);
 
       return { success: true, message: 'Login successful' };
     } catch (error: any) {
+      console.error('[Auth] Login error:', error);
       set({ isLoading: false });
       const message = error.response?.data?.message || 'An error occurred during login';
       return { success: false, message };
@@ -92,9 +97,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isAuthenticated: false,
         isLoading: false,
       });
-      
-      // Reset initialization flag so we can reinitialize after login
-      isInitialized = false;
     } catch (error) {
       console.error('Logout error:', error);
       // Clear state even on error
@@ -107,7 +109,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isAuthenticated: false,
         isLoading: false,
       });
-      isInitialized = false;
     }
   },
 
@@ -121,87 +122,105 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
   // Initialize auth state (check for existing session)
   initialize: async () => {
-    // Prevent multiple initializations
-    if (isInitialized) {
+    const state = get();
+    
+    // If already authenticated with a user, don't re-initialize
+    if (state.isAuthenticated && state.user) {
+      set({ isLoading: false });
       return;
     }
-    isInitialized = true;
+    
+    // Prevent concurrent initialization calls
+    if (isInitializing) {
+      return;
+    }
+    isInitializing = true;
 
     try {
       set({ isLoading: true });
 
-      // Check for token in localStorage first (fallback for cross-domain)
+      // Check for token in localStorage first
       let token = null;
       if (typeof window !== 'undefined') {
-        // Use 'access_token' to match api.ts
         token = localStorage.getItem('access_token');
+        console.log('[Auth] Initialize - token in localStorage:', token ? 'present' : 'none');
       }
 
       if (token) {
         // Verify token by fetching user info
         try {
-          // We don't need setAccessToken because api.ts reads from localStorage directly
+          console.log('[Auth] Verifying token with /me/ endpoint...');
           const userData = await authApi.getMe();
-          if (userData.success) {
+          console.log('[Auth] /me/ response:', userData);
+          
+          if (userData.success && userData.user) {
              set({
                user: userData.user,
                isAuthenticated: true,
                isLoading: false,
              });
+             console.log('[Auth] User authenticated:', userData.user.email);
+             isInitializing = false;
              return;
           }
-        } catch (e) {
-             console.log('Stored token invalid');
-             if (typeof window !== 'undefined') {
-               localStorage.removeItem('access_token');
-             }
+        } catch (e: any) {
+          console.log('[Auth] Token verification failed:', e?.response?.status || e.message);
+          // Token is invalid, remove it
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('access_token');
+          }
         }
       }
 
-      // If no localStorage token, try standard cookie refresh (will likely fail cross-domain)
+      // If no valid localStorage token, try cookie refresh
+      // Note: This may fail in cross-origin setups where cookie isn't available
       try {
+        console.log('[Auth] Attempting cookie refresh...');
         const refreshData = await authApi.refresh();
 
         if (refreshData.success && refreshData.access) {
-            // api.ts helper might have already set it, but ensure consistency
-            if (typeof window !== 'undefined') {
+          console.log('[Auth] Refresh successful, new token received');
+          if (typeof window !== 'undefined') {
             localStorage.setItem('access_token', refreshData.access);
-            }
-            // Get user info with the new access token
-            try {
+          }
+          
+          // Get user info with the new access token
+          try {
             const userData = await authApi.getMe();
-
-            if (userData.success) {
-                set({
+            if (userData.success && userData.user) {
+              set({
                 user: userData.user,
                 isAuthenticated: true,
                 isLoading: false,
-                });
-
-                // Schedule token refresh
-                scheduleTokenRefresh(get);
-                return;
+              });
+              scheduleTokenRefresh(get);
+              isInitializing = false;
+              return;
             }
-            } catch (meError) {
-            console.error('Failed to get user info:', meError);
-            }
+          } catch (meError) {
+            console.error('[Auth] Failed to get user info after refresh:', meError);
+          }
         }
       } catch (e) {
-          // Refresh failed, user is not logged in
+        console.log('[Auth] Cookie refresh failed (expected for cross-origin)');
       }
 
-      // No valid session - this is expected for new visitors
+      // No valid session
+      console.log('[Auth] No valid session found');
       set({
         user: null,
         isAuthenticated: false,
         isLoading: false,
       });
     } catch (error) {
+      console.error('[Auth] Initialization error:', error);
       set({
         user: null,
         isAuthenticated: false,
         isLoading: false,
       });
+    } finally {
+      isInitializing = false;
     }
   },
 }));
