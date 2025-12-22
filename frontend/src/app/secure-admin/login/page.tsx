@@ -77,6 +77,7 @@ export default function SecureAdminLoginPage() {
                 id="email"
                 type="email"
                 value={email}
+                autoComplete="username"
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                 placeholder="admin@school.edu"
@@ -92,6 +93,7 @@ export default function SecureAdminLoginPage() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
+                  autoComplete="current-password"
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 pr-12"
                   placeholder="••••••••"
