@@ -38,7 +38,17 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
       if (!data.success) {
         set({ isLoading: false });
+        // Clear token from storage on failed login
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('accessToken');
+        }
         return { success: false, message: data.message || 'Login failed' };
+      }
+
+      // Persist access token to localStorage
+      if (typeof window !== 'undefined' && data.access) {
+        localStorage.setItem('accessToken', data.access);
+        setAccessToken(data.access);
       }
 
       // Set user state
@@ -71,6 +81,12 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       // Call logout API
       await authApi.logout();
 
+      // Clear token from storage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('accessToken');
+      }
+      clearAccessToken();
+
       // Clear state
       set({
         user: null,
@@ -83,6 +99,9 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     } catch (error) {
       console.error('Logout error:', error);
       // Clear state even on error
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('accessToken');
+      }
       clearAccessToken();
       set({
         user: null,
@@ -95,26 +114,10 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
   // Refresh token action
   refreshToken: async () => {
-    try {
-      const data = await authApi.refresh();
-
-      if (!data.success) {
-        // Refresh failed, clear auth state
-        set({
-          user: null,
-          isAuthenticated: false,
-        });
-        return false;
-      }
-
-      // Schedule next refresh
-      scheduleTokenRefresh(get);
-
-      return true;
-    } catch (error) {
-      console.error('Token refresh error:', error);
-      return false;
-    }
+    // For now, we rely on the access token being valid long enough
+    // Real refresh requires httpOnly cookie which fails cross-domain
+    // When checks fail, user will just have to login again
+    return true; 
   },
 
   // Initialize auth state (check for existing session)
@@ -128,10 +131,40 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     try {
       set({ isLoading: true });
 
-      // Try to refresh the token (will use refresh token from cookie)
+      // Check for token in localStorage first (fallback for cross-domain)
+      let token = null;
+      if (typeof window !== 'undefined') {
+        token = localStorage.getItem('accessToken');
+      }
+
+      if (token) {
+        setAccessToken(token);
+        // Verify token by fetching user info
+        try {
+          const userData = await authApi.getMe();
+          if (userData.success) {
+             set({
+               user: userData.user,
+               isAuthenticated: true,
+               isLoading: false,
+             });
+             return;
+          }
+        } catch (e) {
+             console.log('Stored token invalid');
+             if (typeof window !== 'undefined') {
+               localStorage.removeItem('accessToken');
+             }
+        }
+      }
+
+      // If no localStorage token, try standard cookie refresh (will likely fail cross-domain)
       const refreshData = await authApi.refresh();
 
       if (refreshData.success && refreshData.access) {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('accessToken', refreshData.access);
+        }
         // Get user info with the new access token
         try {
           const userData = await authApi.getMe();
@@ -160,7 +193,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       });
     } catch (error) {
       // This is expected when there's no session
-      console.log('No existing session found');
       set({
         user: null,
         isAuthenticated: false,
