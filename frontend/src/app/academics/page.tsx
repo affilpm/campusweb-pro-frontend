@@ -8,7 +8,8 @@ async function getAcademicsData(): Promise<AcademicsPageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/academics/`, {
-      cache: 'no-store', // Disable caching for immediate admin updates
+      cache: 'force-cache',
+      next: { revalidate: 60 } // Revalidate every minute
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();
