@@ -91,22 +91,14 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
     return <>{children}</>;
   }
 
-  // Show loading while auth is being verified
-  if (isLoading || !isAuthenticated) {
-    const hasToken = localStorage.getItem('access_token');
-    if (hasToken) {
-      return (
-        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
-            <p className="mt-4 text-gray-400">Verifying session...</p>
-          </div>
-        </div>
-      );
-    }
-    // No token - will redirect via useEffect
+  // For admin pages: just check if token exists in localStorage
+  const hasToken = localStorage.getItem('access_token');
+  if (!hasToken) {
+    // No token - redirect will happen via useEffect, show nothing
     return null;
   }
+
+  // Token exists - show content (user data will load asynchronously via auth context)
 
   const handleLogout = async () => {
     await logout();
