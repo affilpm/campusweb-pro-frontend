@@ -113,22 +113,18 @@ export const authApi = {
    * Login admin user
    */
   login: async (email: string, password: string) => {
-    console.log('Attempting login for:', email);
     try {
       const response = await api.post('/api/admin/auth/login/', {
         email,
         password,
       });
-      console.log('Login Response Status:', response.status);
-      console.log('Login Response Data:', response.data);
-      
+
       if (response.data.success && response.data.access) {
         setAccessToken(response.data.access);
       }
       
       return response.data;
     } catch (error: any) {
-      console.error('Login Request Failed:', error.response?.status, error.response?.data);
       throw error;
     }
   },
