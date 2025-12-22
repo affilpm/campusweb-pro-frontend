@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `https://api.affils.site/api/:path*`,
+      },
+    ];
+  },
   // reactCompiler: true, // Commenting out experimental feature if causing issues, or leave it if works
   experimental: {
     // reactCompiler: true, // Usually it's in experimental
