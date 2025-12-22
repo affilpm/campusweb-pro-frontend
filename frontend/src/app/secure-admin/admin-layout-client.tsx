@@ -54,30 +54,28 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
   const pathname = usePathname();
   const { user, isAuthenticated, isLoading, logout } = useAuth();
   
-  // Track if component has mounted to prevent hydration mismatch
+  // Track if component has mounted (for hydration)
   const [mounted, setMounted] = React.useState(false);
   
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Handle redirect to login when not authenticated
+  // Simple auth check: if on admin pages (not login) and no token -> redirect
   useEffect(() => {
-    if (mounted && !isLoading && !isAuthenticated && pathname !== '/secure-admin/login') {
-      // Double-check localStorage before redirecting
-      // This prevents redirect during the brief moment between mount and initialize() completing
-      const hasToken = typeof window !== 'undefined' && localStorage.getItem('access_token');
-      if (!hasToken) {
-        console.log('[AdminLayout] No token found, redirecting to login');
-        router.push('/secure-admin/login');
-      } else {
-        console.log('[AdminLayout] Token found in localStorage, waiting for auth to initialize...');
-      }
+    if (!mounted) return;
+    if (pathname === '/secure-admin/login') return;
+    
+    // Check localStorage directly for token
+    const hasToken = localStorage.getItem('access_token');
+    if (!hasToken) {
+      console.log('[AdminLayout] No token, redirecting to login');
+      window.location.href = '/secure-admin/login';
     }
-  }, [mounted, isLoading, isAuthenticated, pathname, router]);
+  }, [mounted, pathname]);
 
-  // Always render loading state during SSR to prevent hydration mismatch
-  if (!mounted || isLoading) {
+  // Show loading during SSR or while auth is initializing
+  if (!mounted) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
@@ -88,17 +86,15 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
     );
   }
 
-
+  // Login page - no auth required
   if (pathname === '/secure-admin/login') {
     return <>{children}</>;
   }
 
-  if (!isAuthenticated) {
-    // Check if there's a token in localStorage - might still be initializing
-    const hasToken = typeof window !== 'undefined' && localStorage.getItem('access_token');
-    
+  // Show loading while auth is being verified
+  if (isLoading || !isAuthenticated) {
+    const hasToken = localStorage.getItem('access_token');
     if (hasToken) {
-      // Token exists but auth not yet initialized - show loading
       return (
         <div className="min-h-screen bg-slate-900 flex items-center justify-center">
           <div className="text-center">
@@ -108,21 +104,13 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
         </div>
       );
     }
-    
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
-          <p className="mt-4 text-gray-400">Redirecting to login...</p>
-        </div>
-      </div>
-    );
+    // No token - will redirect via useEffect
+    return null;
   }
 
   const handleLogout = async () => {
     await logout();
-    router.push('/secure-admin/login');
-    router.refresh();
+    window.location.href = '/secure-admin/login';
   };
 
   return (
