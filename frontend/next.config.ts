@@ -14,8 +14,8 @@ const nextConfig: NextConfig = {
         hostname: '127.0.0.1',
       },
       {
-        protocol: 'http',
-        hostname: '143.110.186.16',
+        protocol: 'https',
+        hostname: 'api.affils.site',
       },
       {
         protocol: 'https',
