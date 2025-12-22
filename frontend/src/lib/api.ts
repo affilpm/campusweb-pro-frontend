@@ -7,6 +7,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // API Base URL
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+console.log('[API] Using API URL:', API_URL);
 
 // 1. Setup Axios to support Cookies (Credential mode)
 const client = axios.create({
