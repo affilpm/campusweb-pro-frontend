@@ -24,7 +24,7 @@ export default function PrincipalSection({ data }: PrincipalSectionProps) {
                 <img 
                   src={data.photo} 
                   alt={data.name}
-                  className="absolute inset-0 w-full h-full object-fill"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">

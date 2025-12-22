@@ -136,9 +136,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$a
 ;
 async function getAboutData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
         const res = await fetch(`${apiUrl}/api/public/about/`, {
-            cache: 'no-store'
+            cache: 'force-cache',
+            next: {
+                revalidate: 60
+            } // Revalidate every minute
         });
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();
@@ -177,7 +180,7 @@ async function AboutPage() {
                         className: "inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 48,
+                        lineNumber: 49,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -185,18 +188,18 @@ async function AboutPage() {
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 49,
+                        lineNumber: 50,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 47,
+                lineNumber: 48,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/about/page.tsx",
-            lineNumber: 46,
+            lineNumber: 47,
             columnNumber: 7
         }, this);
     }
@@ -209,7 +212,7 @@ async function AboutPage() {
                 siteSettings: siteSettings
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 60,
+                lineNumber: 61,
                 columnNumber: 7
             }, this),
             (data.hero_title || data.hero_subtitle) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -225,7 +228,7 @@ async function AboutPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 67,
+                                lineNumber: 68,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -235,20 +238,20 @@ async function AboutPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 68,
+                                lineNumber: 69,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-full blur-3xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 69,
+                                lineNumber: 70,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 66,
+                        lineNumber: 67,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -259,7 +262,7 @@ async function AboutPage() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 73,
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -274,14 +277,14 @@ async function AboutPage() {
                                             className: "w-2 h-2 bg-blue-400 rounded-full animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 83,
+                                            lineNumber: 84,
                                             columnNumber: 19
                                         }, this),
                                         data.about_section.established_year
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 82,
+                                    lineNumber: 83,
                                     columnNumber: 17
                                 }, this),
                                 data.hero_title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -289,7 +292,7 @@ async function AboutPage() {
                                     children: data.hero_title
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 90,
                                     columnNumber: 17
                                 }, this),
                                 data.hero_subtitle && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -297,18 +300,18 @@ async function AboutPage() {
                                     children: data.hero_subtitle
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 95,
+                                    lineNumber: 96,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 79,
+                            lineNumber: 80,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 78,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,23 +326,23 @@ async function AboutPage() {
                                 fill: "white"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 105,
+                                lineNumber: 106,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 104,
+                            lineNumber: 105,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 103,
+                        lineNumber: 104,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 64,
+                lineNumber: 65,
                 columnNumber: 9
             }, this),
             data.about_section && (data.about_section.title || data.about_section.content) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -361,7 +364,7 @@ async function AboutPage() {
                                                 children: data.about_section.title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 121,
+                                                lineNumber: 122,
                                                 columnNumber: 23
                                             }, this),
                                             data.about_section.content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -371,12 +374,12 @@ async function AboutPage() {
                                                         children: para
                                                     }, idx, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 129,
+                                                        lineNumber: 130,
                                                         columnNumber: 27
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 127,
+                                                lineNumber: 128,
                                                 columnNumber: 23
                                             }, this),
                                             (data.about_section.established_year || data.about_section.students_count || data.about_section.teachers_count) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -390,7 +393,7 @@ async function AboutPage() {
                                                                 children: data.about_section.established_year
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 139,
+                                                                lineNumber: 140,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -398,13 +401,13 @@ async function AboutPage() {
                                                                 children: "Established"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 142,
+                                                                lineNumber: 143,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 138,
+                                                        lineNumber: 139,
                                                         columnNumber: 27
                                                     }, this),
                                                     data.about_section.students_count && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -415,7 +418,7 @@ async function AboutPage() {
                                                                 children: data.about_section.students_count
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 147,
+                                                                lineNumber: 148,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -423,13 +426,13 @@ async function AboutPage() {
                                                                 children: "Students"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 150,
+                                                                lineNumber: 151,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 146,
+                                                        lineNumber: 147,
                                                         columnNumber: 27
                                                     }, this),
                                                     data.about_section.teachers_count && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -440,7 +443,7 @@ async function AboutPage() {
                                                                 children: data.about_section.teachers_count
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 155,
+                                                                lineNumber: 156,
                                                                 columnNumber: 29
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -448,30 +451,30 @@ async function AboutPage() {
                                                                 children: "Teachers"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 158,
+                                                                lineNumber: 159,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 154,
+                                                        lineNumber: 155,
                                                         columnNumber: 27
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 136,
+                                                lineNumber: 137,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 119,
+                                        lineNumber: 120,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 119,
                                     columnNumber: 17
                                 }, this),
                                 data.about_section.image && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -484,7 +487,7 @@ async function AboutPage() {
                                                 className: "absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-3xl blur-2xl"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 171,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -495,51 +498,51 @@ async function AboutPage() {
                                                     className: "w-full h-full object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 173,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 171,
+                                                lineNumber: 172,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -right-6 w-24 h-24 bg-amber-400 rounded-2xl -z-10 hidden lg:block"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 179,
+                                                lineNumber: 180,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 170,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 169,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 116,
+                            lineNumber: 117,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 115,
+                        lineNumber: 116,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 114,
+                    lineNumber: 115,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 113,
+                lineNumber: 114,
                 columnNumber: 9
             }, this),
             data.history_content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -561,12 +564,12 @@ async function AboutPage() {
                                                 children: data.history_title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 200,
+                                                lineNumber: 201,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 199,
+                                            lineNumber: 200,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -579,7 +582,7 @@ async function AboutPage() {
                                                         children: '"'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 210,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -589,29 +592,29 @@ async function AboutPage() {
                                                                 children: para
                                                             }, idx, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 214,
+                                                                lineNumber: 215,
                                                                 columnNumber: 27
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 213,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 207,
+                                                lineNumber: 208,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 207,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 198,
                                     columnNumber: 17
                                 }, this),
                                 data.history_image && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -624,7 +627,7 @@ async function AboutPage() {
                                                 className: "absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-3xl blur-2xl"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 225,
+                                                lineNumber: 226,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -635,51 +638,51 @@ async function AboutPage() {
                                                     className: "w-full h-full object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 227,
+                                                    lineNumber: 228,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 227,
                                                 columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute -bottom-6 -left-6 w-24 h-24 bg-blue-500 rounded-2xl -z-10 hidden lg:block"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 235,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 225,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 224,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 194,
+                            lineNumber: 195,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 193,
+                        lineNumber: 194,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 192,
+                    lineNumber: 193,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 191,
+                lineNumber: 192,
                 columnNumber: 9
             }, this),
             data.vision_mission && (data.vision_mission.vision_content || data.vision_mission.mission_content || data.vision_mission.values_content) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -712,7 +715,7 @@ async function AboutPage() {
                                                             d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 257,
+                                                            lineNumber: 258,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -722,18 +725,18 @@ async function AboutPage() {
                                                             d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 258,
+                                                            lineNumber: 259,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 256,
+                                                    lineNumber: 257,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 255,
+                                                lineNumber: 256,
                                                 columnNumber: 23
                                             }, this),
                                             data.vision_mission.vision_title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -741,7 +744,7 @@ async function AboutPage() {
                                                 children: data.vision_mission.vision_title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 262,
+                                                lineNumber: 263,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -749,18 +752,18 @@ async function AboutPage() {
                                                 children: data.vision_mission.vision_content
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 266,
+                                                lineNumber: 267,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 255,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 253,
+                                    lineNumber: 254,
                                     columnNumber: 19
                                 }, this),
                                 data.vision_mission.mission_content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -783,17 +786,17 @@ async function AboutPage() {
                                                         d: "M13 10V3L4 14h7v7l9-11h-7z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 280,
                                                         columnNumber: 27
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 278,
+                                                    lineNumber: 279,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 277,
+                                                lineNumber: 278,
                                                 columnNumber: 23
                                             }, this),
                                             data.vision_mission.mission_title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -801,7 +804,7 @@ async function AboutPage() {
                                                 children: data.vision_mission.mission_title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 283,
+                                                lineNumber: 284,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -809,18 +812,18 @@ async function AboutPage() {
                                                 children: data.vision_mission.mission_content
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 287,
+                                                lineNumber: 288,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 276,
+                                        lineNumber: 277,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 275,
+                                    lineNumber: 276,
                                     columnNumber: 19
                                 }, this),
                                 data.vision_mission.values_content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -843,17 +846,17 @@ async function AboutPage() {
                                                         d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 300,
+                                                        lineNumber: 301,
                                                         columnNumber: 27
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 299,
+                                                    lineNumber: 300,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 298,
+                                                lineNumber: 299,
                                                 columnNumber: 23
                                             }, this),
                                             data.vision_mission.values_title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -861,7 +864,7 @@ async function AboutPage() {
                                                 children: data.vision_mission.values_title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 304,
+                                                lineNumber: 305,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -869,39 +872,39 @@ async function AboutPage() {
                                                 children: data.vision_mission.values_content
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 309,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 297,
+                                        lineNumber: 298,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 296,
+                                    lineNumber: 297,
                                     columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 250,
+                            lineNumber: 251,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 249,
+                        lineNumber: 250,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 248,
+                    lineNumber: 249,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 247,
+                lineNumber: 248,
                 columnNumber: 9
             }, this),
             data.principal && data.principal.message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -914,20 +917,20 @@ async function AboutPage() {
                                 className: "absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 325,
+                                lineNumber: 326,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 326,
+                                lineNumber: 327,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 324,
+                        lineNumber: 325,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -947,7 +950,7 @@ async function AboutPage() {
                                                     className: "absolute -inset-4 bg-gradient-to-r from-blue-500/30 to-indigo-500/30 rounded-3xl blur-2xl"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 335,
+                                                    lineNumber: 336,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -958,7 +961,7 @@ async function AboutPage() {
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 339,
                                                         columnNumber: 25
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center",
@@ -967,17 +970,17 @@ async function AboutPage() {
                                                             children: data.principal.name?.charAt(0) || ''
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 345,
+                                                            lineNumber: 346,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 344,
+                                                        lineNumber: 345,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 336,
+                                                    lineNumber: 337,
                                                     columnNumber: 21
                                                 }, this),
                                                 (data.principal.name || data.principal.title) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -988,7 +991,7 @@ async function AboutPage() {
                                                             children: data.principal.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 355,
+                                                            lineNumber: 356,
                                                             columnNumber: 27
                                                         }, this),
                                                         data.principal.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -996,7 +999,7 @@ async function AboutPage() {
                                                             children: data.principal.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 358,
+                                                            lineNumber: 359,
                                                             columnNumber: 27
                                                         }, this),
                                                         data.principal.qualification && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1004,24 +1007,24 @@ async function AboutPage() {
                                                             children: data.principal.qualification
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 361,
+                                                            lineNumber: 362,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 353,
+                                                    lineNumber: 354,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 334,
+                                            lineNumber: 335,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 333,
+                                        lineNumber: 334,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -1036,7 +1039,7 @@ async function AboutPage() {
                                                     children: '"'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 372,
+                                                    lineNumber: 373,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
@@ -1044,7 +1047,7 @@ async function AboutPage() {
                                                     children: data.principal.message
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 374,
+                                                    lineNumber: 375,
                                                     columnNumber: 21
                                                 }, this),
                                                 data.principal.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1056,7 +1059,7 @@ async function AboutPage() {
                                                                 className: "w-12 h-1 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 382,
+                                                                lineNumber: 383,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1064,51 +1067,51 @@ async function AboutPage() {
                                                                 children: data.principal.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 384,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 381,
+                                                        lineNumber: 382,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 380,
+                                                    lineNumber: 381,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 370,
+                                            lineNumber: 371,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 370,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 331,
+                                lineNumber: 332,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 330,
+                            lineNumber: 331,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 329,
+                        lineNumber: 330,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 322,
+                lineNumber: 323,
                 columnNumber: 9
             }, this),
             data.timeline && data.timeline.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1124,7 +1127,7 @@ async function AboutPage() {
                                     className: "absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-indigo-500 to-purple-500 md:-translate-x-px"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 402,
+                                    lineNumber: 403,
                                     columnNumber: 17
                                 }, this),
                                 data.timeline.map((event, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$animated$2d$section$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -1140,19 +1143,19 @@ async function AboutPage() {
                                                         children: event.year
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 409,
+                                                        lineNumber: 410,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 408,
+                                                    lineNumber: 409,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "absolute left-8 md:left-1/2 w-4 h-4 bg-white border-4 border-blue-500 rounded-full -translate-x-1/2 shadow-lg z-10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 413,
+                                                    lineNumber: 414,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1165,7 +1168,7 @@ async function AboutPage() {
                                                                 children: event.year
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 418,
+                                                                lineNumber: 419,
                                                                 columnNumber: 27
                                                             }, this),
                                                             event.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1173,7 +1176,7 @@ async function AboutPage() {
                                                                 children: event.title
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 420,
+                                                                lineNumber: 421,
                                                                 columnNumber: 29
                                                             }, this),
                                                             event.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1181,50 +1184,50 @@ async function AboutPage() {
                                                                 children: event.description
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 423,
+                                                                lineNumber: 424,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 417,
+                                                        lineNumber: 418,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 416,
+                                                    lineNumber: 417,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 406,
+                                            lineNumber: 407,
                                             columnNumber: 21
                                         }, this)
                                     }, idx, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 405,
+                                        lineNumber: 406,
                                         columnNumber: 19
                                     }, this))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/about/page.tsx",
-                            lineNumber: 400,
+                            lineNumber: 401,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 399,
+                        lineNumber: 400,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 398,
+                    lineNumber: 399,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 397,
+                lineNumber: 398,
                 columnNumber: 9
             }, this),
             data.facilities && data.facilities.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1242,7 +1245,7 @@ async function AboutPage() {
                                         children: data.infrastructure_title
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 444,
+                                        lineNumber: 445,
                                         columnNumber: 21
                                     }, this),
                                     data.infrastructure_content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1250,13 +1253,13 @@ async function AboutPage() {
                                         children: data.infrastructure_content
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 449,
+                                        lineNumber: 450,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 442,
+                                lineNumber: 443,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1275,12 +1278,12 @@ async function AboutPage() {
                                                             children: facility.icon
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 463,
+                                                            lineNumber: 464,
                                                             columnNumber: 29
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 462,
+                                                        lineNumber: 463,
                                                         columnNumber: 27
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1291,7 +1294,7 @@ async function AboutPage() {
                                                                 children: facility.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 468,
+                                                                lineNumber: 469,
                                                                 columnNumber: 29
                                                             }, this),
                                                             facility.description && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1299,50 +1302,50 @@ async function AboutPage() {
                                                                 children: facility.description
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                                lineNumber: 473,
+                                                                lineNumber: 474,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 466,
+                                                        lineNumber: 467,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/about/page.tsx",
-                                                lineNumber: 460,
+                                                lineNumber: 461,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 459,
+                                            lineNumber: 460,
                                             columnNumber: 21
                                         }, this)
                                     }, facility.id, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 458,
+                                        lineNumber: 459,
                                         columnNumber: 19
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 456,
+                                lineNumber: 457,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 440,
+                        lineNumber: 441,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 439,
+                    lineNumber: 440,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 438,
+                lineNumber: 439,
                 columnNumber: 9
             }, this),
             data.management && data.management.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1363,7 +1366,7 @@ async function AboutPage() {
                                                     className: "absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity blur-xl scale-110"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 497,
+                                                    lineNumber: 498,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1374,7 +1377,7 @@ async function AboutPage() {
                                                         className: "w-full h-full object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 500,
+                                                        lineNumber: 501,
                                                         columnNumber: 27
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center",
@@ -1383,23 +1386,23 @@ async function AboutPage() {
                                                             children: member.name?.charAt(0) || ''
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/about/page.tsx",
-                                                            lineNumber: 503,
+                                                            lineNumber: 504,
                                                             columnNumber: 29
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/about/page.tsx",
-                                                        lineNumber: 502,
+                                                        lineNumber: 503,
                                                         columnNumber: 27
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/about/page.tsx",
-                                                    lineNumber: 498,
+                                                    lineNumber: 499,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 496,
+                                            lineNumber: 497,
                                             columnNumber: 21
                                         }, this),
                                         member.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1407,7 +1410,7 @@ async function AboutPage() {
                                             children: member.name
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 509,
+                                            lineNumber: 510,
                                             columnNumber: 23
                                         }, this),
                                         member.designation && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1415,7 +1418,7 @@ async function AboutPage() {
                                             children: member.designation
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 514,
+                                            lineNumber: 515,
                                             columnNumber: 23
                                         }, this),
                                         member.bio && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1423,33 +1426,33 @@ async function AboutPage() {
                                             children: member.bio
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 517,
+                                            lineNumber: 518,
                                             columnNumber: 23
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/about/page.tsx",
-                                    lineNumber: 495,
+                                    lineNumber: 496,
                                     columnNumber: 19
                                 }, this)
                             }, idx, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 494,
+                                lineNumber: 495,
                                 columnNumber: 17
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 492,
+                        lineNumber: 493,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 491,
+                    lineNumber: 492,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 490,
+                lineNumber: 491,
                 columnNumber: 9
             }, this),
             (data.affiliation_title || data.affiliation_content || data.cbse_affiliation_no) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1464,7 +1467,7 @@ async function AboutPage() {
                                 children: data.affiliation_title
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 533,
+                                lineNumber: 534,
                                 columnNumber: 17
                             }, this),
                             data.affiliation_content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1472,7 +1475,7 @@ async function AboutPage() {
                                 children: data.affiliation_content
                             }, void 0, false, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 538,
+                                lineNumber: 539,
                                 columnNumber: 17
                             }, this),
                             data.cbse_affiliation_no && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1488,12 +1491,12 @@ async function AboutPage() {
                                             clipRule: "evenodd"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/about/page.tsx",
-                                            lineNumber: 545,
+                                            lineNumber: 546,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 544,
+                                        lineNumber: 545,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1501,29 +1504,29 @@ async function AboutPage() {
                                         children: data.cbse_affiliation_no
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/about/page.tsx",
-                                        lineNumber: 547,
+                                        lineNumber: 548,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/about/page.tsx",
-                                lineNumber: 543,
+                                lineNumber: 544,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/about/page.tsx",
-                        lineNumber: 531,
+                        lineNumber: 532,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/about/page.tsx",
-                    lineNumber: 530,
+                    lineNumber: 531,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 529,
+                lineNumber: 530,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$footer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -1531,13 +1534,13 @@ async function AboutPage() {
                 quickLinks: quickLinks
             }, void 0, false, {
                 fileName: "[project]/src/app/about/page.tsx",
-                lineNumber: 555,
+                lineNumber: 556,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/about/page.tsx",
-        lineNumber: 59,
+        lineNumber: 60,
         columnNumber: 5
     }, this);
 }

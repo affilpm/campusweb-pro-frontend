@@ -24,6 +24,13 @@ function SecureAdminLoginPage() {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [showPassword, setShowPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Redirect to dashboard if already logged in
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const hasToken = localStorage.getItem('access_token');
+        if (hasToken) {
+            window.location.href = '/secure-admin';
+        }
+    }, []);
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setError('');
@@ -36,7 +43,7 @@ function SecureAdminLoginPage() {
         const result = await login(email, password);
         if (result.success) {
             const redirect = searchParams.get('redirect') || '/secure-admin';
-            router.push(redirect);
+            window.location.href = redirect;
         } else {
             setError(result.message);
             setIsSubmitting(false);
@@ -52,7 +59,7 @@ function SecureAdminLoginPage() {
                         className: "absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                        lineNumber: 44,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -62,13 +69,13 @@ function SecureAdminLoginPage() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                        lineNumber: 45,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                lineNumber: 43,
+                lineNumber: 51,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -93,17 +100,17 @@ function SecureAdminLoginPage() {
                                             d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 55,
+                                            lineNumber: 63,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                        lineNumber: 54,
+                                        lineNumber: 62,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 53,
+                                    lineNumber: 61,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -111,7 +118,7 @@ function SecureAdminLoginPage() {
                                     children: "Admin Portal"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 58,
+                                    lineNumber: 66,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -119,13 +126,13 @@ function SecureAdminLoginPage() {
                                     children: "Sign in to manage content"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 59,
+                                    lineNumber: 67,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                            lineNumber: 52,
+                            lineNumber: 60,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -147,12 +154,12 @@ function SecureAdminLoginPage() {
                                                 d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                lineNumber: 67,
+                                                lineNumber: 75,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 66,
+                                            lineNumber: 74,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -160,13 +167,13 @@ function SecureAdminLoginPage() {
                                             children: error
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 69,
+                                            lineNumber: 77,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 65,
+                                    lineNumber: 73,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -178,7 +185,7 @@ function SecureAdminLoginPage() {
                                             children: "Email"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 83,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -192,13 +199,13 @@ function SecureAdminLoginPage() {
                                             disabled: isSubmitting || isLoading
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 76,
+                                            lineNumber: 84,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 82,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -210,7 +217,7 @@ function SecureAdminLoginPage() {
                                             children: "Password"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 98,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -227,7 +234,7 @@ function SecureAdminLoginPage() {
                                                     disabled: isSubmitting || isLoading
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                    lineNumber: 92,
+                                                    lineNumber: 100,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -247,12 +254,12 @@ function SecureAdminLoginPage() {
                                                             d: "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                            lineNumber: 110,
+                                                            lineNumber: 118,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 117,
                                                         columnNumber: 21
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                         className: "w-5 h-5",
@@ -267,7 +274,7 @@ function SecureAdminLoginPage() {
                                                                 d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                                lineNumber: 114,
+                                                                lineNumber: 122,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -277,30 +284,30 @@ function SecureAdminLoginPage() {
                                                                 d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                                lineNumber: 115,
+                                                                lineNumber: 123,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                        lineNumber: 113,
+                                                        lineNumber: 121,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                    lineNumber: 102,
+                                                    lineNumber: 110,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                            lineNumber: 91,
+                                            lineNumber: 99,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 97,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -324,7 +331,7 @@ function SecureAdminLoginPage() {
                                                         fill: "none"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                        lineNumber: 131,
+                                                        lineNumber: 139,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -333,48 +340,48 @@ function SecureAdminLoginPage() {
                                                         d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                        lineNumber: 132,
+                                                        lineNumber: 140,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                                lineNumber: 130,
+                                                lineNumber: 138,
                                                 columnNumber: 19
                                             }, this),
                                             "Signing in..."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 137,
                                         columnNumber: 17
                                     }, this) : 'Sign In'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                            lineNumber: 63,
+                            lineNumber: 71,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                    lineNumber: 50,
+                    lineNumber: 58,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/login/page.tsx",
-                lineNumber: 49,
+                lineNumber: 57,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/login/page.tsx",
-        lineNumber: 41,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 }

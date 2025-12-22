@@ -3643,10 +3643,6 @@
     object-fit: cover;
   }
 
-  .object-fill {
-    object-fit: fill;
-  }
-
   .p-1 {
     padding: calc(var(--spacing) * 1);
   }

@@ -1543,7 +1543,7 @@ function AboutSection({ data }) {
                                 children: data.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: data.image,
                                     alt: "About our school",
-                                    className: "w-full h-auto object-fill aspect-[4/3]"
+                                    className: "w-full h-auto object-cover aspect-[4/3]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/about-section.tsx",
                                     lineNumber: 26,
@@ -1791,7 +1791,7 @@ function PrincipalSection({ data }) {
                             children: data.photo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                 src: data.photo,
                                 alt: data.name,
-                                className: "absolute inset-0 w-full h-full object-fill"
+                                className: "absolute inset-0 w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/principal-section.tsx",
                                 lineNumber: 24,
@@ -2019,7 +2019,7 @@ function FacilitiesSection({ facilities, initialCount = 6 }) {
                                         children: facility.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                             src: facility.image,
                                             alt: facility.name,
-                                            className: "h-full w-full object-fill transition-transform duration-700 group-hover:scale-105"
+                                            className: "h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/facilities-section.tsx",
                                             lineNumber: 54,
@@ -2141,9 +2141,7 @@ __turbopack_context__.s([
     ()=>AchievementsSection
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-ssr] (ecmascript)");
 'use client';
-;
 ;
 function AchievementsSection({ achievements }) {
     if (!achievements || achievements.length === 0) {
@@ -2156,14 +2154,14 @@ function AchievementsSection({ achievements }) {
                 className: "absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"
             }, void 0, false, {
                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                lineNumber: 18,
+                lineNumber: 17,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"
             }, void 0, false, {
                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                lineNumber: 19,
+                lineNumber: 18,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2181,14 +2179,14 @@ function AchievementsSection({ achievements }) {
                                         children: "&"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                                        lineNumber: 24,
+                                        lineNumber: 23,
                                         columnNumber: 22
                                     }, this),
                                     " Achievements"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                lineNumber: 23,
+                                lineNumber: 22,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2196,13 +2194,13 @@ function AchievementsSection({ achievements }) {
                                 children: "Celebrating excellence and the outstanding accomplishments of our students and institution."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                lineNumber: 26,
+                                lineNumber: 25,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                        lineNumber: 22,
+                        lineNumber: 21,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2213,15 +2211,13 @@ function AchievementsSection({ achievements }) {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "relative h-64 overflow-hidden",
                                         children: [
-                                            achievement.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                            achievement.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                 src: achievement.image,
                                                 alt: achievement.title,
-                                                fill: true,
-                                                className: "object-cover transition-transform duration-700 group-hover:scale-110",
-                                                sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 40,
+                                                lineNumber: 39,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center",
@@ -2237,24 +2233,24 @@ function AchievementsSection({ achievements }) {
                                                         d: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                        lineNumber: 50,
+                                                        lineNumber: 47,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                    lineNumber: 49,
+                                                    lineNumber: 46,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 48,
+                                                lineNumber: 45,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 55,
+                                                lineNumber: 52,
                                                 columnNumber: 19
                                             }, this),
                                             achievement.year && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2262,13 +2258,13 @@ function AchievementsSection({ achievements }) {
                                                 children: achievement.year
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 59,
+                                                lineNumber: 56,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                                        lineNumber: 38,
+                                        lineNumber: 37,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2279,7 +2275,7 @@ function AchievementsSection({ achievements }) {
                                                 children: achievement.title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 67,
+                                                lineNumber: 64,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2287,36 +2283,36 @@ function AchievementsSection({ achievements }) {
                                                 children: achievement.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                                lineNumber: 70,
+                                                lineNumber: 67,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                                        lineNumber: 66,
+                                        lineNumber: 63,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, achievement.id, true, {
                                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                                lineNumber: 33,
+                                lineNumber: 32,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/components/home/achievements-section.tsx",
-                        lineNumber: 31,
+                        lineNumber: 30,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/home/achievements-section.tsx",
-                lineNumber: 21,
+                lineNumber: 20,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/home/achievements-section.tsx",
-        lineNumber: 16,
+        lineNumber: 15,
         columnNumber: 5
     }, this);
 }
@@ -3010,7 +3006,7 @@ function EventsSection({ events }) {
                                                 event.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                     src: event.image,
                                                     alt: event.title,
-                                                    className: "w-full h-full object-fill group-hover:scale-105 transition-transform duration-500"
+                                                    className: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/home/events-section.tsx",
                                                     lineNumber: 126,
@@ -3411,7 +3407,7 @@ function GallerySection({ images }) {
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                             src: image.image,
                                             alt: image.title,
-                                            className: "w-full h-full object-fill group-hover:scale-110 transition-transform duration-700"
+                                            className: "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/gallery-section.tsx",
                                             lineNumber: 56,
@@ -3889,7 +3885,7 @@ function TestimonialsSection({ testimonials }) {
                                                             children: testimonial.photo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                                                 src: testimonial.photo,
                                                                 alt: testimonial.name,
-                                                                className: "w-full h-full object-fill"
+                                                                className: "w-full h-full object-cover"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/home/testimonials-section.tsx",
                                                                 lineNumber: 81,

@@ -598,7 +598,7 @@ export default function AcademicsAdminPage() {
                 <div key={category.id} className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden hover:border-indigo-500/30 transition-colors">
                   {category.image && (
                     <div className="h-32 overflow-hidden">
-                      <img src={category.image} alt={category.name} className="w-full h-full object-fill" />
+                      <img src={category.image} alt={category.name} className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div className="p-4">

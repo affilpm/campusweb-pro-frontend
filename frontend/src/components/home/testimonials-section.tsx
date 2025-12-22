@@ -81,7 +81,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                         <img 
                           src={testimonial.photo} 
                           alt={testimonial.name}
-                          className="w-full h-full object-fill"
+                          className="w-full h-full object-cover"
                         />
                       ) : (
                         <div className="w-full h-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg sm:text-xl">

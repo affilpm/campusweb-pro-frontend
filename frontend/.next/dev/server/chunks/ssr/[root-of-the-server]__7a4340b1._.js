@@ -100,9 +100,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f
 ;
 async function getPageData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "http://143.110.186.16") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
         const res = await fetch(`${apiUrl}/api/public/home/`, {
-            cache: 'no-store'
+            cache: 'force-cache',
+            next: {
+                revalidate: 60
+            }
         });
         if (!res.ok) throw new Error('Failed to fetch');
         const data = await res.json();
@@ -182,7 +185,7 @@ async function PublicDisclosurePage() {
                         className: "inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 95,
+                        lineNumber: 96,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -190,18 +193,18 @@ async function PublicDisclosurePage() {
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 96,
+                        lineNumber: 97,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                lineNumber: 94,
+                lineNumber: 95,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/public-disclosure/page.tsx",
-            lineNumber: 93,
+            lineNumber: 94,
             columnNumber: 7
         }, this);
     }
@@ -214,7 +217,7 @@ async function PublicDisclosurePage() {
                 siteSettings: siteSettings
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                lineNumber: 107,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -230,7 +233,7 @@ async function PublicDisclosurePage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 113,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -240,13 +243,13 @@ async function PublicDisclosurePage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                lineNumber: 113,
+                                lineNumber: 114,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 111,
+                        lineNumber: 112,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -263,14 +266,14 @@ async function PublicDisclosurePage() {
                                             children: "Home"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 120,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "/"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 121,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -278,13 +281,13 @@ async function PublicDisclosurePage() {
                                             children: "Public Disclosure"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 121,
+                                            lineNumber: 122,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 119,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -292,7 +295,7 @@ async function PublicDisclosurePage() {
                                     children: "Public Disclosure"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 125,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -300,18 +303,18 @@ async function PublicDisclosurePage() {
                                     children: "Transparency and accountability through public information"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 128,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                            lineNumber: 117,
+                            lineNumber: 118,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 116,
+                        lineNumber: 117,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -326,23 +329,23 @@ async function PublicDisclosurePage() {
                                 fill: "white"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                lineNumber: 135,
+                                lineNumber: 136,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                            lineNumber: 134,
+                            lineNumber: 135,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 133,
+                        lineNumber: 134,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                lineNumber: 110,
+                lineNumber: 111,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -364,12 +367,12 @@ async function PublicDisclosurePage() {
                                                 children: section.icon
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 154,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 153,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -377,7 +380,7 @@ async function PublicDisclosurePage() {
                                             children: section.name
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 156,
+                                            lineNumber: 157,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -385,7 +388,7 @@ async function PublicDisclosurePage() {
                                             children: section.description
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 160,
+                                            lineNumber: 161,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -395,7 +398,7 @@ async function PublicDisclosurePage() {
                                                     children: "View Details"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                                    lineNumber: 166,
+                                                    lineNumber: 167,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -410,44 +413,44 @@ async function PublicDisclosurePage() {
                                                         d: "M17 8l4 4m0 0l-4 4m4-4H3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                                        lineNumber: 168,
+                                                        lineNumber: 169,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                                    lineNumber: 167,
+                                                    lineNumber: 168,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                            lineNumber: 165,
+                                            lineNumber: 166,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, section.name, true, {
                                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                                    lineNumber: 146,
+                                    lineNumber: 147,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/public-disclosure/page.tsx",
-                            lineNumber: 144,
+                            lineNumber: 145,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/page.tsx",
-                        lineNumber: 143,
+                        lineNumber: 144,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/public-disclosure/page.tsx",
-                    lineNumber: 142,
+                    lineNumber: 143,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                lineNumber: 141,
+                lineNumber: 142,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$footer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -455,13 +458,13 @@ async function PublicDisclosurePage() {
                 quickLinks: quickLinks
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/page.tsx",
-                lineNumber: 178,
+                lineNumber: 179,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/public-disclosure/page.tsx",
-        lineNumber: 106,
+        lineNumber: 107,
         columnNumber: 5
     }, this);
 }

@@ -147,7 +147,7 @@ export default function EventsPage() {
           <div key={event.id} className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-xl p-4 flex gap-4">
             <div className="w-24 h-24 bg-white/5 rounded-lg overflow-hidden flex-shrink-0">
                 {event.image ? (
-                    <img src={event.image} alt={event.title} className="w-full h-full object-fill" />
+                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-gray-600">
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

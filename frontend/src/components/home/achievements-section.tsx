@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Achievement } from '@/lib/public-types';
 
 interface AchievementsSectionProps {
@@ -37,12 +36,10 @@ export default function AchievementsSection({ achievements }: AchievementsSectio
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
                   {achievement.image ? (
-                    <Image
+                    <img
                       src={achievement.image}
                       alt={achievement.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">

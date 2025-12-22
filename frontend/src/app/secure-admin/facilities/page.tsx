@@ -211,7 +211,7 @@ export default function FacilitiesPage() {
               {/* Image or Placeholder */}
               <div className="h-40 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 flex items-center justify-center relative">
                 {facility.image ? (
-                  <img src={facility.image} alt={facility.name} className="w-full h-full object-fill" />
+                  <img src={facility.image} alt={facility.name} className="w-full h-full object-cover" />
                 ) : (
                   <span className="text-6xl opacity-50">{facility.icon}</span>
                 )}

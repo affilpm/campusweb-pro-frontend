@@ -26,7 +26,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
                 <img 
                   src={data.image} 
                   alt="About our school"
-                  className="w-full h-auto object-fill aspect-[4/3]"
+                  className="w-full h-auto object-cover aspect-[4/3]"
                 />
               ) : (
                 <div className="w-full aspect-[4/3] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">

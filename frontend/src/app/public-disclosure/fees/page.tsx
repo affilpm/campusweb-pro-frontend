@@ -5,9 +5,8 @@ import Footer from '@/components/home/footer';
 
 interface FeesItem {
   id: number;
-  information: string;
-  details: string;
-  order: number;
+  title: string;
+  value: string;
 }
 
 interface PageData {
@@ -160,10 +159,10 @@ export default async function FeesPage() {
                             {index + 1}
                           </td>
                           <td className="py-5 px-6 text-gray-900 font-medium">
-                            {item.information}
+                            {item.title}
                           </td>
                           <td className="py-5 px-6 text-gray-600">
-                            {item.details}
+                            {item.value}
                           </td>
                         </tr>
                       ))}

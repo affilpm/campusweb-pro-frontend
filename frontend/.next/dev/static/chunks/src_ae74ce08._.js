@@ -21,7 +21,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
 // API Base URL
-const API_URL = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
+const API_URL = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
 // 1. Setup Axios to support Cookies (Credential mode)
 const client = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: API_URL,
@@ -72,11 +72,21 @@ client.interceptors.response.use((response)=>response, async (error)=>{
         }
         isRefreshing = true;
         try {
-            // Call backend to refresh (Cookie is sent automatically)
-            const { data } = await client.post('/api/admin/auth/refresh/');
+            // Get refresh token from localStorage and send in request body (cross-origin compatible)
+            const refreshToken = localStorage.getItem('refresh_token');
+            if (!refreshToken) {
+                throw new Error('No refresh token available');
+            }
+            const { data } = await client.post('/api/admin/auth/refresh/', {
+                refresh: refreshToken
+            });
             // Save new Access Token
             const newToken = data.access;
             localStorage.setItem('access_token', newToken);
+            // Update refresh token if rotated
+            if (data.refresh) {
+                localStorage.setItem('refresh_token', data.refresh);
+            }
             // Notify pending requests
             onRefreshed(newToken);
             // Retry original request
@@ -85,6 +95,7 @@ client.interceptors.response.use((response)=>response, async (error)=>{
         } catch (refreshError) {
             // Refresh failed (Session expired) -> Logout user
             localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
             if (("TURBOPACK compile-time value", "object") !== 'undefined' && !window.location.pathname.includes('/login')) {
                 window.location.href = '/secure-admin/login'; // Redirect to login
             }
@@ -121,7 +132,9 @@ const authApi = {
         });
         if (response.data.access) {
             localStorage.setItem('access_token', response.data.access);
-            // Shim: return success flag for compatibility
+            if (response.data.refresh) {
+                localStorage.setItem('refresh_token', response.data.refresh);
+            }
             return {
                 success: true,
                 ...response.data
@@ -131,11 +144,12 @@ const authApi = {
     },
     logout: async ()=>{
         try {
-            await client.post('/api/admin/auth/logout/'); // Clears cookie on server
+            await client.post('/api/admin/auth/logout/');
         } catch (e) {
         // Ignore logout errors
         }
         localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
     },
     verify: async ()=>{
         const response = await client.post('/api/admin/auth/verify/');
@@ -145,10 +159,19 @@ const authApi = {
         };
     },
     refresh: async ()=>{
-        // Wrapper to manually trigger refresh if needed
-        const response = await client.post('/api/admin/auth/refresh/');
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) {
+            throw new Error('No refresh token available');
+        }
+        const response = await client.post('/api/admin/auth/refresh/', {
+            refresh: refreshToken
+        });
         if (response.data.access) {
             localStorage.setItem('access_token', response.data.access);
+            // Update refresh token if a new one is returned (rotation)
+            if (response.data.refresh) {
+                localStorage.setItem('refresh_token', response.data.refresh);
+            }
             return {
                 success: true,
                 ...response.data
@@ -186,10 +209,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$e
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/api.ts [app-client] (ecmascript)");
 ;
 ;
-// Token refresh timer
-let refreshTimer = null;
-// Flag to prevent multiple initializations
-let isInitialized = false;
+// Flag to track if initialization is currently in progress (prevents concurrent calls)
+let isInitializing = false;
 const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])((set, get)=>({
         // Initial state
         user: null,
@@ -233,8 +254,6 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                     isAuthenticated: true,
                     isLoading: false
                 });
-                // Schedule token refresh
-                scheduleTokenRefresh(get);
                 return {
                     success: true,
                     message: 'Login successful'
@@ -253,28 +272,17 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         // Logout action
         logout: async ()=>{
             try {
-                // Clear refresh timer
-                if (refreshTimer) {
-                    clearTimeout(refreshTimer);
-                    refreshTimer = null;
-                }
-                // Call logout API
                 await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].logout();
-                // Clear token from storage
                 if ("TURBOPACK compile-time truthy", 1) {
                     localStorage.removeItem('access_token');
                 }
                 (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearAccessToken"])();
-                // Clear state
                 set({
                     user: null,
                     isAuthenticated: false,
                     isLoading: false
                 });
-                // Reset initialization flag so we can reinitialize after login
-                isInitialized = false;
             } catch (error) {
-                console.error('Logout error:', error);
                 // Clear state even on error
                 if ("TURBOPACK compile-time truthy", 1) {
                     localStorage.removeItem('access_token');
@@ -285,82 +293,83 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                     isAuthenticated: false,
                     isLoading: false
                 });
-                isInitialized = false;
             }
         },
-        // Refresh token action
+        // Refresh token action - handled automatically by 401 interceptor
         refreshToken: async ()=>{
-            // For now, we rely on the access token being valid long enough
-            // Real refresh requires httpOnly cookie which fails cross-domain
-            // When checks fail, user will just have to login again
             return true;
         },
         // Initialize auth state (check for existing session)
         initialize: async ()=>{
-            // Prevent multiple initializations
-            if (isInitialized) {
+            const state = get();
+            // If already authenticated with a user, don't re-initialize
+            if (state.isAuthenticated && state.user) {
+                set({
+                    isLoading: false
+                });
                 return;
             }
-            isInitialized = true;
+            // Prevent concurrent initialization calls
+            if (isInitializing) {
+                return;
+            }
+            isInitializing = true;
             try {
                 set({
                     isLoading: true
                 });
-                // Check for token in localStorage first (fallback for cross-domain)
+                // Check for token in localStorage first
                 let token = null;
                 if ("TURBOPACK compile-time truthy", 1) {
-                    // Use 'access_token' to match api.ts
                     token = localStorage.getItem('access_token');
                 }
                 if (token) {
                     // Verify token by fetching user info
                     try {
-                        // We don't need setAccessToken because api.ts reads from localStorage directly
                         const userData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].getMe();
-                        if (userData.success) {
+                        if (userData.success && userData.user) {
                             set({
                                 user: userData.user,
                                 isAuthenticated: true,
                                 isLoading: false
                             });
+                            isInitializing = false;
                             return;
                         }
                     } catch (e) {
-                        console.log('Stored token invalid');
+                        // Token is invalid, remove it
                         if ("TURBOPACK compile-time truthy", 1) {
                             localStorage.removeItem('access_token');
                         }
                     }
                 }
-                // If no localStorage token, try standard cookie refresh (will likely fail cross-domain)
+                // If no valid localStorage token, try refresh
                 try {
                     const refreshData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].refresh();
                     if (refreshData.success && refreshData.access) {
-                        // api.ts helper might have already set it, but ensure consistency
                         if ("TURBOPACK compile-time truthy", 1) {
                             localStorage.setItem('access_token', refreshData.access);
                         }
                         // Get user info with the new access token
                         try {
                             const userData = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["authApi"].getMe();
-                            if (userData.success) {
+                            if (userData.success && userData.user) {
                                 set({
                                     user: userData.user,
                                     isAuthenticated: true,
                                     isLoading: false
                                 });
-                                // Schedule token refresh
-                                scheduleTokenRefresh(get);
+                                isInitializing = false;
                                 return;
                             }
                         } catch (meError) {
-                            console.error('Failed to get user info:', meError);
+                        // Failed to get user info
                         }
                     }
                 } catch (e) {
-                // Refresh failed, user is not logged in
+                // Refresh failed
                 }
-                // No valid session - this is expected for new visitors
+                // No valid session
                 set({
                     user: null,
                     isAuthenticated: false,
@@ -372,24 +381,11 @@ const useAuthStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                     isAuthenticated: false,
                     isLoading: false
                 });
+            } finally{
+                isInitializing = false;
             }
         }
     }));
-// Schedule token refresh before expiry
-function scheduleTokenRefresh(get) {
-    // Clear existing timer
-    if (refreshTimer) {
-        clearTimeout(refreshTimer);
-    }
-    // Refresh 1 minute before the access token expires (14 minutes)
-    const refreshInterval = 14 * 60 * 1000; // 14 minutes
-    refreshTimer = setTimeout(async ()=>{
-        const store = get();
-        if (store.isAuthenticated) {
-            await store.refreshToken();
-        }
-    }, refreshInterval);
-}
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
@@ -734,29 +730,27 @@ function AdminLayoutClient({ children }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const { user, isAuthenticated, isLoading, logout } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$auth$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
-    // Track if component has mounted to prevent hydration mismatch
+    // Track if component has mounted (for hydration)
     const [mounted, setMounted] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(false);
     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useEffect({
         "AdminLayoutClient.useEffect": ()=>{
             setMounted(true);
         }
     }["AdminLayoutClient.useEffect"], []);
-    // Handle redirect to login when not authenticated
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AdminLayoutClient.useEffect": ()=>{
-            if (mounted && !isLoading && !isAuthenticated && pathname !== '/secure-admin/login') {
-                router.push('/secure-admin/login');
+            if (!mounted) return;
+            if (pathname === '/secure-admin/login') return;
+            const hasToken = localStorage.getItem('access_token');
+            if (!hasToken) {
+                window.location.href = '/secure-admin/login';
             }
         }
     }["AdminLayoutClient.useEffect"], [
         mounted,
-        isLoading,
-        isAuthenticated,
-        pathname,
-        router
+        pathname
     ]);
-    // Always render loading state during SSR to prevent hydration mismatch
-    if (!mounted || isLoading) {
+    if (!mounted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "min-h-screen bg-slate-900 flex items-center justify-center",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -766,7 +760,7 @@ function AdminLayoutClient({ children }) {
                         className: "inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 76,
+                        lineNumber: 78,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -774,18 +768,18 @@ function AdminLayoutClient({ children }) {
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 77,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                lineNumber: 75,
+                lineNumber: 77,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-            lineNumber: 74,
+            lineNumber: 76,
             columnNumber: 7
         }, this);
     }
@@ -794,43 +788,14 @@ function AdminLayoutClient({ children }) {
             children: children
         }, void 0, false);
     }
-    if (!isAuthenticated) {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "min-h-screen bg-slate-900 flex items-center justify-center",
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-center",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 92,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "mt-4 text-gray-400",
-                        children: "Redirecting to login..."
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 93,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                lineNumber: 91,
-                columnNumber: 9
-            }, this)
-        }, void 0, false, {
-            fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-            lineNumber: 90,
-            columnNumber: 7
-        }, this);
+    const hasToken = localStorage.getItem('access_token');
+    if (!hasToken) {
+        return null;
     }
+    // Token exists - show content (user data will load asynchronously via auth context)
     const handleLogout = async ()=>{
         await logout();
-        router.push('/secure-admin/login');
-        router.refresh();
+        window.location.href = '/secure-admin/login';
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "h-screen bg-slate-900 flex overflow-x-auto overflow-y-hidden",
@@ -846,7 +811,7 @@ function AdminLayoutClient({ children }) {
                                 children: "Content Manager"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                lineNumber: 110,
+                                lineNumber: 106,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -854,13 +819,13 @@ function AdminLayoutClient({ children }) {
                                 children: "School Website Admin"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                lineNumber: 111,
+                                lineNumber: 107,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 109,
+                        lineNumber: 105,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -879,7 +844,7 @@ function AdminLayoutClient({ children }) {
                                         children: getIcon(item.icon)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                        lineNumber: 127,
+                                        lineNumber: 123,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -887,19 +852,19 @@ function AdminLayoutClient({ children }) {
                                         children: item.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 126,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, item.name, true, {
                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                lineNumber: 118,
+                                lineNumber: 114,
                                 columnNumber: 15
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 114,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -913,7 +878,7 @@ function AdminLayoutClient({ children }) {
                                         children: user?.first_name?.charAt(0) || 'A'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 134,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -924,7 +889,7 @@ function AdminLayoutClient({ children }) {
                                                 children: user?.full_name || 'Admin'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                                lineNumber: 142,
+                                                lineNumber: 138,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -932,19 +897,19 @@ function AdminLayoutClient({ children }) {
                                                 children: user?.email
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                                lineNumber: 143,
+                                                lineNumber: 139,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                        lineNumber: 141,
+                                        lineNumber: 137,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                lineNumber: 137,
+                                lineNumber: 133,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -963,31 +928,31 @@ function AdminLayoutClient({ children }) {
                                             d: "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                            lineNumber: 151,
+                                            lineNumber: 147,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 146,
                                         columnNumber: 13
                                     }, this),
                                     "Sign Out"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                                lineNumber: 146,
+                                lineNumber: 142,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 136,
+                        lineNumber: 132,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                lineNumber: 108,
+                lineNumber: 104,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1000,12 +965,12 @@ function AdminLayoutClient({ children }) {
                             children: navItems.find((item)=>pathname === item.href || item.href !== '/secure-admin' && pathname.startsWith(item.href))?.name || 'Dashboard'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                            lineNumber: 161,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 160,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1013,19 +978,19 @@ function AdminLayoutClient({ children }) {
                         children: children
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                        lineNumber: 165,
+                        lineNumber: 161,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-                lineNumber: 159,
+                lineNumber: 155,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/admin-layout-client.tsx",
-        lineNumber: 106,
+        lineNumber: 102,
         columnNumber: 5
     }, this);
 }

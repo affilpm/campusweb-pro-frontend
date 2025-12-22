@@ -213,7 +213,7 @@ export default function FacilityGalleryPage() {
                 <img 
                   src={image.image} 
                   alt={image.caption || 'Gallery image'}
-                  className="w-full h-full object-fill"
+                  className="w-full h-full object-cover"
                 />
               </div>
 

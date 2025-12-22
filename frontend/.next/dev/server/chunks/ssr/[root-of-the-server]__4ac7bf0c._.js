@@ -98,14 +98,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f
 ;
 async function getPageData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "http://143.110.186.16") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
         // Fetch site settings from homepage
         const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
-            cache: 'no-store'
+            cache: 'force-cache',
+            next: {
+                revalidate: 60
+            }
         });
         // Fetch fees
         const feesRes = await fetch(`${apiUrl}/api/public/fees/`, {
-            cache: 'no-store'
+            cache: 'force-cache',
+            next: {
+                revalidate: 60
+            }
         });
         if (!homeRes.ok) throw new Error('Failed to fetch');
         const homeData = await homeRes.json();
@@ -150,7 +156,7 @@ async function FeesPage() {
                         className: "inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 75,
+                        lineNumber: 76,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -158,18 +164,18 @@ async function FeesPage() {
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 76,
+                        lineNumber: 77,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                lineNumber: 74,
+                lineNumber: 75,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-            lineNumber: 73,
+            lineNumber: 74,
             columnNumber: 7
         }, this);
     }
@@ -183,7 +189,7 @@ async function FeesPage() {
                 siteSettings: siteSettings
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                lineNumber: 88,
+                lineNumber: 89,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -199,7 +205,7 @@ async function FeesPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                lineNumber: 94,
+                                lineNumber: 95,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -209,13 +215,13 @@ async function FeesPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                lineNumber: 95,
+                                lineNumber: 96,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 93,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -232,14 +238,14 @@ async function FeesPage() {
                                             children: "Home"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 103,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "/"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 103,
+                                            lineNumber: 104,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -248,14 +254,14 @@ async function FeesPage() {
                                             children: "Public Disclosure"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 104,
+                                            lineNumber: 105,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "/"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 105,
+                                            lineNumber: 106,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -263,13 +269,13 @@ async function FeesPage() {
                                             children: "Fees"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 106,
+                                            lineNumber: 107,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                    lineNumber: 101,
+                                    lineNumber: 102,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -277,7 +283,7 @@ async function FeesPage() {
                                     children: "Fees"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                    lineNumber: 109,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -285,18 +291,18 @@ async function FeesPage() {
                                     children: "Information about school fees and payment structure"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                    lineNumber: 112,
+                                    lineNumber: 113,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                            lineNumber: 99,
+                            lineNumber: 100,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 98,
+                        lineNumber: 99,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -311,23 +317,23 @@ async function FeesPage() {
                                 fill: "white"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                lineNumber: 121,
+                                lineNumber: 122,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                            lineNumber: 120,
+                            lineNumber: 121,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 119,
+                        lineNumber: 120,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                lineNumber: 91,
+                lineNumber: 92,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -343,12 +349,12 @@ async function FeesPage() {
                                 children: "No fees information available at this time."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                lineNumber: 132,
+                                lineNumber: 133,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                            lineNumber: 131,
+                            lineNumber: 132,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100",
@@ -366,7 +372,7 @@ async function FeesPage() {
                                                         children: "Sl.No."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                        lineNumber: 140,
+                                                        lineNumber: 141,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -374,7 +380,7 @@ async function FeesPage() {
                                                         children: "Information"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                        lineNumber: 143,
+                                                        lineNumber: 144,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -382,18 +388,18 @@ async function FeesPage() {
                                                         children: "Details"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                        lineNumber: 146,
+                                                        lineNumber: 147,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                lineNumber: 139,
+                                                lineNumber: 140,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 138,
+                                            lineNumber: 139,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -406,65 +412,65 @@ async function FeesPage() {
                                                             children: index + 1
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                            lineNumber: 157,
+                                                            lineNumber: 158,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "py-5 px-6 text-gray-900 font-medium",
-                                                            children: item.information
+                                                            children: item.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                            lineNumber: 160,
+                                                            lineNumber: 161,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "py-5 px-6 text-gray-600",
-                                                            children: item.details
+                                                            children: item.value
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                            lineNumber: 163,
+                                                            lineNumber: 164,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, item.id, true, {
                                                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                                    lineNumber: 153,
+                                                    lineNumber: 154,
                                                     columnNumber: 25
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                            lineNumber: 151,
+                                            lineNumber: 152,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                    lineNumber: 137,
+                                    lineNumber: 138,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                                lineNumber: 136,
+                                lineNumber: 137,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                            lineNumber: 135,
+                            lineNumber: 136,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                        lineNumber: 129,
+                        lineNumber: 130,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                    lineNumber: 128,
+                    lineNumber: 129,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                lineNumber: 127,
+                lineNumber: 128,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$footer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -472,13 +478,13 @@ async function FeesPage() {
                 quickLinks: quickLinks
             }, void 0, false, {
                 fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-                lineNumber: 177,
+                lineNumber: 178,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/public-disclosure/fees/page.tsx",
-        lineNumber: 87,
+        lineNumber: 88,
         columnNumber: 5
     }, this);
 }

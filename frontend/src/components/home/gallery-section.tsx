@@ -56,7 +56,7 @@ export default function GallerySection({ images }: GallerySectionProps) {
                 <img 
                   src={image.image} 
                   alt={image.title}
-                  className="w-full h-full object-fill group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               
