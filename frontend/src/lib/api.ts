@@ -76,12 +76,22 @@ client.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Call backend to refresh (Cookie is sent automatically)
-        const { data } = await client.post('/api/admin/auth/refresh/');
+        // Get refresh token from localStorage and send in request body (cross-origin compatible)
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
+        }
+        
+        const { data } = await client.post('/api/admin/auth/refresh/', { refresh: refreshToken });
         
         // Save new Access Token
         const newToken = data.access;
         localStorage.setItem('access_token', newToken);
+        
+        // Update refresh token if rotated
+        if (data.refresh) {
+          localStorage.setItem('refresh_token', data.refresh);
+        }
         
         // Notify pending requests
         onRefreshed(newToken);
@@ -93,6 +103,7 @@ client.interceptors.response.use(
       } catch (refreshError) {
         // Refresh failed (Session expired) -> Logout user
         localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
         if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
           window.location.href = '/secure-admin/login'; // Redirect to login
         }
@@ -134,7 +145,11 @@ export const authApi = {
     const response = await client.post('/api/admin/auth/login/', { email, password });
     if (response.data.access) {
       localStorage.setItem('access_token', response.data.access);
-      // Shim: return success flag for compatibility
+      // Save refresh token to localStorage for cross-origin compatibility
+      if (response.data.refresh) {
+        localStorage.setItem('refresh_token', response.data.refresh);
+        console.log('[Auth] Refresh token saved to localStorage');
+      }
       return { success: true, ...response.data };
     }
     return response.data;
@@ -142,11 +157,12 @@ export const authApi = {
 
   logout: async () => {
     try {
-        await client.post('/api/admin/auth/logout/'); // Clears cookie on server
+        await client.post('/api/admin/auth/logout/');
     } catch (e) {
         // Ignore logout errors
     }
     localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   },
 
   verify: async () => {
@@ -155,10 +171,20 @@ export const authApi = {
   },
 
   refresh: async () => {
-      // Wrapper to manually trigger refresh if needed
-      const response = await client.post('/api/admin/auth/refresh/');
+      // Get refresh token from localStorage (for cross-origin) and send in request body
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (!refreshToken) {
+        console.log('[Auth] No refresh token in localStorage');
+        throw new Error('No refresh token available');
+      }
+      
+      const response = await client.post('/api/admin/auth/refresh/', { refresh: refreshToken });
       if (response.data.access) {
           localStorage.setItem('access_token', response.data.access);
+          // Update refresh token if a new one is returned (rotation)
+          if (response.data.refresh) {
+            localStorage.setItem('refresh_token', response.data.refresh);
+          }
           return { success: true, ...response.data };
       }
       return response.data;

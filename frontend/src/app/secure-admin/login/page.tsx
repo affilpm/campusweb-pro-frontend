@@ -31,8 +31,9 @@ export default function SecureAdminLoginPage() {
     if (result.success) {
       const redirect = searchParams.get('redirect') || '/secure-admin';
       console.log('[Login] Success, redirecting to:', redirect);
-      // Use replace to avoid back-button going to login again
-      router.replace(redirect);
+      // Use full page navigation to ensure fresh auth state
+      // Next.js client-side navigation can cause issues with auth state
+      window.location.href = redirect;
     } else {
       setError(result.message);
       setIsSubmitting(false);
