@@ -165,7 +165,7 @@ export const authApi = {
 
   getMe: async () => {
     // Check if we have a token first to rely on interceptor
-    const response = await client.post('/api/admin/auth/me/');
+    const response = await client.get('/api/admin/auth/me/');
     // Shim for compatibility
     const data = response.data;
     // If data has 'user' property, use it, otherwise assume data is the user

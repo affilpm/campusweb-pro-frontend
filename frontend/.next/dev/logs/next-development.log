@@ -882,3 +882,8 @@ Import traces:
 [00:19:10.048] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:19:11.667] Browser LOG     Stored token invalid
 [00:19:11.667] Browser LOG     Stored token invalid
+[00:21:28.530] Server  LOG      ✓ Compiled in 293ms
+[00:21:28.553] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:21:28.554] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./src/lib/api.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:21:30.579] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:30.728] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
