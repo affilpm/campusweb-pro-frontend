@@ -64,7 +64,15 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
   // Handle redirect to login when not authenticated
   useEffect(() => {
     if (mounted && !isLoading && !isAuthenticated && pathname !== '/secure-admin/login') {
-      router.push('/secure-admin/login');
+      // Double-check localStorage before redirecting
+      // This prevents redirect during the brief moment between mount and initialize() completing
+      const hasToken = typeof window !== 'undefined' && localStorage.getItem('access_token');
+      if (!hasToken) {
+        console.log('[AdminLayout] No token found, redirecting to login');
+        router.push('/secure-admin/login');
+      } else {
+        console.log('[AdminLayout] Token found in localStorage, waiting for auth to initialize...');
+      }
     }
   }, [mounted, isLoading, isAuthenticated, pathname, router]);
 
@@ -86,6 +94,21 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
   }
 
   if (!isAuthenticated) {
+    // Check if there's a token in localStorage - might still be initializing
+    const hasToken = typeof window !== 'undefined' && localStorage.getItem('access_token');
+    
+    if (hasToken) {
+      // Token exists but auth not yet initialized - show loading
+      return (
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
+            <p className="mt-4 text-gray-400">Verifying session...</p>
+          </div>
+        </div>
+      );
+    }
+    
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
