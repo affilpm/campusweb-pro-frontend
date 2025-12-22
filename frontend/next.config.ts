@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    unoptimized: true, // Optimized for 1GB Server: Saves RAM & fixes 'private ip' error
+
     remotePatterns: [
       {
         protocol: 'http',
@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: '127.0.0.1',
+      },
+      {
+        protocol: 'http',
+        hostname: '143.110.186.16',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pub-30421f2590ac4738b43f524395aa8a2b.r2.dev',
       },
     ],
   },
