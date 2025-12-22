@@ -22,12 +22,14 @@ async function getPageData(): Promise<PageData | null> {
     
     // Fetch site settings from homepage
     const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
-      cache: 'no-store',
+      cache: 'force-cache',
+      next: { revalidate: 60 },
     });
     
     // Fetch fees
     const feesRes = await fetch(`${apiUrl}/api/public/fees/`, {
-      cache: 'no-store',
+      cache: 'force-cache',
+      next: { revalidate: 60 },
     });
     
     if (!homeRes.ok) throw new Error('Failed to fetch');

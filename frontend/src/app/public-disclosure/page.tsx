@@ -13,7 +13,8 @@ async function getPageData(): Promise<PageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/home/`, {
-      cache: 'no-store',
+      cache: 'force-cache',
+      next: { revalidate: 60 }
     });
     if (!res.ok) throw new Error('Failed to fetch');
     const data = await res.json();
