@@ -145,10 +145,10 @@ export default async function GeneralInfoPage() {
                             {index + 1}
                           </td>
                           <td className="py-5 px-6 text-gray-900 font-medium">
-                            {item.information}
+                            {item.title}
                           </td>
                           <td className="py-5 px-6 text-gray-600">
-                            {item.details}
+                            {item.value}
                           </td>
                         </tr>
                       ))}
