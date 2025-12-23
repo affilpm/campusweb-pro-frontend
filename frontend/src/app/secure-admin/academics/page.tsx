@@ -436,16 +436,44 @@ export default function AcademicsAdminPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Calendar File (PDF)</label>
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={(e) => setNewCalendarFile(e.target.files?.[0] || null)}
-                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:cursor-pointer"
-                />
                 {pageData.calendar_file && (
-                  <a href={pageData.calendar_file} target="_blank" rel="noopener noreferrer" className="text-sm text-indigo-400 hover:text-indigo-300">
-                    View current file ↗
-                  </a>
+                  <div className="flex items-center gap-3 p-3 bg-green-500/10 rounded-lg border border-green-500/30 mb-2">
+                    <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span className="text-sm text-green-400 flex-1">Calendar file uploaded</span>
+                    <a 
+                      href={pageData.calendar_file} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-sm text-indigo-400 hover:text-indigo-300"
+                    >
+                      View ↗
+                    </a>
+                  </div>
+                )}
+                <label className="block">
+                  <span className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl cursor-pointer transition-colors ${
+                    pageData.calendar_file 
+                      ? 'bg-amber-600 hover:bg-amber-700 text-white' 
+                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                  }`}>
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                    {pageData.calendar_file ? 'Replace Calendar File' : 'Upload Calendar File'}
+                  </span>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={(e) => setNewCalendarFile(e.target.files?.[0] || null)}
+                    className="hidden"
+                  />
+                </label>
+                {newCalendarFile && (
+                  <p className="text-sm text-amber-400">
+                    New file selected: {newCalendarFile.name}
+                  </p>
                 )}
               </div>
             </div>
