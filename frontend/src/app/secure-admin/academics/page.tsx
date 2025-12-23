@@ -454,16 +454,7 @@ export default function AcademicsAdminPage() {
           <div className="flex justify-end">
             <button
               type="submit"
-              disabled={
-                saving || 
-                !pageData.hero_title ||
-                !pageData.hero_subtitle ||
-                !pageData.curriculum_title ||
-                !pageData.curriculum_content ||
-                !pageData.methodology_title ||
-                !pageData.methodology_content ||
-                !pageData.calendar_title
-              }
+              disabled={saving}
               className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
             >
               {saving ? 'Saving...' : 'Save Changes'}
@@ -564,12 +555,7 @@ export default function AcademicsAdminPage() {
               <div className="flex gap-3 mt-6">
                 <button
                   type="submit"
-                  disabled={
-                    saving || 
-                    !editingCategory.name ||
-                    !editingCategory.classes_range ||
-                    !editingCategory.description
-                  }
+                  disabled={saving}
                   className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save Category'}
@@ -738,11 +724,7 @@ export default function AcademicsAdminPage() {
               <div className="flex gap-3 mt-6">
                 <button
                   type="submit"
-                  disabled={
-                    saving || 
-                    !editingSubject.name ||
-                    !editingSubject.icon
-                  }
+                  disabled={saving}
                   className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save Subject'}
