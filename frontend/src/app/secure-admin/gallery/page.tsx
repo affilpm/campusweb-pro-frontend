@@ -29,6 +29,11 @@ export default function GalleryPage() {
   const [newImage, setNewImage] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  
+  // Category modal state
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [editingCategory, setEditingCategory] = useState<Partial<GalleryCategory>>({});
+  const [deleteCategoryId, setDeleteCategoryId] = useState<number | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -108,6 +113,39 @@ export default function GalleryPage() {
     }
   };
 
+  // Category handlers
+  const handleSaveCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      if (editingCategory.id) {
+        await api.put(`/api/admin/content/gallery/categories/${editingCategory.id}/`, editingCategory);
+      } else {
+        await api.post('/api/admin/content/gallery/categories/', editingCategory);
+      }
+      fetchData();
+      setIsCategoryModalOpen(false);
+      setEditingCategory({});
+    } catch (error) {
+      console.error('Error saving category:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const confirmDeleteCategory = async () => {
+    if (!deleteCategoryId) return;
+    try {
+      await api.delete(`/api/admin/content/gallery/categories/${deleteCategoryId}/`);
+      setCategories(categories.filter(c => c.id !== deleteCategoryId));
+      fetchData();
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    } finally {
+      setDeleteCategoryId(null);
+    }
+  };
+
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
 
   return (
@@ -117,21 +155,87 @@ export default function GalleryPage() {
           <h1 className="text-2xl font-bold text-white">Gallery</h1>
           <p className="text-gray-400">Manage photo gallery</p>
         </div>
-        <button
-          onClick={() => { 
-              const newImg = {};
-              setCurrentImage(newImg); 
-              setInitialModalData(newImg);
-              setNewImage(null); 
-              setIsModalOpen(true); 
-          }}
-          className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center gap-2"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          Add Image
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={() => { 
+              setEditingCategory({});
+              setIsCategoryModalOpen(true);
+            }}
+            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            Manage Categories
+          </button>
+          <button
+            onClick={() => { 
+                const newImg = {};
+                setCurrentImage(newImg); 
+                setInitialModalData(newImg);
+                setNewImage(null); 
+                setIsModalOpen(true); 
+            }}
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Add Image
+          </button>
+        </div>
+      </div>
+
+      {/* Categories Section */}
+      <div className="mb-8 bg-slate-800/30 backdrop-blur-xl rounded-xl border border-white/10 p-4">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-white">Categories</h2>
+          <button
+            onClick={() => { 
+              setEditingCategory({});
+              setIsCategoryModalOpen(true);
+            }}
+            className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
+          >
+            + Add Category
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {categories.length === 0 ? (
+            <p className="text-gray-500 text-sm">No categories yet. Create one to organize your gallery.</p>
+          ) : (
+            categories.map(cat => (
+              <div 
+                key={cat.id} 
+                className="group flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors"
+              >
+                <span className="text-sm text-gray-300">{cat.name}</span>
+                <span className="text-xs text-gray-500">({images.filter(img => img.category === cat.id).length})</span>
+                <button
+                  onClick={() => {
+                    setEditingCategory(cat);
+                    setIsCategoryModalOpen(true);
+                  }}
+                  className="opacity-0 group-hover:opacity-100 text-blue-400 hover:text-blue-300 transition-all"
+                  title="Edit"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setDeleteCategoryId(cat.id)}
+                  className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-all"
+                  title="Delete"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -295,6 +399,87 @@ export default function GalleryPage() {
               </button>
               <button
                 onClick={confirmDelete}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Category Modal */}
+      {isCategoryModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onMouseDown={(e) => { if (e.target === e.currentTarget) setIsCategoryModalOpen(false); }}
+        >
+          <div 
+            className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6 border-b border-white/10 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">
+                {editingCategory.id ? 'Edit Category' : 'New Category'}
+              </h2>
+              <button onClick={() => setIsCategoryModalOpen(false)} className="text-gray-400 hover:text-white">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <form onSubmit={handleSaveCategory} className="p-6 space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300">Category Name *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g., Events, Campus, Sports"
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                  value={editingCategory.name || ''}
+                  onChange={e => setEditingCategory(prev => ({ ...prev, name: e.target.value }))}
+                />
+              </div>
+
+              <div className="pt-4 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsCategoryModalOpen(false)}
+                  className="px-4 py-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving || !editingCategory.name}
+                  className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {saving ? 'Saving...' : 'Save Category'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Category Confirmation */}
+      {deleteCategoryId && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-2">Delete Category</h3>
+            <p className="text-gray-400 mb-6">
+              Are you sure you want to delete this category? Images in this category will become uncategorized.
+            </p>
+            <div className="flex gap-4 justify-end">
+              <button
+                onClick={() => setDeleteCategoryId(null)}
+                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteCategory}
                 className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
               >
                 Delete
