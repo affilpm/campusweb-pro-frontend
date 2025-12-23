@@ -99,7 +99,7 @@ export default function InfrastructurePage() {
     return {
       title: '',
       value: '',
-      order: items.length,
+      order: items.length + 1,
       is_active: true,
     };
   };

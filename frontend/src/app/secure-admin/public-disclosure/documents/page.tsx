@@ -131,7 +131,7 @@ export default function DocumentsPage() {
     return {
       title: '',
       file: null,
-      order: items.length,
+      order: items.length + 1,
       is_active: true,
     };
   };
