@@ -93,7 +93,7 @@ export default function GalleryPage() {
       }
 
       if (currentImage.id) {
-        await api.put(`/api/admin/content/gallery/images/${currentImage.id}/`, formData, {
+        await api.patch(`/api/admin/content/gallery/images/${currentImage.id}/`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
