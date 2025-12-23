@@ -124,15 +124,7 @@ export default function AdmissionsManagementPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
-      </div>
-    );
-  }
-
-  // Memoized save buttons to prevent re-renders
+  // Memoized save buttons to prevent re-renders (must be before conditional returns)
   const saveSettingsButton = useMemo(() => (
     <button
       type="submit"
@@ -146,6 +138,7 @@ export default function AdmissionsManagementPage() {
 
   const saveStepButton = useMemo(() => (
     <button
+      type="button"
       onClick={handleSaveStep}
       disabled={saving}
       className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
@@ -154,6 +147,14 @@ export default function AdmissionsManagementPage() {
       {saving ? 'Saving...' : 'Save'}
     </button>
   ), [saving, handleSaveStep]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 max-w-4xl">
