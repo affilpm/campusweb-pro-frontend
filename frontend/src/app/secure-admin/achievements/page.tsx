@@ -179,10 +179,12 @@ export default function AchievementsManagementPage() {
       {showModal && editing && (
         <div 
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => {
-            setShowModal(false);
-            setEditing(null);
-            setNewImage(null);
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowModal(false);
+              setEditing(null);
+              setNewImage(null);
+            }
           }}
         >
           <div 

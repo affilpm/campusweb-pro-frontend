@@ -216,7 +216,7 @@ export default function InfrastructurePage() {
       {editingItem && (
         <div
           className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto pt-20 pb-10"
-          onClick={() => setEditingItem(null)}
+          onMouseDown={(e) => { if (e.target === e.currentTarget) setEditingItem(null); }}
         >
           <div
             className="bg-slate-800 rounded-2xl border border-white/10 flex flex-col max-w-lg w-full shadow-2xl relative my-auto"
