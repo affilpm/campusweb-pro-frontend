@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 import Link from 'next/link';
@@ -140,6 +140,17 @@ export default function FacilitiesPage() {
       setSaving(false);
     }
   };
+
+  // Memoized save button to prevent re-renders
+  const saveButton = useMemo(() => (
+    <button
+      type="submit"
+      disabled={saving}
+      className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg"
+    >
+      {saving ? 'Saving...' : 'Save Facility'}
+    </button>
+  ), [saving]);
 
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
 
@@ -393,17 +404,7 @@ export default function FacilitiesPage() {
                 >
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  disabled={
-                    saving || 
-                    !currentFacility.name || 
-                    !currentFacility.short_description
-                  }
-                  className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg"
-                >
-                  {saving ? 'Saving...' : 'Save Facility'}
-                </button>
+                {saveButton}
               </div>
             </form>
           </div>
