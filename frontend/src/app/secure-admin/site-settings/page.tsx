@@ -550,7 +550,6 @@ export default function SiteSettingsPage() {
             type="submit"
             disabled={
               saving || 
-              !hasChanges() ||
               !settings.school_name ||
               !settings.school_motto ||
               !settings.address ||
