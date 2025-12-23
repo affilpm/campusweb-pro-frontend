@@ -8,6 +8,11 @@ interface PrincipalSectionProps {
 }
 
 export default function PrincipalSection({ data }: PrincipalSectionProps) {
+  // Don't show section if no principal data
+  if (!data.name && !data.message) {
+    return null;
+  }
+
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

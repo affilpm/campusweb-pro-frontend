@@ -26,6 +26,7 @@ export default function PrincipalPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [newImage, setNewImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
+  const [showResetModal, setShowResetModal] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -92,6 +93,22 @@ export default function PrincipalPage() {
     }
   };
 
+  const handleReset = async () => {
+    setSaving(true);
+    try {
+      const response = await api.post('/api/admin/content/principal/reset/');
+      setData(response.data.data);
+      setInitialData(response.data.data);
+      setMessage({ type: 'success', text: response.data.message });
+    } catch (error) {
+      console.error('Error resetting principal:', error);
+      setMessage({ type: 'error', text: 'Failed to reset principal section' });
+    } finally {
+      setSaving(false);
+      setShowResetModal(false);
+    }
+  };
+
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
 
   return (
@@ -101,6 +118,13 @@ export default function PrincipalPage() {
           <h1 className="text-2xl font-bold text-white">Principal&apos;s Message</h1>
           <p className="text-gray-400">Manage principal information and welcome message</p>
         </div>
+        <button
+          type="button"
+          onClick={() => setShowResetModal(true)}
+          className="px-4 py-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-colors text-sm"
+        >
+          🗑️ Reset Section
+        </button>
       </div>
 
       {message && (
@@ -218,6 +242,34 @@ export default function PrincipalPage() {
           </button>
         </div>
       </form>
+
+      {/* Reset Confirmation Modal */}
+      {showResetModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-2">Reset Principal Section</h3>
+            <p className="text-gray-400 mb-6">
+              Are you sure you want to reset the principal section? This will clear all content including the photo. This action cannot be undone.
+            </p>
+            <div className="flex gap-4 justify-end">
+              <button
+                onClick={() => setShowResetModal(false)}
+                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                disabled={saving}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReset}
+                disabled={saving}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
+              >
+                {saving ? 'Resetting...' : 'Reset Section'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

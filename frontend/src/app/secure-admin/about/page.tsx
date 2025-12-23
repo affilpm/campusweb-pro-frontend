@@ -104,6 +104,7 @@ export default function AboutSectionPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [deleteParams, setDeleteParams] = useState<{ type: 'timeline' | 'management'; id: number } | null>(null);
+  const [resetSection, setResetSection] = useState<{ section: string; endpoint: string } | null>(null);
 
   useEffect(() => {
     fetchAllData();
@@ -382,6 +383,33 @@ export default function AboutSectionPage() {
     }
   };
 
+  // Reset section handler
+  const confirmReset = async () => {
+    if (!resetSection) return;
+    setSaving(true);
+    
+    try {
+      const response = await api.post(resetSection.endpoint, { section: resetSection.section });
+      
+      // Update local state based on which section was reset
+      if (resetSection.endpoint.includes('about/page')) {
+        setPageData(response.data.data);
+        setInitialPageData(response.data.data);
+      } else if (resetSection.endpoint.includes('vision-mission')) {
+        setVisionData(response.data.data);
+        setInitialVisionData(response.data.data);
+      }
+      
+      setMessage({ type: 'success', text: response.data.message });
+    } catch (error) {
+       console.error(`Error resetting section:`, error);
+       setMessage({ type: 'error', text: 'Failed to reset section' });
+    } finally {
+      setSaving(false);
+      setResetSection(null);
+    }
+  };
+
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
 
   const tabs = [
@@ -578,7 +606,16 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">History Section</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-white">History Section</h2>
+              <button
+                type="button"
+                onClick={() => setResetSection({ section: 'history', endpoint: '/api/admin/content/about/page/reset/' })}
+                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+              >
+                🗑️ Reset Section
+              </button>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="space-y-2">
@@ -618,7 +655,16 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Infrastructure Section</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-white">Infrastructure Section</h2>
+              <button
+                type="button"
+                onClick={() => setResetSection({ section: 'infrastructure', endpoint: '/api/admin/content/about/page/reset/' })}
+                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+              >
+                🗑️ Reset Section
+              </button>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Section Title</label>
@@ -661,7 +707,16 @@ export default function AboutSectionPage() {
       {activeTab === 'vision' && (
         <form onSubmit={handleVisionSubmit} className="space-y-6">
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Vision</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-white">Vision</h2>
+              <button
+                type="button"
+                onClick={() => setResetSection({ section: 'vision', endpoint: '/api/admin/content/vision-mission/reset/' })}
+                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+              >
+                🗑️ Reset Section
+              </button>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Vision Title</label>
@@ -689,7 +744,16 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Mission</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-white">Mission</h2>
+              <button
+                type="button"
+                onClick={() => setResetSection({ section: 'mission', endpoint: '/api/admin/content/vision-mission/reset/' })}
+                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+              >
+                🗑️ Reset Section
+              </button>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Mission Title</label>
@@ -717,7 +781,16 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Core Values</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-white">Core Values</h2>
+              <button
+                type="button"
+                onClick={() => setResetSection({ section: 'values', endpoint: '/api/admin/content/vision-mission/reset/' })}
+                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
+              >
+                🗑️ Reset Section
+              </button>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Values Title</label>
@@ -1034,6 +1107,35 @@ export default function AboutSectionPage() {
                 className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
               >
                 {saving ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Reset Section Confirmation Modal */}
+      {resetSection && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
+            <h3 className="text-xl font-bold text-white mb-2">Reset Section</h3>
+            <p className="text-gray-400 mb-6">
+              Are you sure you want to reset the <strong className="text-white">{resetSection.section}</strong> section? 
+              This will clear all content in this section. This action cannot be undone.
+            </p>
+            <div className="flex gap-4 justify-end">
+              <button
+                onClick={() => setResetSection(null)}
+                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                disabled={saving}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmReset}
+                disabled={saving}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
+              >
+                {saving ? 'Resetting...' : 'Reset Section'}
               </button>
             </div>
           </div>
