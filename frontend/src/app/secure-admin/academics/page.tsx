@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, FormEvent } from 'react';
+import { useEffect, useState, FormEvent, useMemo } from 'react';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 
@@ -253,6 +253,36 @@ export default function AcademicsAdminPage() {
   };
 
 
+  // Memoized save buttons to prevent re-renders
+  const savePageButton = useMemo(() => (
+    <button
+      type="submit"
+      disabled={saving}
+      className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+    >
+      {saving ? 'Saving...' : 'Save Changes'}
+    </button>
+  ), [saving]);
+
+  const saveCategoryButton = useMemo(() => (
+    <button
+      type="submit"
+      disabled={saving}
+      className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
+    >
+      {saving ? 'Saving...' : 'Save Category'}
+    </button>
+  ), [saving]);
+
+  const saveSubjectButton = useMemo(() => (
+    <button
+      type="submit"
+      disabled={saving}
+      className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
+    >
+      {saving ? 'Saving...' : 'Save Subject'}
+    </button>
+  ), [saving]);
 
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
 
@@ -480,13 +510,7 @@ export default function AcademicsAdminPage() {
           </div>
 
           <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
-            >
-              {saving ? 'Saving...' : 'Save Changes'}
-            </button>
+            {savePageButton}
           </div>
         </form>
       )}
@@ -581,13 +605,7 @@ export default function AcademicsAdminPage() {
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
-                >
-                  {saving ? 'Saving...' : 'Save Category'}
-                </button>
+                {saveCategoryButton}
                 <button
                   type="button"
                   onClick={() => { setEditingCategory(null); setNewCategoryImage(null); }}
@@ -750,13 +768,7 @@ export default function AcademicsAdminPage() {
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50"
-                >
-                  {saving ? 'Saving...' : 'Save Subject'}
-                </button>
+                {saveSubjectButton}
                 <button
                   type="button"
                   onClick={() => setEditingSubject(null)}
