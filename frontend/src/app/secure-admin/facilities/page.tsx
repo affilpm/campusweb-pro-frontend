@@ -172,7 +172,7 @@ export default function FacilitiesPage() {
         </div>
         <button
           onClick={() => { 
-            const newFac: Partial<Facility> = { order: facilities.length, is_active: true, icon: '🏫' };
+            const newFac: Partial<Facility> = { order: facilities.length + 1, is_active: true, icon: '🏫' };
             setCurrentFacility(newFac); 
             setInitialModalData(newFac);
             setNewImage(null); 
@@ -202,7 +202,7 @@ export default function FacilitiesPage() {
           <p className="text-gray-400 mb-6">Add your first facility to display on the website</p>
           <button
             onClick={() => { 
-              const newFac: Partial<Facility> = { order: 0, is_active: true, icon: '🏫' };
+              const newFac: Partial<Facility> = { order: 1, is_active: true, icon: '🏫' };
               setCurrentFacility(newFac); 
               setInitialModalData(newFac);
               setIsModalOpen(true); 
