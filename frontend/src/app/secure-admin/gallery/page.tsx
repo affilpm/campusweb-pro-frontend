@@ -267,9 +267,8 @@ export default function GalleryPage() {
                   type="submit"
                   disabled={
                     saving || 
-                    (JSON.stringify(currentImage) === JSON.stringify(initialModalData) && !newImage) ||
-                    !currentImage.title ||
-                    (!newImage && !currentImage.image)
+                    !currentImage.category ||
+                    (!currentImage.id && !newImage)
                   }
                   className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >

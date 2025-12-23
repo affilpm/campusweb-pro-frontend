@@ -397,7 +397,6 @@ export default function FacilitiesPage() {
                   type="submit"
                   disabled={
                     saving || 
-                    (JSON.stringify(currentFacility) === JSON.stringify(initialModalData) && !newImage) ||
                     !currentFacility.name || 
                     !currentFacility.short_description
                   }

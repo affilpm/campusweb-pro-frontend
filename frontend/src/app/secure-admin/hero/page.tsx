@@ -162,8 +162,6 @@ export default function HeroSectionPage() {
             type="submit"
             disabled={
               saving || 
-              !initialData || 
-              (JSON.stringify(data) === JSON.stringify(initialData) && !newImage) ||
               !data.title ||
               !data.subtitle
             }

@@ -320,10 +320,9 @@ export default function NoticesPage() {
                 <button
                   type="submit"
                   disabled={
-                    saving || 
-                    (JSON.stringify(currentNotice) === JSON.stringify(initialModalData) && !selectedFile) ||
-                    !currentNotice.title || 
-                    !currentNotice.content || 
+                    saving ||
+                    !currentNotice.title ||
+                    !currentNotice.content ||
                     !currentNotice.publish_date
                   }
                   className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"

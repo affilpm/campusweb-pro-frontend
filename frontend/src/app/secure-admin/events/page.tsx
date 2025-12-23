@@ -336,7 +336,6 @@ export default function EventsPage() {
                   type="submit"
                   disabled={
                     saving || 
-                    (JSON.stringify(currentEvent) === JSON.stringify(initialEventData) && !newImage) ||
                     !currentEvent.title ||
                     !currentEvent.excerpt ||
                     !currentEvent.content

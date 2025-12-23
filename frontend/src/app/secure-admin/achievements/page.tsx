@@ -22,6 +22,7 @@ export default function AchievementsManagementPage() {
 
   const [showModal, setShowModal] = useState(false);
   const [newImage, setNewImage] = useState<File | null>(null);
+  const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ export default function AchievementsManagementPage() {
 
   const handleSave = async () => {
     if (!editing) return;
+    setSaving(true);
     
     try {
       const formData = new FormData();
@@ -72,6 +74,8 @@ export default function AchievementsManagementPage() {
       setInitialEditingData(null);
     } catch (error) {
       console.error('Error saving achievement:', error);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -287,8 +291,7 @@ export default function AchievementsManagementPage() {
               <button
                 onClick={handleSave}
                 disabled={
-                  loading || 
-                  (!newImage && JSON.stringify(editing) === JSON.stringify(initialEditingData)) ||
+                  saving || 
                   !editing.title ||
                   !editing.description
                 }

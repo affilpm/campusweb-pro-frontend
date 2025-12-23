@@ -416,7 +416,6 @@ export default function AdmissionsManagementPage() {
                 onClick={handleSaveStep}
                 disabled={
                   saving || 
-                  JSON.stringify(editingStep) === JSON.stringify(initialStepData) ||
                   !editingStep.title ||
                   !editingStep.description
                 }

@@ -456,8 +456,6 @@ export default function AcademicsAdminPage() {
               type="submit"
               disabled={
                 saving || 
-                !initialPageData || 
-                (JSON.stringify(pageData) === JSON.stringify(initialPageData) && !newCurriculumImage && !newCalendarFile) ||
                 !pageData.hero_title ||
                 !pageData.hero_subtitle ||
                 !pageData.curriculum_title ||
@@ -568,7 +566,6 @@ export default function AcademicsAdminPage() {
                   type="submit"
                   disabled={
                     saving || 
-                    (JSON.stringify(editingCategory) === JSON.stringify(initialCategoryData) && !newCategoryImage) ||
                     !editingCategory.name ||
                     !editingCategory.classes_range ||
                     !editingCategory.description
@@ -743,7 +740,6 @@ export default function AcademicsAdminPage() {
                   type="submit"
                   disabled={
                     saving || 
-                    (JSON.stringify(editingSubject) === JSON.stringify(initialSubjectData)) ||
                     !editingSubject.name ||
                     !editingSubject.icon
                   }

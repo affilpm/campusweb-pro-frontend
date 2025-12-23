@@ -208,8 +208,6 @@ export default function PrincipalPage() {
             type="submit"
             disabled={
               saving || 
-              !initialData || 
-              (JSON.stringify(data) === JSON.stringify(initialData) && !newImage) ||
               !data.name ||
               !data.title ||
               !data.message

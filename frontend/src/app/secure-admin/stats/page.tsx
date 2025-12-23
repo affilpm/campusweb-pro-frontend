@@ -257,7 +257,7 @@ export default function StatsPage() {
         <div className="mt-6 flex justify-end">
           <button
             onClick={saveAboutStats}
-            disabled={saving || !initialAboutStats || JSON.stringify(aboutStats) === JSON.stringify(initialAboutStats)}
+            disabled={saving}
             className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
           >
             {saving ? 'Saving...' : 'Save Basic Stats'}
