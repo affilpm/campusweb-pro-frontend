@@ -945,7 +945,7 @@ export default function AboutSectionPage() {
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold text-white">Leadership Team</h2>
             <button
-              onClick={() => setEditingMember({ name: '', position: '', photo: null, bio: '', order: management.length, is_active: true })}
+              onClick={() => setEditingMember({ name: '', position: '', photo: null, bio: '', order: management.length + 1, is_active: true })}
               className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-colors"
             >
               + Add Member

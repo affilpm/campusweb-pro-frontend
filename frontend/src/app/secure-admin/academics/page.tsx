@@ -522,7 +522,7 @@ export default function AcademicsAdminPage() {
             <h2 className="text-lg font-semibold text-white">Class Categories</h2>
             <button
               onClick={() => {
-                const newCat = { name: '', description: '', classes_range: '', image: null, order: categories.length, is_active: true };
+                const newCat = { name: '', description: '', classes_range: '', image: null, order: categories.length + 1, is_active: true };
                 setEditingCategory(newCat);
                 setInitialCategoryData(newCat);
               }}

@@ -161,7 +161,7 @@ export default function StatsPage() {
         title: '',
         value: '',
         icon: '🏆',
-        order: academicHighlights.length,
+        order: academicHighlights.length + 1,
         is_active: true,
       };
   };

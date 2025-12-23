@@ -57,7 +57,7 @@ export default function SiteSettingsPage() {
   const [currentLink, setCurrentLink] = useState<Partial<QuickLink>>({
     title: '',
     url: '',
-    order: 0,
+    order: 1,
     is_active: true,
     open_in_new_tab: false,
   });
@@ -220,7 +220,7 @@ export default function SiteSettingsPage() {
     setCurrentLink({
       title: '',
       url: '',
-      order: 0,
+      order: quickLinks.length + 1,
       is_active: true,
       open_in_new_tab: false,
     });
