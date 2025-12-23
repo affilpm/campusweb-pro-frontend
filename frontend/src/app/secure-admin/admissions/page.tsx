@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import api from '@/lib/api';
 
 interface AdmissionSettings {
@@ -131,6 +131,29 @@ export default function AdmissionsManagementPage() {
       </div>
     );
   }
+
+  // Memoized save buttons to prevent re-renders
+  const saveSettingsButton = useMemo(() => (
+    <button
+      type="submit"
+      disabled={saving}
+      className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
+      style={{ willChange: 'auto', transform: 'translateZ(0)' }}
+    >
+      {saving ? 'Saving...' : 'Save Settings'}
+    </button>
+  ), [saving]);
+
+  const saveStepButton = useMemo(() => (
+    <button
+      onClick={handleSaveStep}
+      disabled={saving}
+      className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
+      style={{ willChange: 'auto', transform: 'translateZ(0)' }}
+    >
+      {saving ? 'Saving...' : 'Save'}
+    </button>
+  ), [saving, handleSaveStep]);
 
   return (
     <div className="space-y-8 max-w-4xl">
@@ -279,13 +302,7 @@ export default function AdmissionsManagementPage() {
         </div>
 
         <div className="flex justify-end pt-4">
-          <button
-            type="submit"
-            disabled={saving}
-            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
-          >
-            {saving ? 'Saving...' : 'Save Settings'}
-          </button>
+          {saveSettingsButton}
         </div>
       </form>
 
@@ -412,17 +429,7 @@ export default function AdmissionsManagementPage() {
               >
                 Cancel
               </button>
-              <button
-                onClick={handleSaveStep}
-                disabled={
-                  saving || 
-                  !editingStep.title ||
-                  !editingStep.description
-                }
-                className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
-              >
-                Save
-              </button>
+              {saveStepButton}
             </div>
           </div>
         </div>
