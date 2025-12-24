@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ContactPageData, SiteSettings } from '@/lib/public-types';
+import { renderHours } from '@/lib/utils';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import AnimatedSection from '@/components/ui/animated-section';
@@ -14,35 +15,7 @@ export default function ContactPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  // Helper to parse hours (JSON or newline-separated string)
-  const renderHours = (hoursString: string | undefined) => {
-    if (!hoursString) return null;
-    try {
-      const parsed = JSON.parse(hoursString);
-      if (Array.isArray(parsed)) {
-        return (
-          <div className="space-y-1">
-            {parsed.map((item: any, idx: number) => (
-              <div key={idx} className="flex justify-between gap-4">
-                <span className="font-medium text-gray-900">{item.day}</span>
-                <span className="text-gray-600">{item.time}</span>
-              </div>
-            ))}
-          </div>
-        );
-      }
-    } catch (e) {
-      // Fallback: split by newlines
-      return (
-        <div className="space-y-1">
-          {hoursString.split('\n').map((line, idx) => (
-             <div key={idx} className="text-gray-600">{line}</div>
-          ))}
-        </div>
-      );
-    }
-    return <p className="text-gray-600">{hoursString}</p>;
-  };
+  // renderHours is now imported from '@/lib/utils'
   
   const [formData, setFormData] = useState({
     name: '',
@@ -203,7 +176,9 @@ export default function ContactPage() {
                       </div>
                       <div className="flex-grow">
                         <h3 className="font-semibold text-gray-900 mb-1">School Hours</h3>
-                        {renderHours(data.school_hours)}
+                        <div className="whitespace-pre-line text-gray-600">
+                            {renderHours(data.school_hours)}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -218,7 +193,9 @@ export default function ContactPage() {
                       </div>
                       <div className="flex-grow">
                         <h3 className="font-semibold text-gray-900 mb-1">Office Hours</h3>
-                         {renderHours(data.office_hours)}
+                        <div className="whitespace-pre-line text-gray-600">
+                           {renderHours(data.office_hours)}
+                        </div>
                       </div>
                     </div>
                   )}

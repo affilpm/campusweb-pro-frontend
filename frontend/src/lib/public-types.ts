@@ -13,6 +13,8 @@ export interface SiteSettings {
   instagram_url: string;
   youtube_url: string;
   footer_text: string;
+  school_hours?: string;
+  office_hours?: string;
 }
 
 export interface HeroSection {

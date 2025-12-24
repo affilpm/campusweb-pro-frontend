@@ -28,7 +28,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Main Footer Content */}
-        <div className="py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* School Info */}
           <div className="lg:col-span-1">
             <motion.div
@@ -183,6 +183,71 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
               </ul>
             </motion.div>
           </div>
+          
+          {/* Hours (New Column) */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <h4 className="font-bold text-lg mb-6">Opening Hours</h4>
+              <div className="space-y-6 text-gray-400">
+                {siteSettings.school_hours && (
+                   <div>
+                     <h5 className="text-white font-medium mb-2">School Hours</h5>
+                     <div className="whitespace-pre-line text-sm">
+                        {(() => {
+                            try {
+                                const parsed = JSON.parse(siteSettings.school_hours);
+                                if(Array.isArray(parsed)) {
+                                    return (
+                                        <div className="space-y-1">
+                                            {parsed.map((row: any, i: number) => (
+                                                <div key={i} className="flex justify-between gap-4">
+                                                    <span>{row.day}</span>
+                                                    <span>{row.time}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )
+                                }
+                            } catch(e) {}
+                            return siteSettings.school_hours;
+                        })()}
+                     </div>
+                   </div>
+                )}
+                {siteSettings.office_hours && (
+                   <div>
+                     <h5 className="text-white font-medium mb-2">Office Hours</h5>
+                     <div className="whitespace-pre-line text-sm">
+                        {(() => {
+                            try {
+                                const parsed = JSON.parse(siteSettings.office_hours);
+                                if(Array.isArray(parsed)) {
+                                    return (
+                                        <div className="space-y-1">
+                                            {parsed.map((row: any, i: number) => (
+                                                <div key={i} className="flex justify-between gap-4">
+                                                    <span>{row.day}</span>
+                                                    <span>{row.time}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )
+                                }
+                            } catch(e) {}
+                            return siteSettings.office_hours;
+                        })()}
+                     </div>
+                   </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+
 
 
         </div>

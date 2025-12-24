@@ -19,3 +19,18 @@ export function truncate(str: string, length: number) {
   if (str.length <= length) return str;
   return str.slice(0, length) + '...';
 }
+// Helper to parse hours (JSON or newline-separated string)
+export const renderHours = (hoursString: string | undefined | null) => {
+  if (!hoursString) return null;
+  try {
+    const parsed = JSON.parse(hoursString);
+    if (Array.isArray(parsed)) {
+      return parsed.map((item: any, idx: number) => (
+        `${item.day}: ${item.time}`
+      )).join('\n');
+    }
+  } catch (e) {
+    // Fallback: it's a plain string
+  }
+  return hoursString;
+};
