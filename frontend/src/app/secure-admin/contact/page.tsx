@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, useCallback, useRef, memo } from 'react';
 import api from '@/lib/api';
 
 interface ContactPageData {
@@ -17,7 +17,7 @@ interface HourRow {
 }
 
 // Helper component for editing hours
-const HoursEditor = ({ 
+const HoursEditor = memo(({ 
   label, 
   value, 
   onChange 
@@ -27,12 +27,14 @@ const HoursEditor = ({
   onChange: (val: string) => void;
 }) => {
   const [rows, setRows] = useState<HourRow[]>([]);
+  const isLocalChange = useRef(false);
 
   // Parse initial value and handle async updates
   useEffect(() => {
     if (!value) {
        // Only set defaults if rows are also empty (initial load)
        if (rows.length === 0) {
+          // We mark this as NOT local change, so we accept defaults
           setRows([
             { day: 'Monday - Friday', time: '8:00 AM - 3:00 PM' },
             { day: 'Saturday', time: '8:00 AM - 12:00 PM' },
@@ -44,37 +46,56 @@ const HoursEditor = ({
 
     try {
       const parsed = JSON.parse(value);
-      // Avoid loop: only update if different from current rows
-      if (Array.isArray(parsed) && JSON.stringify(parsed) !== JSON.stringify(rows)) {
-        setRows(parsed);
+      if (Array.isArray(parsed)) {
+          const stringifiedRows = JSON.stringify(rows);
+          const stringifiedParsed = JSON.stringify(parsed);
+          
+          if (stringifiedParsed === stringifiedRows) {
+              // Synced
+              isLocalChange.current = false;
+              return;
+          }
+          
+          if (isLocalChange.current) {
+              // Value differs but we have local changes pending.
+              // Likely a stale echo from parent. Ignore.
+              return;
+          }
+          
+          setRows(parsed);
       }
     } catch (e) {
       // Ignore parse errors from value
     }
-  }, [value]);
+  }, [value, rows]); // Added rows dependency to ensure comparison is fresh
 
   // Update parent whenever rows change
   useEffect(() => {
+    // We only trigger if there's a real change to emit
     const stringified = JSON.stringify(rows);
-    // Avoid loop: only call onChange if different from incoming value
     if (stringified !== value) {
         onChange(stringified);
     }
-  }, [rows]);
+  }, [rows]); // value intentionally excluded locally to avoid redundant loops, actually we just fire event
 
-  const addRow = () => {
-    setRows([...rows, { day: '', time: '' }]);
-  };
+  const addRow = useCallback(() => {
+    isLocalChange.current = true;
+    setRows(prev => [...prev, { day: '', time: '' }]);
+  }, []);
 
-  const removeRow = (index: number) => {
-    setRows(rows.filter((_, i) => i !== index));
-  };
+  const removeRow = useCallback((index: number) => {
+    isLocalChange.current = true;
+    setRows(prev => prev.filter((_, i) => i !== index));
+  }, []);
 
-  const updateRow = (index: number, field: keyof HourRow, val: string) => {
-    const newRows = [...rows];
-    newRows[index] = { ...newRows[index], [field]: val };
-    setRows(newRows);
-  };
+  const updateRow = useCallback((index: number, field: keyof HourRow, val: string) => {
+    isLocalChange.current = true;
+    setRows(prev => {
+        const newRows = [...prev];
+        newRows[index] = { ...newRows[index], [field]: val };
+        return newRows;
+    });
+  }, []);
 
   return (
     <div className="space-y-3">
@@ -120,7 +141,8 @@ const HoursEditor = ({
       </div>
     </div>
   );
-};
+});
+HoursEditor.displayName = 'HoursEditor';
 
 export default function ContactPageAdmin() {
   const [data, setData] = useState<ContactPageData>({
@@ -160,14 +182,14 @@ export default function ContactPageAdmin() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setData(prev => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
-  const handleHoursChange = (name: 'school_hours' | 'office_hours', value: string) => {
+  const handleHoursChange = useCallback((name: 'school_hours' | 'office_hours', value: string) => {
     setData(prev => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
