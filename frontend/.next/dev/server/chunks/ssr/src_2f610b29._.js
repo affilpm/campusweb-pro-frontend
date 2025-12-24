@@ -410,12 +410,49 @@ function AcademicsAdminPage() {
             setSaving(false);
         }
     };
+    // Memoized save buttons to prevent re-renders
+    const savePageButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "submit",
+            disabled: saving,
+            className: "px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all",
+            children: saving ? 'Saving...' : 'Save Changes'
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+            lineNumber: 258,
+            columnNumber: 5
+        }, this), [
+        saving
+    ]);
+    const saveCategoryButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "submit",
+            disabled: saving,
+            className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50",
+            children: saving ? 'Saving...' : 'Save Category'
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+            lineNumber: 268,
+            columnNumber: 5
+        }, this), [
+        saving
+    ]);
+    const saveSubjectButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "submit",
+            disabled: saving,
+            className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50",
+            children: saving ? 'Saving...' : 'Save Subject'
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+            lineNumber: 278,
+            columnNumber: 5
+        }, this), [
+        saving
+    ]);
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "text-center p-8 text-gray-400",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-        lineNumber: 257,
+        lineNumber: 287,
         columnNumber: 23
     }, this);
     const tabs = [
@@ -447,7 +484,7 @@ function AcademicsAdminPage() {
                             children: "Academics Page"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 269,
+                            lineNumber: 299,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -455,18 +492,18 @@ function AcademicsAdminPage() {
                             children: "Manage curriculum, programs, and academic content"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 270,
+                            lineNumber: 300,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                    lineNumber: 268,
+                    lineNumber: 298,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 267,
+                lineNumber: 297,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -479,7 +516,7 @@ function AcademicsAdminPage() {
                             children: message.type === 'success' ? '✅' : '⚠️'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 281,
+                            lineNumber: 311,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -490,7 +527,7 @@ function AcademicsAdminPage() {
                                     children: message.type === 'success' ? 'Success' : 'Error'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 283,
+                                    lineNumber: 313,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -498,13 +535,13 @@ function AcademicsAdminPage() {
                                     children: message.text
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 284,
+                                    lineNumber: 314,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 282,
+                            lineNumber: 312,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -523,28 +560,28 @@ function AcademicsAdminPage() {
                                     d: "M6 18L18 6M6 6l12 12"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 291,
+                                    lineNumber: 321,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 290,
+                                lineNumber: 320,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 286,
+                            lineNumber: 316,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                    lineNumber: 280,
+                    lineNumber: 310,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 275,
+                lineNumber: 305,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -557,7 +594,7 @@ function AcademicsAdminPage() {
                                 children: tab.icon
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 310,
+                                lineNumber: 340,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -565,18 +602,18 @@ function AcademicsAdminPage() {
                                 children: tab.label
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 311,
+                                lineNumber: 341,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, tab.id, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 301,
+                        lineNumber: 331,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 299,
+                lineNumber: 329,
                 columnNumber: 7
             }, this),
             activeTab === 'page' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -591,7 +628,7 @@ function AcademicsAdminPage() {
                                 children: "Hero Section"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 321,
+                                lineNumber: 351,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -605,7 +642,7 @@ function AcademicsAdminPage() {
                                                 children: "Hero Title *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 324,
+                                                lineNumber: 354,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -618,13 +655,13 @@ function AcademicsAdminPage() {
                                                 placeholder: "Academics"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 355,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 323,
+                                        lineNumber: 353,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -635,7 +672,7 @@ function AcademicsAdminPage() {
                                                 children: "Hero Subtitle *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 336,
+                                                lineNumber: 366,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -648,25 +685,25 @@ function AcademicsAdminPage() {
                                                 placeholder: "Excellence in Education"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 337,
+                                                lineNumber: 367,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 335,
+                                        lineNumber: 365,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 322,
+                                lineNumber: 352,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 320,
+                        lineNumber: 350,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -677,7 +714,7 @@ function AcademicsAdminPage() {
                                 children: "Curriculum Section"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 352,
+                                lineNumber: 382,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -694,7 +731,7 @@ function AcademicsAdminPage() {
                                                         children: "Curriculum Title *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 356,
+                                                        lineNumber: 386,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -707,13 +744,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "Our Curriculum"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 357,
+                                                        lineNumber: 387,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 355,
+                                                lineNumber: 385,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -724,7 +761,7 @@ function AcademicsAdminPage() {
                                                         children: "Curriculum Content *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 368,
+                                                        lineNumber: 398,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -737,19 +774,19 @@ function AcademicsAdminPage() {
                                                         placeholder: "Describe your curriculum... Use new lines to separate paragraphs."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 399,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 367,
+                                                lineNumber: 397,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 354,
+                                        lineNumber: 384,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -759,24 +796,24 @@ function AcademicsAdminPage() {
                                             onChange: (file)=>setNewCurriculumImage(file)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                            lineNumber: 381,
+                                            lineNumber: 411,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 380,
+                                        lineNumber: 410,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 353,
+                                lineNumber: 383,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 351,
+                        lineNumber: 381,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -787,7 +824,7 @@ function AcademicsAdminPage() {
                                 children: "Teaching Methodology"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 392,
+                                lineNumber: 422,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -801,7 +838,7 @@ function AcademicsAdminPage() {
                                                 children: "Methodology Title *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 425,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -814,13 +851,13 @@ function AcademicsAdminPage() {
                                                 placeholder: "Our Teaching Methodology"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 396,
+                                                lineNumber: 426,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 394,
+                                        lineNumber: 424,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -831,7 +868,7 @@ function AcademicsAdminPage() {
                                                 children: "Methodology Content *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 407,
+                                                lineNumber: 437,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -844,25 +881,25 @@ function AcademicsAdminPage() {
                                                 placeholder: "Describe your teaching methodology..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 408,
+                                                lineNumber: 438,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 406,
+                                        lineNumber: 436,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 393,
+                                lineNumber: 423,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 391,
+                        lineNumber: 421,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -873,7 +910,7 @@ function AcademicsAdminPage() {
                                 children: "Academic Calendar"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 423,
+                                lineNumber: 453,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -887,7 +924,7 @@ function AcademicsAdminPage() {
                                                 children: "Calendar Section Title *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 426,
+                                                lineNumber: 456,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -900,13 +937,13 @@ function AcademicsAdminPage() {
                                                 placeholder: "Academic Calendar"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 427,
+                                                lineNumber: 457,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 425,
+                                        lineNumber: 455,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -917,69 +954,147 @@ function AcademicsAdminPage() {
                                                 children: "Calendar File (PDF)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 438,
+                                                lineNumber: 468,
                                                 columnNumber: 17
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "file",
-                                                accept: ".pdf,.doc,.docx",
-                                                onChange: (e)=>setNewCalendarFile(e.target.files?.[0] || null),
-                                                className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white file:cursor-pointer"
-                                            }, void 0, false, {
+                                            pageData.calendar_file && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-3 p-3 bg-green-500/10 rounded-lg border border-green-500/30 mb-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                        className: "w-5 h-5 text-green-400",
+                                                        fill: "none",
+                                                        viewBox: "0 0 24 24",
+                                                        stroke: "currentColor",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                            strokeLinecap: "round",
+                                                            strokeLinejoin: "round",
+                                                            strokeWidth: 2,
+                                                            d: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                            lineNumber: 472,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                        lineNumber: 471,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-sm text-green-400 flex-1",
+                                                        children: "Calendar file uploaded"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                        lineNumber: 474,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                        href: pageData.calendar_file,
+                                                        target: "_blank",
+                                                        rel: "noopener noreferrer",
+                                                        className: "text-sm text-indigo-400 hover:text-indigo-300",
+                                                        children: "View ↗"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                        lineNumber: 475,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 439,
+                                                lineNumber: 470,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "block",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: `inline-flex items-center gap-2 px-4 py-2.5 rounded-xl cursor-pointer transition-colors ${pageData.calendar_file ? 'bg-amber-600 hover:bg-amber-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'}`,
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                className: "w-5 h-5",
+                                                                fill: "none",
+                                                                viewBox: "0 0 24 24",
+                                                                stroke: "currentColor",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                    strokeLinecap: "round",
+                                                                    strokeLinejoin: "round",
+                                                                    strokeWidth: 2,
+                                                                    d: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                                    lineNumber: 492,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                                lineNumber: 491,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            pageData.calendar_file ? 'Replace Calendar File' : 'Upload Calendar File'
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                        lineNumber: 486,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "file",
+                                                        accept: ".pdf,.doc,.docx",
+                                                        onChange: (e)=>setNewCalendarFile(e.target.files?.[0] || null),
+                                                        className: "hidden"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                        lineNumber: 496,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/app/secure-admin/academics/page.tsx",
+                                                lineNumber: 485,
                                                 columnNumber: 17
                                             }, this),
-                                            pageData.calendar_file && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                                href: pageData.calendar_file,
-                                                target: "_blank",
-                                                rel: "noopener noreferrer",
-                                                className: "text-sm text-indigo-400 hover:text-indigo-300",
-                                                children: "View current file ↗"
-                                            }, void 0, false, {
+                                            newCalendarFile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-amber-400",
+                                                children: [
+                                                    "New file selected: ",
+                                                    newCalendarFile.name
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 446,
+                                                lineNumber: 504,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 437,
+                                        lineNumber: 467,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 424,
+                                lineNumber: 454,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 422,
+                        lineNumber: 452,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-end",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            type: "submit",
-                            disabled: saving || !initialPageData || JSON.stringify(pageData) === JSON.stringify(initialPageData) && !newCurriculumImage && !newCalendarFile || !pageData.hero_title || !pageData.hero_subtitle || !pageData.curriculum_title || !pageData.curriculum_content || !pageData.methodology_title || !pageData.methodology_content || !pageData.calendar_title,
-                            className: "px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all",
-                            children: saving ? 'Saving...' : 'Save Changes'
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 455,
-                            columnNumber: 13
-                        }, this)
+                        children: savePageButton
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 454,
+                        lineNumber: 512,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 318,
+                lineNumber: 348,
                 columnNumber: 9
             }, this),
             activeTab === 'categories' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -993,7 +1108,7 @@ function AcademicsAdminPage() {
                                 children: "Class Categories"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 481,
+                                lineNumber: 522,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1013,13 +1128,13 @@ function AcademicsAdminPage() {
                                 children: "+ Add Category"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 482,
+                                lineNumber: 523,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 480,
+                        lineNumber: 521,
                         columnNumber: 11
                     }, this),
                     editingCategory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1031,7 +1146,7 @@ function AcademicsAdminPage() {
                                 children: editingCategory.id ? 'Edit Category' : 'Add New Category'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 496,
+                                lineNumber: 537,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1048,7 +1163,7 @@ function AcademicsAdminPage() {
                                                         children: "Category Name *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 502,
+                                                        lineNumber: 543,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1063,13 +1178,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "e.g., Primary School"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 503,
+                                                        lineNumber: 544,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 501,
+                                                lineNumber: 542,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1080,7 +1195,7 @@ function AcademicsAdminPage() {
                                                         children: "Classes Range *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 513,
+                                                        lineNumber: 554,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1095,13 +1210,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "e.g., Classes I - V"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 514,
+                                                        lineNumber: 555,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 512,
+                                                lineNumber: 553,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1112,7 +1227,7 @@ function AcademicsAdminPage() {
                                                         children: "Description *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 524,
+                                                        lineNumber: 565,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1127,13 +1242,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "Describe this category..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 525,
+                                                        lineNumber: 566,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 523,
+                                                lineNumber: 564,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1147,7 +1262,7 @@ function AcademicsAdminPage() {
                                                                 children: "Order *"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 536,
+                                                                lineNumber: 577,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1161,13 +1276,13 @@ function AcademicsAdminPage() {
                                                                 className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 537,
+                                                                lineNumber: 578,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 535,
+                                                        lineNumber: 576,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1178,7 +1293,7 @@ function AcademicsAdminPage() {
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 546,
+                                                                lineNumber: 587,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1194,7 +1309,7 @@ function AcademicsAdminPage() {
                                                                         children: "Active"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                        lineNumber: 552,
+                                                                        lineNumber: 593,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1202,31 +1317,31 @@ function AcademicsAdminPage() {
                                                                         children: "Inactive"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                        lineNumber: 553,
+                                                                        lineNumber: 594,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 547,
+                                                                lineNumber: 588,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 545,
+                                                        lineNumber: 586,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 534,
+                                                lineNumber: 575,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 500,
+                                        lineNumber: 541,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1236,33 +1351,24 @@ function AcademicsAdminPage() {
                                             onChange: (file)=>setNewCategoryImage(file)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                            lineNumber: 559,
+                                            lineNumber: 600,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 558,
+                                        lineNumber: 599,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 499,
+                                lineNumber: 540,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex gap-3 mt-6",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        type: "submit",
-                                        disabled: saving || JSON.stringify(editingCategory) === JSON.stringify(initialCategoryData) && !newCategoryImage || !editingCategory.name || !editingCategory.classes_range || !editingCategory.description,
-                                        className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50",
-                                        children: saving ? 'Saving...' : 'Save Category'
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 567,
-                                        columnNumber: 17
-                                    }, this),
+                                    saveCategoryButton,
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "button",
                                         onClick: ()=>{
@@ -1273,19 +1379,19 @@ function AcademicsAdminPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 580,
+                                        lineNumber: 609,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 566,
+                                lineNumber: 607,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 495,
+                        lineNumber: 536,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1295,7 +1401,7 @@ function AcademicsAdminPage() {
                             children: "No categories yet. Add your first class category!"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 593,
+                            lineNumber: 622,
                             columnNumber: 15
                         }, this) : categories.sort((a, b)=>a.order - b.order).map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden hover:border-indigo-500/30 transition-colors",
@@ -1308,12 +1414,12 @@ function AcademicsAdminPage() {
                                             className: "w-full h-full object-cover"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                            lineNumber: 601,
+                                            lineNumber: 630,
                                             columnNumber: 23
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 600,
+                                        lineNumber: 629,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1329,7 +1435,7 @@ function AcademicsAdminPage() {
                                                                 children: category.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 607,
+                                                                lineNumber: 636,
                                                                 columnNumber: 25
                                                             }, this),
                                                             category.classes_range && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1337,13 +1443,13 @@ function AcademicsAdminPage() {
                                                                 children: category.classes_range
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 609,
+                                                                lineNumber: 638,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 606,
+                                                        lineNumber: 635,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1351,13 +1457,13 @@ function AcademicsAdminPage() {
                                                         children: category.is_active ? 'Active' : 'Inactive'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 612,
+                                                        lineNumber: 641,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 605,
+                                                lineNumber: 634,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1365,7 +1471,7 @@ function AcademicsAdminPage() {
                                                 children: category.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 616,
+                                                lineNumber: 645,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1380,7 +1486,7 @@ function AcademicsAdminPage() {
                                                         children: "Edit"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 618,
+                                                        lineNumber: 647,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1392,36 +1498,36 @@ function AcademicsAdminPage() {
                                                         children: "Delete"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 627,
+                                                        lineNumber: 656,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 617,
+                                                lineNumber: 646,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 604,
+                                        lineNumber: 633,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, category.id, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 598,
+                                lineNumber: 627,
                                 columnNumber: 17
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 591,
+                        lineNumber: 620,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 479,
+                lineNumber: 520,
                 columnNumber: 9
             }, this),
             activeTab === 'subjects' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1435,7 +1541,7 @@ function AcademicsAdminPage() {
                                 children: "Subjects"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 646,
+                                lineNumber: 675,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1454,13 +1560,13 @@ function AcademicsAdminPage() {
                                 children: "+ Add Subject"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 647,
+                                lineNumber: 676,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 645,
+                        lineNumber: 674,
                         columnNumber: 11
                     }, this),
                     editingSubject && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1472,7 +1578,7 @@ function AcademicsAdminPage() {
                                 children: editingSubject.id ? 'Edit Subject' : 'Add New Subject'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 661,
+                                lineNumber: 690,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1489,7 +1595,7 @@ function AcademicsAdminPage() {
                                                         children: "Subject Name *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 667,
+                                                        lineNumber: 696,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1504,13 +1610,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "e.g., Mathematics"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 668,
+                                                        lineNumber: 697,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 666,
+                                                lineNumber: 695,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1521,7 +1627,7 @@ function AcademicsAdminPage() {
                                                         children: "Icon (emoji) *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 678,
+                                                        lineNumber: 707,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1536,13 +1642,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "e.g., 📐"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 679,
+                                                        lineNumber: 708,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 677,
+                                                lineNumber: 706,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1553,7 +1659,7 @@ function AcademicsAdminPage() {
                                                         children: "Class Categories"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 689,
+                                                        lineNumber: 718,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1561,7 +1667,7 @@ function AcademicsAdminPage() {
                                                         children: "Select all categories where this subject is taught"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 690,
+                                                        lineNumber: 719,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1571,7 +1677,7 @@ function AcademicsAdminPage() {
                                                             children: "No categories available. Create categories first."
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                            lineNumber: 693,
+                                                            lineNumber: 722,
                                                             columnNumber: 25
                                                         }, this) : categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: "flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer",
@@ -1598,7 +1704,7 @@ function AcademicsAdminPage() {
                                                                         className: "w-4 h-4 rounded border-white/20 bg-white/5 text-indigo-600 focus:ring-indigo-500"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                        lineNumber: 697,
+                                                                        lineNumber: 726,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1606,7 +1712,7 @@ function AcademicsAdminPage() {
                                                                         children: cat.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                        lineNumber: 709,
+                                                                        lineNumber: 738,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     cat.classes_range && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1618,30 +1724,30 @@ function AcademicsAdminPage() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                        lineNumber: 710,
+                                                                        lineNumber: 739,
                                                                         columnNumber: 51
                                                                     }, this)
                                                                 ]
                                                             }, cat.id, true, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 696,
+                                                                lineNumber: 725,
                                                                 columnNumber: 27
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 691,
+                                                        lineNumber: 720,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 688,
+                                                lineNumber: 717,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 665,
+                                        lineNumber: 694,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1655,7 +1761,7 @@ function AcademicsAdminPage() {
                                                         children: "Description"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 719,
+                                                        lineNumber: 748,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1669,13 +1775,13 @@ function AcademicsAdminPage() {
                                                         placeholder: "Describe this subject..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 720,
+                                                        lineNumber: 749,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 718,
+                                                lineNumber: 747,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1686,7 +1792,7 @@ function AcademicsAdminPage() {
                                                         children: "Status"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 729,
+                                                        lineNumber: 758,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1702,7 +1808,7 @@ function AcademicsAdminPage() {
                                                                 children: "Active"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 735,
+                                                                lineNumber: 764,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1710,46 +1816,37 @@ function AcademicsAdminPage() {
                                                                 children: "Inactive"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 736,
+                                                                lineNumber: 765,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                        lineNumber: 730,
+                                                        lineNumber: 759,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                lineNumber: 728,
+                                                lineNumber: 757,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 717,
+                                        lineNumber: 746,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 664,
+                                lineNumber: 693,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex gap-3 mt-6",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        type: "submit",
-                                        disabled: saving || JSON.stringify(editingSubject) === JSON.stringify(initialSubjectData) || !editingSubject.name || !editingSubject.icon,
-                                        className: "px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-colors disabled:opacity-50",
-                                        children: saving ? 'Saving...' : 'Save Subject'
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 742,
-                                        columnNumber: 17
-                                    }, this),
+                                    saveSubjectButton,
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "button",
                                         onClick: ()=>setEditingSubject(null),
@@ -1757,19 +1854,19 @@ function AcademicsAdminPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                        lineNumber: 754,
+                                        lineNumber: 772,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                lineNumber: 741,
+                                lineNumber: 770,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 660,
+                        lineNumber: 689,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1779,7 +1876,7 @@ function AcademicsAdminPage() {
                             children: "No subjects yet. Add your first subject!"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 767,
+                            lineNumber: 785,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "divide-y divide-white/5",
@@ -1796,7 +1893,7 @@ function AcademicsAdminPage() {
                                                     children: subject.icon || '📚'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                    lineNumber: 777,
+                                                    lineNumber: 795,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1806,7 +1903,7 @@ function AcademicsAdminPage() {
                                                             children: subject.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                            lineNumber: 781,
+                                                            lineNumber: 799,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1816,31 +1913,31 @@ function AcademicsAdminPage() {
                                                                     children: cat.name
                                                                 }, cat.id, false, {
                                                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                    lineNumber: 785,
+                                                                    lineNumber: 803,
                                                                     columnNumber: 33
                                                                 }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "text-gray-500",
                                                                 children: "No categories assigned"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                                lineNumber: 790,
+                                                                lineNumber: 808,
                                                                 columnNumber: 31
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                            lineNumber: 782,
+                                                            lineNumber: 800,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                    lineNumber: 780,
+                                                    lineNumber: 798,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                            lineNumber: 776,
+                                            lineNumber: 794,
                                             columnNumber: 23
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1851,7 +1948,7 @@ function AcademicsAdminPage() {
                                                     children: subject.is_active ? 'Active' : 'Inactive'
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                    lineNumber: 796,
+                                                    lineNumber: 814,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1866,7 +1963,7 @@ function AcademicsAdminPage() {
                                                             children: "✏️"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                            lineNumber: 800,
+                                                            lineNumber: 818,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1878,42 +1975,42 @@ function AcademicsAdminPage() {
                                                             children: "🗑️"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                            lineNumber: 809,
+                                                            lineNumber: 827,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                                    lineNumber: 799,
+                                                    lineNumber: 817,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                            lineNumber: 795,
+                                            lineNumber: 813,
                                             columnNumber: 23
                                         }, this)
                                     ]
                                 }, subject.id, true, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 775,
+                                    lineNumber: 793,
                                     columnNumber: 21
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 771,
+                            lineNumber: 789,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                        lineNumber: 765,
+                        lineNumber: 783,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 644,
+                lineNumber: 673,
                 columnNumber: 9
             }, this),
             deleteParams && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1926,7 +2023,7 @@ function AcademicsAdminPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 829,
+                            lineNumber: 847,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1938,7 +2035,7 @@ function AcademicsAdminPage() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 830,
+                            lineNumber: 848,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1951,7 +2048,7 @@ function AcademicsAdminPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 835,
+                                    lineNumber: 853,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1961,30 +2058,30 @@ function AcademicsAdminPage() {
                                     children: saving ? 'Deleting...' : 'Delete'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                                    lineNumber: 842,
+                                    lineNumber: 860,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                            lineNumber: 834,
+                            lineNumber: 852,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                    lineNumber: 828,
+                    lineNumber: 846,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-                lineNumber: 827,
+                lineNumber: 845,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/academics/page.tsx",
-        lineNumber: 266,
+        lineNumber: 296,
         columnNumber: 5
     }, this);
 }

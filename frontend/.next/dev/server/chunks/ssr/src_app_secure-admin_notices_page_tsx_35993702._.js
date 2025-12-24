@@ -373,7 +373,9 @@ function NoticesPage() {
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
-                onClick: ()=>setIsModalOpen(false),
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) setIsModalOpen(false);
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto",
                     onClick: (e)=>e.stopPropagation(),
@@ -696,7 +698,7 @@ function NoticesPage() {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            disabled: saving || JSON.stringify(currentNotice) === JSON.stringify(initialModalData) && !selectedFile || !currentNotice.title || !currentNotice.content || !currentNotice.publish_date,
+                                            disabled: saving || !currentNotice.title || !currentNotice.content || !currentNotice.publish_date,
                                             className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
                                             children: saving ? 'Saving...' : 'Save Notice'
                                         }, void 0, false, {
@@ -737,7 +739,7 @@ function NoticesPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                            lineNumber: 341,
+                            lineNumber: 340,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -745,7 +747,7 @@ function NoticesPage() {
                             children: "Are you sure you want to delete this notice? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                            lineNumber: 342,
+                            lineNumber: 341,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -758,7 +760,7 @@ function NoticesPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                                    lineNumber: 346,
+                                    lineNumber: 345,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -768,24 +770,24 @@ function NoticesPage() {
                                     children: saving ? 'Deleting...' : 'Delete'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                                    lineNumber: 353,
+                                    lineNumber: 352,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                            lineNumber: 345,
+                            lineNumber: 344,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                    lineNumber: 340,
+                    lineNumber: 339,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/notices/page.tsx",
-                lineNumber: 339,
+                lineNumber: 338,
                 columnNumber: 9
             }, this)
         ]

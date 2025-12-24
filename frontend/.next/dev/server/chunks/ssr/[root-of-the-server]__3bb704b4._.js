@@ -1768,6 +1768,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$mo
 ;
 ;
 function PrincipalSection({ data }) {
+    // Don't show section if no principal data
+    if (!data.name && !data.message) {
+        return null;
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "py-12 sm:py-16 lg:py-20 bg-gray-50",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1794,7 +1798,7 @@ function PrincipalSection({ data }) {
                                 className: "absolute inset-0 w-full h-full object-cover"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/principal-section.tsx",
-                                lineNumber: 24,
+                                lineNumber: 29,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center",
@@ -1803,17 +1807,17 @@ function PrincipalSection({ data }) {
                                     children: data.name?.charAt(0) || 'P'
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/principal-section.tsx",
-                                    lineNumber: 31,
+                                    lineNumber: 36,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/home/principal-section.tsx",
-                                lineNumber: 30,
+                                lineNumber: 35,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/home/principal-section.tsx",
-                            lineNumber: 17,
+                            lineNumber: 22,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1838,7 +1842,7 @@ function PrincipalSection({ data }) {
                                     children: "Principal's Message"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/home/principal-section.tsx",
-                                    lineNumber: 44,
+                                    lineNumber: 49,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1849,7 +1853,7 @@ function PrincipalSection({ data }) {
                                             children: '"'
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/principal-section.tsx",
-                                            lineNumber: 49,
+                                            lineNumber: 54,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("blockquote", {
@@ -1857,13 +1861,13 @@ function PrincipalSection({ data }) {
                                             children: data.message || "Education is the most powerful weapon which you can use to change the world. We are committed to nurturing young minds."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/principal-section.tsx",
-                                            lineNumber: 50,
+                                            lineNumber: 55,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/home/principal-section.tsx",
-                                    lineNumber: 48,
+                                    lineNumber: 53,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1874,7 +1878,7 @@ function PrincipalSection({ data }) {
                                             children: data.name || 'Principal Name'
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/principal-section.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 61,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1882,7 +1886,7 @@ function PrincipalSection({ data }) {
                                             children: data.title || 'Principal'
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/principal-section.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 62,
                                             columnNumber: 17
                                         }, this),
                                         data.qualification && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1890,40 +1894,40 @@ function PrincipalSection({ data }) {
                                             children: data.qualification
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/home/principal-section.tsx",
-                                            lineNumber: 59,
+                                            lineNumber: 64,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/home/principal-section.tsx",
-                                    lineNumber: 55,
+                                    lineNumber: 60,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/home/principal-section.tsx",
-                            lineNumber: 37,
+                            lineNumber: 42,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/home/principal-section.tsx",
-                    lineNumber: 15,
+                    lineNumber: 20,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/home/principal-section.tsx",
-                lineNumber: 14,
+                lineNumber: 19,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/components/home/principal-section.tsx",
-            lineNumber: 13,
+            lineNumber: 18,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/home/principal-section.tsx",
-        lineNumber: 12,
+        lineNumber: 17,
         columnNumber: 5
     }, this);
 }

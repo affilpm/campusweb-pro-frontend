@@ -176,6 +176,7 @@ function AchievementsManagementPage() {
     const [initialEditingData, setInitialEditingData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [showModal, setShowModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [newImage, setNewImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [saving, setSaving] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [deleteId, setDeleteId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetchData();
@@ -192,6 +193,7 @@ function AchievementsManagementPage() {
     };
     const handleSave = async ()=>{
         if (!editing) return;
+        setSaving(true);
         try {
             const formData = new FormData();
             formData.append('title', editing.title);
@@ -223,6 +225,8 @@ function AchievementsManagementPage() {
             setInitialEditingData(null);
         } catch (error) {
             console.error('Error saving achievement:', error);
+        } finally{
+            setSaving(false);
         }
     };
     const requestDelete = (id)=>{
@@ -246,12 +250,12 @@ function AchievementsManagementPage() {
                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 98,
+                lineNumber: 102,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-            lineNumber: 97,
+            lineNumber: 101,
             columnNumber: 7
         }, this);
     }
@@ -268,7 +272,7 @@ function AchievementsManagementPage() {
                                 children: "Achievements & Awards"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 107,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -276,13 +280,13 @@ function AchievementsManagementPage() {
                                 children: "Manage school achievements and awards"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 108,
+                                lineNumber: 112,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                        lineNumber: 106,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -315,25 +319,25 @@ function AchievementsManagementPage() {
                                     d: "M12 4v16m8-8H4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 126,
+                                lineNumber: 130,
                                 columnNumber: 11
                             }, this),
                             "Add Achievement"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 114,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 105,
+                lineNumber: 109,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -351,7 +355,7 @@ function AchievementsManagementPage() {
                                                 children: achievement.title
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                lineNumber: 139,
+                                                lineNumber: 143,
                                                 columnNumber: 17
                                             }, this),
                                             achievement.year && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -359,13 +363,13 @@ function AchievementsManagementPage() {
                                                 children: achievement.year
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                lineNumber: 141,
+                                                lineNumber: 145,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 142,
                                         columnNumber: 15
                                     }, this),
                                     achievement.is_featured && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -373,13 +377,13 @@ function AchievementsManagementPage() {
                                         children: "Featured"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 149,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 137,
+                                lineNumber: 141,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -387,7 +391,7 @@ function AchievementsManagementPage() {
                                 children: achievement.description
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 148,
+                                lineNumber: 152,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -405,7 +409,7 @@ function AchievementsManagementPage() {
                                         children: "Edit"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 154,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -414,24 +418,24 @@ function AchievementsManagementPage() {
                                         children: "Delete"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 164,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                lineNumber: 149,
+                                lineNumber: 153,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, achievement.id, true, {
                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                        lineNumber: 136,
+                        lineNumber: 140,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 134,
+                lineNumber: 138,
                 columnNumber: 7
             }, this),
             achievements.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,7 +446,7 @@ function AchievementsManagementPage() {
                         children: "🏆"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                        lineNumber: 173,
+                        lineNumber: 177,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -450,21 +454,23 @@ function AchievementsManagementPage() {
                         children: "No achievements yet. Add your first achievement!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                        lineNumber: 174,
+                        lineNumber: 178,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 172,
+                lineNumber: 176,
                 columnNumber: 9
             }, this),
             showModal && editing && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
-                onClick: ()=>{
-                    setShowModal(false);
-                    setEditing(null);
-                    setNewImage(null);
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) {
+                        setShowModal(false);
+                        setEditing(null);
+                        setNewImage(null);
+                    }
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-lg flex flex-col max-h-[90vh] shadow-2xl",
@@ -478,7 +484,7 @@ function AchievementsManagementPage() {
                                     children: editing.id ? 'Edit Achievement' : 'Add Achievement'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 193,
+                                    lineNumber: 199,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -499,23 +505,23 @@ function AchievementsManagementPage() {
                                             d: "M6 18L18 6M6 6l12 12"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 204,
+                                            lineNumber: 210,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 209,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 196,
+                                    lineNumber: 202,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 192,
+                            lineNumber: 198,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -529,7 +535,7 @@ function AchievementsManagementPage() {
                                             children: "Title *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 211,
+                                            lineNumber: 217,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -543,13 +549,13 @@ function AchievementsManagementPage() {
                                             className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 212,
+                                            lineNumber: 218,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 210,
+                                    lineNumber: 216,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -560,7 +566,7 @@ function AchievementsManagementPage() {
                                             children: "Description *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 221,
+                                            lineNumber: 227,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -574,13 +580,13 @@ function AchievementsManagementPage() {
                                             className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 222,
+                                            lineNumber: 228,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 220,
+                                    lineNumber: 226,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -591,7 +597,7 @@ function AchievementsManagementPage() {
                                             children: "Year"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 231,
+                                            lineNumber: 237,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -605,13 +611,13 @@ function AchievementsManagementPage() {
                                             placeholder: "Optional"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 238,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 230,
+                                    lineNumber: 236,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -622,7 +628,7 @@ function AchievementsManagementPage() {
                                             children: "Image"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 241,
+                                            lineNumber: 247,
                                             columnNumber: 16
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$admin$2f$image$2d$upload$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -638,13 +644,13 @@ function AchievementsManagementPage() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 242,
+                                            lineNumber: 248,
                                             columnNumber: 16
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 240,
+                                    lineNumber: 246,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -663,7 +669,7 @@ function AchievementsManagementPage() {
                                                     className: "w-5 h-5 rounded border-gray-600 bg-gray-700 text-purple-600 focus:ring-purple-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                    lineNumber: 254,
+                                                    lineNumber: 260,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -671,13 +677,13 @@ function AchievementsManagementPage() {
                                                     children: "Featured"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                    lineNumber: 260,
+                                                    lineNumber: 266,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 253,
+                                            lineNumber: 259,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -693,7 +699,7 @@ function AchievementsManagementPage() {
                                                     className: "w-5 h-5 rounded border-gray-600 bg-gray-700 text-purple-600 focus:ring-purple-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                    lineNumber: 263,
+                                                    lineNumber: 269,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -701,25 +707,25 @@ function AchievementsManagementPage() {
                                                     children: "Active"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                                    lineNumber: 269,
+                                                    lineNumber: 275,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                            lineNumber: 262,
+                                            lineNumber: 268,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 252,
+                                    lineNumber: 258,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 209,
+                            lineNumber: 215,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -735,34 +741,34 @@ function AchievementsManagementPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 275,
+                                    lineNumber: 281,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleSave,
-                                    disabled: loading || !newImage && JSON.stringify(editing) === JSON.stringify(initialEditingData) || !editing.title || !editing.description,
+                                    disabled: saving || !editing.title || !editing.description,
                                     className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
                                     children: "Save"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 285,
+                                    lineNumber: 291,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 274,
+                            lineNumber: 280,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                    lineNumber: 188,
+                    lineNumber: 194,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 180,
+                lineNumber: 184,
                 columnNumber: 9
             }, this),
             deleteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -775,7 +781,7 @@ function AchievementsManagementPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 304,
+                            lineNumber: 309,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -783,7 +789,7 @@ function AchievementsManagementPage() {
                             children: "Are you sure you want to delete this achievement? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 305,
+                            lineNumber: 310,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -795,7 +801,7 @@ function AchievementsManagementPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 309,
+                                    lineNumber: 314,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -804,30 +810,30 @@ function AchievementsManagementPage() {
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                                    lineNumber: 315,
+                                    lineNumber: 320,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                            lineNumber: 308,
+                            lineNumber: 313,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                    lineNumber: 303,
+                    lineNumber: 308,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-                lineNumber: 302,
+                lineNumber: 307,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/achievements/page.tsx",
-        lineNumber: 104,
+        lineNumber: 108,
         columnNumber: 5
     }, this);
 }

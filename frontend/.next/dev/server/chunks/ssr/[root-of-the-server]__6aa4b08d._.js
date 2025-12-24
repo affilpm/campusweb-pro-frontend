@@ -100,7 +100,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f
 ;
 async function getFacilitiesData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
         // Fetch homepage data for site settings and quick links
         const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
             next: {

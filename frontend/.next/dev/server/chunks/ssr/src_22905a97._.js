@@ -346,12 +346,71 @@ function FacilitiesPage() {
             setSaving(false);
         }
     };
+    // Memoized save button to prevent re-renders
+    const saveButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "submit",
+            disabled: saving,
+            className: "px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg",
+            style: {
+                willChange: 'auto',
+                transform: 'translateZ(0)'
+            },
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "inline-flex items-center gap-2",
+                children: [
+                    saving && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                        className: "animate-spin h-4 w-4",
+                        xmlns: "http://www.w3.org/2000/svg",
+                        fill: "none",
+                        viewBox: "0 0 24 24",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("circle", {
+                                className: "opacity-25",
+                                cx: "12",
+                                cy: "12",
+                                r: "10",
+                                stroke: "currentColor",
+                                strokeWidth: "4"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
+                                lineNumber: 155,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                className: "opacity-75",
+                                fill: "currentColor",
+                                d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
+                                lineNumber: 156,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
+                        lineNumber: 154,
+                        columnNumber: 11
+                    }, this),
+                    saving ? 'Saving...' : 'Save Facility'
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
+                lineNumber: 152,
+                columnNumber: 7
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
+            lineNumber: 146,
+            columnNumber: 5
+        }, this), [
+        saving
+    ]);
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "text-center p-8 text-gray-400",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-        lineNumber: 144,
+        lineNumber: 164,
         columnNumber: 23
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -367,7 +426,7 @@ function FacilitiesPage() {
                                 children: "Facilities"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 150,
+                                lineNumber: 170,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -375,13 +434,13 @@ function FacilitiesPage() {
                                 children: "Manage school facilities with galleries"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 151,
+                                lineNumber: 171,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 149,
+                        lineNumber: 169,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -410,25 +469,25 @@ function FacilitiesPage() {
                                     d: "M12 4v16m8-8H4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 184,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 163,
+                                lineNumber: 183,
                                 columnNumber: 11
                             }, this),
                             "Add Facility"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 153,
+                        lineNumber: 173,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 148,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -436,7 +495,7 @@ function FacilitiesPage() {
                 children: message.text
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 171,
+                lineNumber: 191,
                 columnNumber: 9
             }, this),
             facilities.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -447,7 +506,7 @@ function FacilitiesPage() {
                         children: "🏫"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 180,
+                        lineNumber: 200,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -455,7 +514,7 @@ function FacilitiesPage() {
                         children: "No Facilities Yet"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 181,
+                        lineNumber: 201,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -463,7 +522,7 @@ function FacilitiesPage() {
                         children: "Add your first facility to display on the website"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 182,
+                        lineNumber: 202,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -481,13 +540,13 @@ function FacilitiesPage() {
                         children: "Add First Facility"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 183,
+                        lineNumber: 203,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 179,
+                lineNumber: 199,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
@@ -499,7 +558,7 @@ function FacilitiesPage() {
                                 children: facility.is_active ? 'Active' : 'Inactive'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 205,
+                                lineNumber: 225,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -511,14 +570,14 @@ function FacilitiesPage() {
                                         className: "w-full h-full object-cover"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 214,
+                                        lineNumber: 234,
                                         columnNumber: 19
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: "text-6xl opacity-50",
                                         children: facility.icon
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 236,
                                         columnNumber: 19
                                     }, this),
                                     facility.gallery_count > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -528,7 +587,7 @@ function FacilitiesPage() {
                                                 children: "📷"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 221,
+                                                lineNumber: 241,
                                                 columnNumber: 21
                                             }, this),
                                             " ",
@@ -537,13 +596,13 @@ function FacilitiesPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 240,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 212,
+                                lineNumber: 232,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -557,7 +616,7 @@ function FacilitiesPage() {
                                                 children: facility.icon
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 249,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -568,7 +627,7 @@ function FacilitiesPage() {
                                                         children: facility.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 251,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -581,19 +640,19 @@ function FacilitiesPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 252,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 250,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 248,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -601,7 +660,7 @@ function FacilitiesPage() {
                                         children: facility.short_description
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 255,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -613,7 +672,7 @@ function FacilitiesPage() {
                                                 children: "📷 Gallery"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 239,
+                                                lineNumber: 259,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -622,7 +681,7 @@ function FacilitiesPage() {
                                                 children: facility.is_active ? 'Hide' : 'Show'
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 245,
+                                                lineNumber: 265,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -640,17 +699,17 @@ function FacilitiesPage() {
                                                         d: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 260,
+                                                        lineNumber: 280,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                    lineNumber: 259,
+                                                    lineNumber: 279,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 255,
+                                                lineNumber: 275,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -668,45 +727,47 @@ function FacilitiesPage() {
                                                         d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 288,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                    lineNumber: 267,
+                                                    lineNumber: 287,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 263,
+                                                lineNumber: 283,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 238,
+                                        lineNumber: 258,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                lineNumber: 227,
+                                lineNumber: 247,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, facility.id, true, {
                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                        lineNumber: 198,
+                        lineNumber: 218,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 196,
+                lineNumber: 216,
                 columnNumber: 9
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
-                onClick: ()=>setIsModalOpen(false),
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) setIsModalOpen(false);
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto",
                     onClick: (e)=>e.stopPropagation(),
@@ -719,7 +780,7 @@ function FacilitiesPage() {
                                     children: currentFacility.id ? 'Edit Facility' : 'Add Facility'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 289,
+                                    lineNumber: 309,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -737,23 +798,23 @@ function FacilitiesPage() {
                                             d: "M6 18L18 6M6 6l12 12"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 294,
+                                            lineNumber: 314,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 293,
+                                        lineNumber: 313,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 292,
+                                    lineNumber: 312,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                            lineNumber: 288,
+                            lineNumber: 308,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -768,7 +829,7 @@ function FacilitiesPage() {
                                             children: "Facility Name *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 301,
+                                            lineNumber: 321,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -783,13 +844,13 @@ function FacilitiesPage() {
                                             placeholder: "e.g., Library, Computer Lab"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 302,
+                                            lineNumber: 322,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 320,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -800,7 +861,7 @@ function FacilitiesPage() {
                                             children: "Description *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 313,
+                                            lineNumber: 333,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -815,13 +876,13 @@ function FacilitiesPage() {
                                             placeholder: "Brief description shown on facility cards..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 314,
+                                            lineNumber: 334,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 312,
+                                    lineNumber: 332,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -832,7 +893,7 @@ function FacilitiesPage() {
                                             children: "Long Description (for detail page)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 325,
+                                            lineNumber: 345,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -846,13 +907,13 @@ function FacilitiesPage() {
                                             placeholder: "Detailed description for the facility page..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 326,
+                                            lineNumber: 346,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 324,
+                                    lineNumber: 344,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -863,7 +924,7 @@ function FacilitiesPage() {
                                             children: "Icon"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 336,
+                                            lineNumber: 356,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -879,18 +940,18 @@ function FacilitiesPage() {
                                                     children: icon.value
                                                 }, icon.value, false, {
                                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                    lineNumber: 339,
+                                                    lineNumber: 359,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 337,
+                                            lineNumber: 357,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 335,
+                                    lineNumber: 355,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -904,7 +965,7 @@ function FacilitiesPage() {
                                                     children: "Display Order"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                    lineNumber: 358,
+                                                    lineNumber: 378,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -918,13 +979,13 @@ function FacilitiesPage() {
                                                             }))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                    lineNumber: 359,
+                                                    lineNumber: 379,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 357,
+                                            lineNumber: 377,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -942,7 +1003,7 @@ function FacilitiesPage() {
                                                         className: "w-5 h-5 rounded border-gray-600 bg-gray-700 text-purple-600 focus:ring-purple-500"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 369,
+                                                        lineNumber: 389,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -950,24 +1011,24 @@ function FacilitiesPage() {
                                                         children: "Active"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                        lineNumber: 375,
+                                                        lineNumber: 395,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                                lineNumber: 368,
+                                                lineNumber: 388,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 367,
+                                            lineNumber: 387,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 356,
+                                    lineNumber: 376,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -977,12 +1038,12 @@ function FacilitiesPage() {
                                         onChange: (file)=>setNewImage(file)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                        lineNumber: 381,
+                                        lineNumber: 401,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 380,
+                                    lineNumber: 400,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -995,40 +1056,31 @@ function FacilitiesPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 389,
+                                            lineNumber: 409,
                                             columnNumber: 17
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                            type: "submit",
-                                            disabled: saving || JSON.stringify(currentFacility) === JSON.stringify(initialModalData) && !newImage || !currentFacility.name || !currentFacility.short_description,
-                                            className: "px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg",
-                                            children: saving ? 'Saving...' : 'Save Facility'
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                            lineNumber: 396,
-                                            columnNumber: 17
-                                        }, this)
+                                        saveButton
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 388,
+                                    lineNumber: 408,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                            lineNumber: 299,
+                            lineNumber: 319,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                    lineNumber: 284,
+                    lineNumber: 304,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 280,
+                lineNumber: 300,
                 columnNumber: 9
             }, this),
             deleteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1041,7 +1093,7 @@ function FacilitiesPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                            lineNumber: 416,
+                            lineNumber: 425,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1049,7 +1101,7 @@ function FacilitiesPage() {
                             children: "Are you sure you want to delete this facility? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                            lineNumber: 417,
+                            lineNumber: 426,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1061,7 +1113,7 @@ function FacilitiesPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 421,
+                                    lineNumber: 430,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1070,30 +1122,30 @@ function FacilitiesPage() {
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                                    lineNumber: 427,
+                                    lineNumber: 436,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                            lineNumber: 420,
+                            lineNumber: 429,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                    lineNumber: 415,
+                    lineNumber: 424,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-                lineNumber: 414,
+                lineNumber: 423,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/facilities/page.tsx",
-        lineNumber: 147,
+        lineNumber: 167,
         columnNumber: 5
     }, this);
 }

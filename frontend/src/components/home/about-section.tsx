@@ -58,7 +58,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
               {data.title || 'A Legacy of Excellence in Education'}
             </h2>
             
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 lg:mb-10 leading-relaxed line-clamp-5 lg:line-clamp-6">
               {data.content || 'We are committed to providing a nurturing environment where every child can discover their potential and achieve excellence in academics, sports, and character development.'}
             </p>
 

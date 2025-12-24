@@ -179,6 +179,10 @@ function GalleryPage() {
     const [newImage, setNewImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [saving, setSaving] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [deleteId, setDeleteId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Category modal state
+    const [isCategoryModalOpen, setIsCategoryModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [editingCategory, setEditingCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
+    const [deleteCategoryId, setDeleteCategoryId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetchData();
     }, []);
@@ -229,7 +233,7 @@ function GalleryPage() {
                 formData.append('image', newImage);
             }
             if (currentImage.id) {
-                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].put(`/api/admin/content/gallery/images/${currentImage.id}/`, formData, {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].patch(`/api/admin/content/gallery/images/${currentImage.id}/`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -251,12 +255,43 @@ function GalleryPage() {
             setSaving(false);
         }
     };
+    // Category handlers
+    const handleSaveCategory = async (e)=>{
+        e.preventDefault();
+        setSaving(true);
+        try {
+            if (editingCategory.id) {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].put(`/api/admin/content/gallery/categories/${editingCategory.id}/`, editingCategory);
+            } else {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post('/api/admin/content/gallery/categories/', editingCategory);
+            }
+            fetchData();
+            setIsCategoryModalOpen(false);
+            setEditingCategory({});
+        } catch (error) {
+            console.error('Error saving category:', error);
+        } finally{
+            setSaving(false);
+        }
+    };
+    const confirmDeleteCategory = async ()=>{
+        if (!deleteCategoryId) return;
+        try {
+            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].delete(`/api/admin/content/gallery/categories/${deleteCategoryId}/`);
+            setCategories(categories.filter((c)=>c.id !== deleteCategoryId));
+            fetchData();
+        } catch (error) {
+            console.error('Error deleting category:', error);
+        } finally{
+            setDeleteCategoryId(null);
+        }
+    };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "text-center p-8 text-gray-400",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-        lineNumber: 111,
+        lineNumber: 149,
         columnNumber: 23
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -272,7 +307,7 @@ function GalleryPage() {
                                 children: "Gallery"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                lineNumber: 117,
+                                lineNumber: 155,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -280,56 +315,241 @@ function GalleryPage() {
                                 children: "Manage photo gallery"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                lineNumber: 118,
+                                lineNumber: 156,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                        lineNumber: 116,
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>{
-                            const newImg = {};
-                            setCurrentImage(newImg);
-                            setInitialModalData(newImg);
-                            setNewImage(null);
-                            setIsModalOpen(true);
-                        },
-                        className: "px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center gap-2",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex gap-3",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                className: "w-5 h-5",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    strokeWidth: 2,
-                                    d: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 131,
-                                    columnNumber: 14
-                                }, this)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>{
+                                    setEditingCategory({});
+                                    setIsCategoryModalOpen(true);
+                                },
+                                className: "px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-5 h-5",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 167,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 166,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Manage Categories"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                lineNumber: 130,
+                                lineNumber: 159,
                                 columnNumber: 11
                             }, this),
-                            "Add Image"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>{
+                                    const newImg = {};
+                                    setCurrentImage(newImg);
+                                    setInitialModalData(newImg);
+                                    setNewImage(null);
+                                    setIsModalOpen(true);
+                                },
+                                className: "px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-5 h-5",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 182,
+                                            columnNumber: 16
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 181,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Add Image"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                lineNumber: 171,
+                                columnNumber: 11
+                            }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                        lineNumber: 120,
+                        lineNumber: 158,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                lineNumber: 115,
+                lineNumber: 153,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-8 bg-slate-800/30 backdrop-blur-xl rounded-xl border border-white/10 p-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-between mb-3",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                className: "text-lg font-semibold text-white",
+                                children: "Categories"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                lineNumber: 192,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>{
+                                    setEditingCategory({});
+                                    setIsCategoryModalOpen(true);
+                                },
+                                className: "text-sm text-purple-400 hover:text-purple-300 transition-colors",
+                                children: "+ Add Category"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                lineNumber: 193,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                        lineNumber: 191,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-wrap gap-2",
+                        children: categories.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-500 text-sm",
+                            children: "No categories yet. Create one to organize your gallery."
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 205,
+                            columnNumber: 13
+                        }, this) : categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "group flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-sm text-gray-300",
+                                        children: cat.name
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 212,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs text-gray-500",
+                                        children: [
+                                            "(",
+                                            images.filter((img)=>img.category === cat.id).length,
+                                            ")"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 213,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            setEditingCategory(cat);
+                                            setIsCategoryModalOpen(true);
+                                        },
+                                        className: "opacity-0 group-hover:opacity-100 text-blue-400 hover:text-blue-300 transition-all",
+                                        title: "Edit",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                            className: "w-4 h-4",
+                                            fill: "none",
+                                            viewBox: "0 0 24 24",
+                                            stroke: "currentColor",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                strokeLinecap: "round",
+                                                strokeLinejoin: "round",
+                                                strokeWidth: 2,
+                                                d: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                                lineNumber: 223,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 222,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 214,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteCategoryId(cat.id),
+                                        className: "opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-300 transition-all",
+                                        title: "Delete",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                            className: "w-4 h-4",
+                                            fill: "none",
+                                            viewBox: "0 0 24 24",
+                                            stroke: "currentColor",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                strokeLinecap: "round",
+                                                strokeLinejoin: "round",
+                                                strokeWidth: 2,
+                                                d: "M6 18L18 6M6 6l12 12"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                                lineNumber: 232,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 231,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 226,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, cat.id, true, {
+                                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                lineNumber: 208,
+                                columnNumber: 15
+                            }, this))
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                        lineNumber: 203,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                lineNumber: 190,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -346,7 +566,7 @@ function GalleryPage() {
                                         className: "w-full h-full object-cover"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 141,
+                                        lineNumber: 245,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -367,17 +587,17 @@ function GalleryPage() {
                                                         d: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                        lineNumber: 148,
+                                                        lineNumber: 252,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                    lineNumber: 147,
+                                                    lineNumber: 251,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                lineNumber: 143,
+                                                lineNumber: 247,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -395,29 +615,29 @@ function GalleryPage() {
                                                         d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                        lineNumber: 156,
+                                                        lineNumber: 260,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                    lineNumber: 155,
+                                                    lineNumber: 259,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 255,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 246,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                lineNumber: 140,
+                                lineNumber: 244,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -428,7 +648,7 @@ function GalleryPage() {
                                         children: img.title
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 266,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -439,7 +659,7 @@ function GalleryPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 163,
+                                        lineNumber: 267,
                                         columnNumber: 15
                                     }, this),
                                     img.is_featured && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -447,24 +667,24 @@ function GalleryPage() {
                                         children: "featured"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 165,
+                                        lineNumber: 269,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                lineNumber: 161,
+                                lineNumber: 265,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, img.id, true, {
                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                        lineNumber: 139,
+                        lineNumber: 243,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                lineNumber: 137,
+                lineNumber: 241,
                 columnNumber: 7
             }, this),
             images.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -472,12 +692,14 @@ function GalleryPage() {
                 children: "No images found. Upload one to get started."
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                lineNumber: 173,
+                lineNumber: 277,
                 columnNumber: 11
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
-                onClick: ()=>setIsModalOpen(false),
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) setIsModalOpen(false);
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto",
                     onClick: (e)=>e.stopPropagation(),
@@ -490,7 +712,7 @@ function GalleryPage() {
                                     children: currentImage.id ? 'Edit Image' : 'Add Image'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 189,
+                                    lineNumber: 293,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -508,23 +730,23 @@ function GalleryPage() {
                                             d: "M6 18L18 6M6 6l12 12"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 194,
+                                            lineNumber: 298,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                        lineNumber: 193,
+                                        lineNumber: 297,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 192,
+                                    lineNumber: 296,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                            lineNumber: 188,
+                            lineNumber: 292,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -539,7 +761,7 @@ function GalleryPage() {
                                             children: "Title *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 201,
+                                            lineNumber: 305,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -553,13 +775,13 @@ function GalleryPage() {
                                                     }))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 202,
+                                            lineNumber: 306,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 200,
+                                    lineNumber: 304,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -570,7 +792,7 @@ function GalleryPage() {
                                             children: "Category *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 212,
+                                            lineNumber: 316,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -587,7 +809,7 @@ function GalleryPage() {
                                                     children: "Select Category"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                    lineNumber: 219,
+                                                    lineNumber: 323,
                                                     columnNumber: 19
                                                 }, this),
                                                 categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -595,19 +817,19 @@ function GalleryPage() {
                                                         children: cat.name
                                                     }, cat.id, false, {
                                                         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                                        lineNumber: 221,
+                                                        lineNumber: 325,
                                                         columnNumber: 21
                                                     }, this))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 213,
+                                            lineNumber: 317,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 211,
+                                    lineNumber: 315,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -618,7 +840,7 @@ function GalleryPage() {
                                             children: "Caption"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 227,
+                                            lineNumber: 331,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -631,13 +853,13 @@ function GalleryPage() {
                                                     }))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 228,
+                                            lineNumber: 332,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 226,
+                                    lineNumber: 330,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -648,7 +870,7 @@ function GalleryPage() {
                                             onChange: (file)=>setNewImage(file)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 237,
+                                            lineNumber: 341,
                                             columnNumber: 17
                                         }, this),
                                         !newImage && !currentImage.image && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -656,13 +878,13 @@ function GalleryPage() {
                                             children: "An image is required."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 243,
+                                            lineNumber: 347,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 236,
+                                    lineNumber: 340,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -679,7 +901,7 @@ function GalleryPage() {
                                                     }))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 352,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -688,13 +910,13 @@ function GalleryPage() {
                                             children: "Featured (Show on Home)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 255,
+                                            lineNumber: 359,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 247,
+                                    lineNumber: 351,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -707,40 +929,40 @@ function GalleryPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 363,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            disabled: saving || JSON.stringify(currentImage) === JSON.stringify(initialModalData) && !newImage || !currentImage.title || !newImage && !currentImage.image,
+                                            disabled: saving || !currentImage.category || !currentImage.id && !newImage,
                                             className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
                                             children: saving ? 'Saving...' : 'Save Image'
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                            lineNumber: 266,
+                                            lineNumber: 370,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 258,
+                                    lineNumber: 362,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                            lineNumber: 199,
+                            lineNumber: 303,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                    lineNumber: 184,
+                    lineNumber: 288,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                lineNumber: 180,
+                lineNumber: 284,
                 columnNumber: 9
             }, this),
             deleteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -753,7 +975,7 @@ function GalleryPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                            lineNumber: 286,
+                            lineNumber: 389,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -761,7 +983,7 @@ function GalleryPage() {
                             children: "Are you sure you want to delete this image? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                            lineNumber: 287,
+                            lineNumber: 390,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -773,7 +995,7 @@ function GalleryPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 291,
+                                    lineNumber: 394,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -782,30 +1004,225 @@ function GalleryPage() {
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                                    lineNumber: 297,
+                                    lineNumber: 400,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                            lineNumber: 290,
+                            lineNumber: 393,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                    lineNumber: 285,
+                    lineNumber: 388,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-                lineNumber: 284,
+                lineNumber: 387,
+                columnNumber: 9
+            }, this),
+            isCategoryModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) setIsCategoryModalOpen(false);
+                },
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-md",
+                    onClick: (e)=>e.stopPropagation(),
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-6 border-b border-white/10 flex items-center justify-between",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-xl font-bold text-white",
+                                    children: editingCategory.id ? 'Edit Category' : 'New Category'
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 422,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setIsCategoryModalOpen(false),
+                                    className: "text-gray-400 hover:text-white",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-6 h-6",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 2,
+                                            d: "M6 18L18 6M6 6l12 12"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 427,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                        lineNumber: 426,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 425,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 421,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                            onSubmit: handleSaveCategory,
+                            className: "p-6 space-y-4",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "space-y-2",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                            className: "text-sm font-medium text-gray-300",
+                                            children: "Category Name *"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 434,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "text",
+                                            required: true,
+                                            placeholder: "e.g., Events, Campus, Sports",
+                                            className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50",
+                                            value: editingCategory.name || '',
+                                            onChange: (e)=>setEditingCategory((prev)=>({
+                                                        ...prev,
+                                                        name: e.target.value
+                                                    }))
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 435,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 433,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "pt-4 flex justify-end gap-3",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            type: "button",
+                                            onClick: ()=>setIsCategoryModalOpen(false),
+                                            className: "px-4 py-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors",
+                                            children: "Cancel"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 446,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            type: "submit",
+                                            disabled: saving || !editingCategory.name,
+                                            className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                                            children: saving ? 'Saving...' : 'Save Category'
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                            lineNumber: 453,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 445,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 432,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                    lineNumber: 417,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                lineNumber: 413,
+                columnNumber: 9
+            }, this),
+            deleteCategoryId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-xl font-bold text-white mb-2",
+                            children: "Delete Category"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 470,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-400 mb-6",
+                            children: "Are you sure you want to delete this category? Images in this category will become uncategorized."
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 471,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-4 justify-end",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteCategoryId(null),
+                                    className: "px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors",
+                                    children: "Cancel"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 475,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: confirmDeleteCategory,
+                                    className: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all",
+                                    children: "Delete"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                                    lineNumber: 481,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                            lineNumber: 474,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                    lineNumber: 469,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
+                lineNumber: 468,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/gallery/page.tsx",
-        lineNumber: 114,
+        lineNumber: 152,
         columnNumber: 5
     }, this);
 }

@@ -110,7 +110,7 @@ module.exports = mod;
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 ;
 // API Base URL
-const API_URL = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
+const API_URL = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
 // 1. Setup Axios to support Cookies (Credential mode)
 const client = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
     baseURL: API_URL,

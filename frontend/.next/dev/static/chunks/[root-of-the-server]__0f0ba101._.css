@@ -228,6 +228,7 @@
     --color-blue-50: #eff6ff;
     --color-blue-100: #dbeafe;
     --color-blue-200: #bedbff;
+    --color-blue-300: #90c5ff;
     --color-blue-400: #54a2ff;
     --color-blue-500: #3080ff;
     --color-blue-600: #155dfc;
@@ -263,6 +264,7 @@
     --color-rose-600: #e70044;
     --color-slate-50: #f8fafc;
     --color-slate-300: #cad5e2;
+    --color-slate-600: #45556c;
     --color-slate-700: #314158;
     --color-slate-800: #1d293d;
     --color-slate-900: #0f172b;
@@ -404,6 +406,7 @@
       --color-blue-50: lab(96.492% -1.14644 -5.11479);
       --color-blue-100: lab(92.0301% -2.24757 -11.6453);
       --color-blue-200: lab(86.15% -4.04379 -21.0797);
+      --color-blue-300: lab(77.5052% -6.4629 -36.42);
       --color-blue-400: lab(65.0361% -1.42065 -56.9802);
       --color-blue-500: lab(54.1736% 13.3369 -74.6839);
       --color-blue-600: lab(44.0605% 29.0279 -86.0352);
@@ -439,6 +442,7 @@
       --color-rose-600: lab(49.1882% 81.577 36.0311);
       --color-slate-50: lab(98.1434% -.369519 -1.05966);
       --color-slate-300: lab(84.7652% -1.94535 -7.93337);
+      --color-slate-600: lab(35.5623% -1.74978 -15.4316);
       --color-slate-700: lab(26.9569% -1.47016 -15.6993);
       --color-slate-800: lab(16.132% -.318035 -14.6672);
       --color-slate-900: lab(7.78673% 1.82345 -15.0537);
@@ -2302,6 +2306,10 @@
     }
   }
 
+  .bg-amber-600 {
+    background-color: var(--color-amber-600);
+  }
+
   .bg-black\/30 {
     background-color: #0000004d;
   }
@@ -2862,6 +2870,10 @@
     .bg-sky-500\/20 {
       background-color: color-mix(in oklab, var(--color-sky-500) 20%, transparent);
     }
+  }
+
+  .bg-slate-700 {
+    background-color: var(--color-slate-700);
   }
 
   .bg-slate-800 {
@@ -4815,10 +4827,6 @@
     margin-right: calc(var(--spacing) * 4);
   }
 
-  .file\:cursor-pointer::file-selector-button {
-    cursor: pointer;
-  }
-
   .file\:rounded-lg::file-selector-button {
     border-radius: var(--radius-lg);
   }
@@ -4828,16 +4836,8 @@
     border-width: 0;
   }
 
-  .file\:bg-indigo-600::file-selector-button {
-    background-color: var(--color-indigo-600);
-  }
-
   .file\:bg-purple-600::file-selector-button {
     background-color: var(--color-purple-600);
-  }
-
-  .file\:px-3::file-selector-button {
-    padding-inline: calc(var(--spacing) * 3);
   }
 
   .file\:px-4::file-selector-button {
@@ -4986,6 +4986,12 @@
   @media (hover: hover) {
     .hover\:bg-amber-600:hover {
       background-color: var(--color-amber-600);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-amber-700:hover {
+      background-color: var(--color-amber-700);
     }
   }
 
@@ -5332,6 +5338,12 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-slate-600:hover {
+      background-color: var(--color-slate-600);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-slate-700\/50:hover {
       background-color: #31415880;
     }
@@ -5591,6 +5603,12 @@
   @media (hover: hover) {
     .hover\:text-amber-800:hover {
       color: var(--color-amber-800);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:text-blue-300:hover {
+      color: var(--color-blue-300);
     }
   }
 

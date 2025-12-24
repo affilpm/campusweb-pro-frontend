@@ -560,7 +560,9 @@ function EventsPage() {
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",
-                onClick: ()=>setIsModalOpen(false),
+                onMouseDown: (e)=>{
+                    if (e.target === e.currentTarget) setIsModalOpen(false);
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "bg-slate-900 border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto",
                     onClick: (e)=>e.stopPropagation(),
@@ -905,7 +907,7 @@ function EventsPage() {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
-                                            disabled: saving || JSON.stringify(currentEvent) === JSON.stringify(initialEventData) && !newImage || !currentEvent.title || !currentEvent.excerpt || !currentEvent.content,
+                                            disabled: saving || !currentEvent.title || !currentEvent.excerpt || !currentEvent.content,
                                             className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
                                             children: saving ? 'Saving...' : 'Save Event'
                                         }, void 0, false, {
@@ -946,7 +948,7 @@ function EventsPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                            lineNumber: 356,
+                            lineNumber: 355,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -954,7 +956,7 @@ function EventsPage() {
                             children: "Are you sure you want to delete this event? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                            lineNumber: 357,
+                            lineNumber: 356,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -967,7 +969,7 @@ function EventsPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                                    lineNumber: 361,
+                                    lineNumber: 360,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -977,24 +979,24 @@ function EventsPage() {
                                     children: saving ? 'Deleting...' : 'Delete'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                                    lineNumber: 368,
+                                    lineNumber: 367,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                            lineNumber: 360,
+                            lineNumber: 359,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                    lineNumber: 355,
+                    lineNumber: 354,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/events/page.tsx",
-                lineNumber: 354,
+                lineNumber: 353,
                 columnNumber: 9
             }, this)
         ]

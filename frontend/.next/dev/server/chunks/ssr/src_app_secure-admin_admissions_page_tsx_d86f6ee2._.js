@@ -107,6 +107,41 @@ function AdmissionsManagementPage() {
             setDeleteId(null);
         }
     };
+    // Memoized save buttons to prevent re-renders (must be before conditional returns)
+    const saveSettingsButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "submit",
+            disabled: saving,
+            className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
+            style: {
+                willChange: 'auto',
+                transform: 'translateZ(0)'
+            },
+            children: saving ? 'Saving...' : 'Save Settings'
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
+            lineNumber: 129,
+            columnNumber: 5
+        }, this), [
+        saving
+    ]);
+    const saveStepButton = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            type: "button",
+            onClick: handleSaveStep,
+            disabled: saving,
+            className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
+            style: {
+                willChange: 'auto',
+                transform: 'translateZ(0)'
+            },
+            children: saving ? 'Saving...' : 'Save'
+        }, void 0, false, {
+            fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
+            lineNumber: 140,
+            columnNumber: 5
+        }, this), [
+        saving,
+        handleSaveStep
+    ]);
     if (loading) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex items-center justify-center h-64",
@@ -114,12 +149,12 @@ function AdmissionsManagementPage() {
                 className: "animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 130,
+                lineNumber: 154,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-            lineNumber: 129,
+            lineNumber: 153,
             columnNumber: 7
         }, this);
     }
@@ -135,7 +170,7 @@ function AdmissionsManagementPage() {
                             children: "Admissions Management"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 139,
+                            lineNumber: 163,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -143,18 +178,18 @@ function AdmissionsManagementPage() {
                             children: "Manage admission settings and process steps"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 140,
+                            lineNumber: 164,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                    lineNumber: 138,
+                    lineNumber: 162,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 137,
+                lineNumber: 161,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -162,7 +197,7 @@ function AdmissionsManagementPage() {
                 children: message
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 145,
+                lineNumber: 169,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -174,7 +209,7 @@ function AdmissionsManagementPage() {
                         children: "Admission Settings"
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 152,
+                        lineNumber: 176,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -185,7 +220,7 @@ function AdmissionsManagementPage() {
                                 children: "Admissions Status"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 156,
+                                lineNumber: 180,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -199,12 +234,12 @@ function AdmissionsManagementPage() {
                                     className: `inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${settings?.is_open ? 'translate-x-6' : 'translate-x-1'}`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 188,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 157,
+                                lineNumber: 181,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -212,13 +247,13 @@ function AdmissionsManagementPage() {
                                 children: settings?.is_open ? 'Open' : 'Closed'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 192,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 155,
+                        lineNumber: 179,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -232,7 +267,7 @@ function AdmissionsManagementPage() {
                                         children: "Hero Title *"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 176,
+                                        lineNumber: 200,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -243,13 +278,13 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${errors.hero_title ? 'border-red-500/50' : 'border-white/10'}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 177,
+                                        lineNumber: 201,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 175,
+                                lineNumber: 199,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -260,7 +295,7 @@ function AdmissionsManagementPage() {
                                         children: "Hero Subtitle"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 212,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -270,19 +305,19 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${errors.hero_subtitle ? 'border-red-500/50' : 'border-white/10'}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 213,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 187,
+                                lineNumber: 211,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 174,
+                        lineNumber: 198,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -296,7 +331,7 @@ function AdmissionsManagementPage() {
                                         children: "Overview Title"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 227,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -306,13 +341,13 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 228,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 226,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,7 +358,7 @@ function AdmissionsManagementPage() {
                                         children: "Overview Content"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 212,
+                                        lineNumber: 236,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -333,19 +368,19 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 213,
+                                        lineNumber: 237,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 211,
+                                lineNumber: 235,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 201,
+                        lineNumber: 225,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -359,7 +394,7 @@ function AdmissionsManagementPage() {
                                         children: "Eligibility Title"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 249,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -369,13 +404,13 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 250,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 224,
+                                lineNumber: 248,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -386,7 +421,7 @@ function AdmissionsManagementPage() {
                                         children: "Eligibility Content"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 234,
+                                        lineNumber: 258,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -396,19 +431,19 @@ function AdmissionsManagementPage() {
                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 235,
+                                        lineNumber: 259,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 233,
+                                lineNumber: 257,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 223,
+                        lineNumber: 247,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -419,7 +454,7 @@ function AdmissionsManagementPage() {
                                 children: "Documents Required"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 246,
+                                lineNumber: 270,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -430,13 +465,13 @@ function AdmissionsManagementPage() {
                                 className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 247,
+                                lineNumber: 271,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 245,
+                        lineNumber: 269,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -447,7 +482,7 @@ function AdmissionsManagementPage() {
                                 children: "Application Form Link"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 258,
+                                lineNumber: 282,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -458,7 +493,7 @@ function AdmissionsManagementPage() {
                                 className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 259,
+                                lineNumber: 283,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -466,13 +501,13 @@ function AdmissionsManagementPage() {
                                 children: "URL to the external application form (e.g., Google Form)"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 266,
+                                lineNumber: 290,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 257,
+                        lineNumber: 281,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -483,7 +518,7 @@ function AdmissionsManagementPage() {
                                 children: "Admission Contact Info"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 271,
+                                lineNumber: 295,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -494,36 +529,27 @@ function AdmissionsManagementPage() {
                                 className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 272,
+                                lineNumber: 296,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 270,
+                        lineNumber: 294,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-end pt-4",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                            type: "submit",
-                            disabled: saving,
-                            className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
-                            children: saving ? 'Saving...' : 'Save Settings'
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 282,
-                            columnNumber: 11
-                        }, this)
+                        children: saveSettingsButton
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 281,
+                        lineNumber: 305,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 151,
+                lineNumber: 175,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -537,7 +563,7 @@ function AdmissionsManagementPage() {
                                 children: "Admission Steps"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 295,
+                                lineNumber: 313,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -565,25 +591,25 @@ function AdmissionsManagementPage() {
                                             d: "M12 4v16m8-8H4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 306,
+                                            lineNumber: 324,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 305,
+                                        lineNumber: 323,
                                         columnNumber: 13
                                     }, this),
                                     "Add Step"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 296,
+                                lineNumber: 314,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 294,
+                        lineNumber: 312,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,7 +623,7 @@ function AdmissionsManagementPage() {
                                             children: step.step_number
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 333,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -608,7 +634,7 @@ function AdmissionsManagementPage() {
                                                     children: step.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                                    lineNumber: 319,
+                                                    lineNumber: 337,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -616,13 +642,13 @@ function AdmissionsManagementPage() {
                                                     children: step.description
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                                    lineNumber: 320,
+                                                    lineNumber: 338,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 318,
+                                            lineNumber: 336,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -638,7 +664,7 @@ function AdmissionsManagementPage() {
                                                     children: "Edit"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                                    lineNumber: 323,
+                                                    lineNumber: 341,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -647,19 +673,19 @@ function AdmissionsManagementPage() {
                                                     children: "Delete"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                                    lineNumber: 333,
+                                                    lineNumber: 351,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 322,
+                                            lineNumber: 340,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, step.id, true, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 332,
                                     columnNumber: 13
                                 }, this)),
                             steps.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,19 +693,19 @@ function AdmissionsManagementPage() {
                                 children: "No admission steps defined yet. Add your first step!"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                lineNumber: 344,
+                                lineNumber: 362,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                        lineNumber: 312,
+                        lineNumber: 330,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 293,
+                lineNumber: 311,
                 columnNumber: 7
             }, this),
             showStepModal && editingStep && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -697,7 +723,7 @@ function AdmissionsManagementPage() {
                                     children: editingStep.id ? 'Edit Step' : 'Add Step'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 362,
+                                    lineNumber: 380,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -715,23 +741,23 @@ function AdmissionsManagementPage() {
                                             d: "M6 18L18 6M6 6l12 12"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 367,
+                                            lineNumber: 385,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                        lineNumber: 366,
+                                        lineNumber: 384,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 365,
+                                    lineNumber: 383,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 361,
+                            lineNumber: 379,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -745,7 +771,7 @@ function AdmissionsManagementPage() {
                                             children: "Step Number *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 374,
+                                            lineNumber: 392,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -759,13 +785,13 @@ function AdmissionsManagementPage() {
                                             className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 393,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 373,
+                                    lineNumber: 391,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,7 +802,7 @@ function AdmissionsManagementPage() {
                                             children: "Title *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 384,
+                                            lineNumber: 402,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -790,13 +816,13 @@ function AdmissionsManagementPage() {
                                             className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 385,
+                                            lineNumber: 403,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 383,
+                                    lineNumber: 401,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -807,7 +833,7 @@ function AdmissionsManagementPage() {
                                             children: "Description *"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 394,
+                                            lineNumber: 412,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -821,19 +847,19 @@ function AdmissionsManagementPage() {
                                             className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                            lineNumber: 395,
+                                            lineNumber: 413,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 411,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 372,
+                            lineNumber: 390,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -848,34 +874,25 @@ function AdmissionsManagementPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 406,
+                                    lineNumber: 424,
                                     columnNumber: 15
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: handleSaveStep,
-                                    disabled: saving || JSON.stringify(editingStep) === JSON.stringify(initialStepData) || !editingStep.title || !editingStep.description,
-                                    className: "px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50",
-                                    children: "Save"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 415,
-                                    columnNumber: 15
-                                }, this)
+                                saveStepButton
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 405,
+                            lineNumber: 423,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                    lineNumber: 357,
+                    lineNumber: 375,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 353,
+                lineNumber: 371,
                 columnNumber: 9
             }, this),
             deleteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -888,7 +905,7 @@ function AdmissionsManagementPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 434,
+                            lineNumber: 441,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -896,7 +913,7 @@ function AdmissionsManagementPage() {
                             children: "Are you sure you want to delete this step? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 435,
+                            lineNumber: 442,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -909,7 +926,7 @@ function AdmissionsManagementPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 439,
+                                    lineNumber: 446,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -919,30 +936,30 @@ function AdmissionsManagementPage() {
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                                    lineNumber: 446,
+                                    lineNumber: 453,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                            lineNumber: 438,
+                            lineNumber: 445,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                    lineNumber: 433,
+                    lineNumber: 440,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-                lineNumber: 432,
+                lineNumber: 439,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/admissions/page.tsx",
-        lineNumber: 136,
+        lineNumber: 160,
         columnNumber: 5
     }, this);
 }

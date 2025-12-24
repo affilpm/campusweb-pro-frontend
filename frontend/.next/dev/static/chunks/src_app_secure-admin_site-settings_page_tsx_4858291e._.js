@@ -1047,7 +1047,7 @@ function SiteSettingsPage() {
                         className: "flex justify-end",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "submit",
-                            disabled: saving || !hasChanges() || !settings.school_name || !settings.school_motto || !settings.address || !settings.phone || !settings.email,
+                            disabled: saving || !settings.school_name || !settings.school_motto || !settings.address || !settings.phone || !settings.email,
                             className: "px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all flex items-center gap-2",
                             children: saving ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -1065,7 +1065,7 @@ function SiteSettingsPage() {
                                                 fill: "none"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 565,
+                                                lineNumber: 564,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1074,13 +1074,13 @@ function SiteSettingsPage() {
                                                 d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 566,
+                                                lineNumber: 565,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                        lineNumber: 564,
+                                        lineNumber: 563,
                                         columnNumber: 17
                                     }, this),
                                     "Saving..."
@@ -1126,24 +1126,24 @@ function SiteSettingsPage() {
                                         d: "M12 4v16m8-8H4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                        lineNumber: 589,
+                                        lineNumber: 588,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 588,
+                                    lineNumber: 587,
                                     columnNumber: 15
                                 }, this),
                                 "Add New Link"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 581,
+                            lineNumber: 580,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                        lineNumber: 580,
+                        lineNumber: 579,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1160,7 +1160,7 @@ function SiteSettingsPage() {
                                                 children: "Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 600,
+                                                lineNumber: 599,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1168,7 +1168,7 @@ function SiteSettingsPage() {
                                                 children: "URL"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 601,
+                                                lineNumber: 600,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1176,7 +1176,7 @@ function SiteSettingsPage() {
                                                 children: "Order"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 602,
+                                                lineNumber: 601,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1184,7 +1184,7 @@ function SiteSettingsPage() {
                                                 children: "Status"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 603,
+                                                lineNumber: 602,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1192,18 +1192,18 @@ function SiteSettingsPage() {
                                                 children: "Actions"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                lineNumber: 604,
+                                                lineNumber: 603,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                        lineNumber: 599,
+                                        lineNumber: 598,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 598,
+                                    lineNumber: 597,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1215,12 +1215,12 @@ function SiteSettingsPage() {
                                             children: "No quick links found. Add one to get started."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 610,
+                                            lineNumber: 609,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                        lineNumber: 609,
+                                        lineNumber: 608,
                                         columnNumber: 19
                                     }, this) : quickLinks.map((link)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                             className: "hover:bg-white/5 transition-colors",
@@ -1230,7 +1230,7 @@ function SiteSettingsPage() {
                                                     children: link.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 617,
+                                                    lineNumber: 616,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1238,7 +1238,7 @@ function SiteSettingsPage() {
                                                     children: link.url
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 618,
+                                                    lineNumber: 617,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1246,7 +1246,7 @@ function SiteSettingsPage() {
                                                     children: link.order
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 619,
+                                                    lineNumber: 618,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1256,12 +1256,12 @@ function SiteSettingsPage() {
                                                         children: link.is_active ? 'Active' : 'Inactive'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                        lineNumber: 621,
+                                                        lineNumber: 620,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 620,
+                                                    lineNumber: 619,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1276,7 +1276,7 @@ function SiteSettingsPage() {
                                                             children: "Edit"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                            lineNumber: 630,
+                                                            lineNumber: 629,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1285,41 +1285,41 @@ function SiteSettingsPage() {
                                                             children: "Delete"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                            lineNumber: 639,
+                                                            lineNumber: 638,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 629,
+                                                    lineNumber: 628,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, link.id, true, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 616,
+                                            lineNumber: 615,
                                             columnNumber: 21
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 607,
+                                    lineNumber: 606,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 597,
+                            lineNumber: 596,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                        lineNumber: 596,
+                        lineNumber: 595,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                lineNumber: 579,
+                lineNumber: 578,
                 columnNumber: 9
             }, this),
             isEditingLink && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1332,7 +1332,7 @@ function SiteSettingsPage() {
                             children: currentLink.id ? 'Edit Quick Link' : 'Add Quick Link'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 659,
+                            lineNumber: 658,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1347,7 +1347,7 @@ function SiteSettingsPage() {
                                             children: "Title"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 664,
+                                            lineNumber: 663,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1361,13 +1361,13 @@ function SiteSettingsPage() {
                                             className: "w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 665,
+                                            lineNumber: 664,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 663,
+                                    lineNumber: 662,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1378,7 +1378,7 @@ function SiteSettingsPage() {
                                             children: "URL"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 674,
+                                            lineNumber: 673,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1392,13 +1392,13 @@ function SiteSettingsPage() {
                                             className: "w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 675,
+                                            lineNumber: 674,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 673,
+                                    lineNumber: 672,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1409,7 +1409,7 @@ function SiteSettingsPage() {
                                             children: "Order"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 684,
+                                            lineNumber: 683,
                                             columnNumber: 18
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1423,13 +1423,13 @@ function SiteSettingsPage() {
                                             className: "w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 685,
+                                            lineNumber: 684,
                                             columnNumber: 18
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 683,
+                                    lineNumber: 682,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1448,7 +1448,7 @@ function SiteSettingsPage() {
                                                     className: "w-4 h-4 rounded border-gray-600 bg-gray-700 text-purple-600 focus:ring-purple-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 696,
+                                                    lineNumber: 695,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1456,13 +1456,13 @@ function SiteSettingsPage() {
                                                     children: "Active"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 702,
+                                                    lineNumber: 701,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 695,
+                                            lineNumber: 694,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1478,7 +1478,7 @@ function SiteSettingsPage() {
                                                     className: "w-4 h-4 rounded border-gray-600 bg-gray-700 text-purple-600 focus:ring-purple-500"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 705,
+                                                    lineNumber: 704,
                                                     columnNumber: 20
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1486,19 +1486,19 @@ function SiteSettingsPage() {
                                                     children: "Open in new tab"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                                    lineNumber: 711,
+                                                    lineNumber: 710,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 704,
+                                            lineNumber: 703,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 694,
+                                    lineNumber: 693,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1511,7 +1511,7 @@ function SiteSettingsPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 716,
+                                            lineNumber: 715,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1521,30 +1521,30 @@ function SiteSettingsPage() {
                                             children: saving ? 'Saving...' : 'Save Link'
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                            lineNumber: 723,
+                                            lineNumber: 722,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 715,
+                                    lineNumber: 714,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 662,
+                            lineNumber: 661,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                    lineNumber: 658,
+                    lineNumber: 657,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                lineNumber: 657,
+                lineNumber: 656,
                 columnNumber: 9
             }, this),
             deleteId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1557,7 +1557,7 @@ function SiteSettingsPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 739,
+                            lineNumber: 738,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1565,7 +1565,7 @@ function SiteSettingsPage() {
                             children: "Are you sure you want to delete this link? This action cannot be undone."
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 740,
+                            lineNumber: 739,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1578,7 +1578,7 @@ function SiteSettingsPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 744,
+                                    lineNumber: 743,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1587,24 +1587,24 @@ function SiteSettingsPage() {
                                     children: "Delete"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                                    lineNumber: 751,
+                                    lineNumber: 750,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                            lineNumber: 743,
+                            lineNumber: 742,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                    lineNumber: 738,
+                    lineNumber: 737,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/site-settings/page.tsx",
-                lineNumber: 737,
+                lineNumber: 736,
                 columnNumber: 9
             }, this)
         ]

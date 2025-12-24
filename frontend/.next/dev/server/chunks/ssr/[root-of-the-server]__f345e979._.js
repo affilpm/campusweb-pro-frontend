@@ -140,7 +140,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$a
 ;
 async function getAcademicsData() {
     try {
-        const apiUrl = ("TURBOPACK compile-time value", "http://localhost:8000") || 'http://localhost:8000';
+        const apiUrl = ("TURBOPACK compile-time value", "https://api.affils.site") || 'http://localhost:8000';
         const res = await fetch(`${apiUrl}/api/public/academics/`, {
             cache: 'force-cache',
             next: {

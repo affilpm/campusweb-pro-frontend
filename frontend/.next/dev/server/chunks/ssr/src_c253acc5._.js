@@ -216,6 +216,7 @@ function AboutSectionPage() {
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [errors, setErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
     const [deleteParams, setDeleteParams] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [resetSection, setResetSection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetchAllData();
     }, []);
@@ -554,12 +555,43 @@ function AboutSectionPage() {
             setDeleteParams(null);
         }
     };
+    // Reset section handler
+    const confirmReset = async ()=>{
+        if (!resetSection) return;
+        setSaving(true);
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post(resetSection.endpoint, {
+                section: resetSection.section
+            });
+            // Update local state based on which section was reset
+            if (resetSection.endpoint.includes('about/page')) {
+                setPageData(response.data.data);
+                setInitialPageData(response.data.data);
+            } else if (resetSection.endpoint.includes('vision-mission')) {
+                setVisionData(response.data.data);
+                setInitialVisionData(response.data.data);
+            }
+            setMessage({
+                type: 'success',
+                text: response.data.message
+            });
+        } catch (error) {
+            console.error(`Error resetting section:`, error);
+            setMessage({
+                type: 'error',
+                text: 'Failed to reset section'
+            });
+        } finally{
+            setSaving(false);
+            setResetSection(null);
+        }
+    };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "text-center p-8 text-gray-400",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-        lineNumber: 385,
+        lineNumber: 413,
         columnNumber: 23
     }, this);
     const tabs = [
@@ -601,7 +633,7 @@ function AboutSectionPage() {
                             children: "About Us Page"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 399,
+                            lineNumber: 427,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -609,18 +641,18 @@ function AboutSectionPage() {
                             children: "Manage all content for the About Us page"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 400,
+                            lineNumber: 428,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                    lineNumber: 398,
+                    lineNumber: 426,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 397,
+                lineNumber: 425,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -633,7 +665,7 @@ function AboutSectionPage() {
                             children: message.type === 'success' ? '✅' : '⚠️'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 411,
+                            lineNumber: 439,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -644,7 +676,7 @@ function AboutSectionPage() {
                                     children: message.type === 'success' ? 'Success' : 'Error'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 413,
+                                    lineNumber: 441,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -652,13 +684,13 @@ function AboutSectionPage() {
                                     children: message.text
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 414,
+                                    lineNumber: 442,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 412,
+                            lineNumber: 440,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -677,28 +709,28 @@ function AboutSectionPage() {
                                     d: "M6 18L18 6M6 6l12 12"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 421,
+                                    lineNumber: 449,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 420,
+                                lineNumber: 448,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 416,
+                            lineNumber: 444,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                    lineNumber: 410,
+                    lineNumber: 438,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 405,
+                lineNumber: 433,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -711,7 +743,7 @@ function AboutSectionPage() {
                                 children: tab.icon
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 440,
+                                lineNumber: 468,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -719,18 +751,18 @@ function AboutSectionPage() {
                                 children: tab.label
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 441,
+                                lineNumber: 469,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, tab.id, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 431,
+                        lineNumber: 459,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 429,
+                lineNumber: 457,
                 columnNumber: 7
             }, this),
             activeTab === 'about' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -745,7 +777,7 @@ function AboutSectionPage() {
                                 children: "About Section Overview"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 450,
+                                lineNumber: 478,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,7 +794,7 @@ function AboutSectionPage() {
                                                         children: "Section Title *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 454,
+                                                        lineNumber: 482,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -774,7 +806,7 @@ function AboutSectionPage() {
                                                         className: `w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${errors.title ? 'border-red-500/50' : 'border-white/10'}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 455,
+                                                        lineNumber: 483,
                                                         columnNumber: 19
                                                     }, this),
                                                     errors.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -782,13 +814,13 @@ function AboutSectionPage() {
                                                         children: errors.title[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 466,
+                                                        lineNumber: 494,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 453,
+                                                lineNumber: 481,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -799,7 +831,7 @@ function AboutSectionPage() {
                                                         children: "Content *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 471,
+                                                        lineNumber: 499,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -812,7 +844,7 @@ function AboutSectionPage() {
                                                         placeholder: "Write a brief overview of the school..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 472,
+                                                        lineNumber: 500,
                                                         columnNumber: 19
                                                     }, this),
                                                     errors.content && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -820,13 +852,13 @@ function AboutSectionPage() {
                                                         children: errors.content[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 484,
+                                                        lineNumber: 512,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 470,
+                                                lineNumber: 498,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -840,7 +872,7 @@ function AboutSectionPage() {
                                                                 children: "Established Year *"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 490,
+                                                                lineNumber: 518,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -852,13 +884,13 @@ function AboutSectionPage() {
                                                                 className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 491,
+                                                                lineNumber: 519,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 489,
+                                                        lineNumber: 517,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -869,7 +901,7 @@ function AboutSectionPage() {
                                                                 children: "Students Count *"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 501,
+                                                                lineNumber: 529,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -881,13 +913,13 @@ function AboutSectionPage() {
                                                                 className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 502,
+                                                                lineNumber: 530,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 500,
+                                                        lineNumber: 528,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -898,7 +930,7 @@ function AboutSectionPage() {
                                                                 children: "Teachers Count *"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 512,
+                                                                lineNumber: 540,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -910,25 +942,25 @@ function AboutSectionPage() {
                                                                 className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 513,
+                                                                lineNumber: 541,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 511,
+                                                        lineNumber: 539,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 488,
+                                                lineNumber: 516,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 452,
+                                        lineNumber: 480,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -939,24 +971,24 @@ function AboutSectionPage() {
                                             onRemove: ()=>setNewAboutImage(null)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                            lineNumber: 526,
+                                            lineNumber: 554,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 525,
+                                        lineNumber: 553,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 451,
+                                lineNumber: 479,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 449,
+                        lineNumber: 477,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -968,18 +1000,18 @@ function AboutSectionPage() {
                             children: saving ? 'Saving...' : 'Save Changes'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 537,
+                            lineNumber: 565,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 536,
+                        lineNumber: 564,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 448,
+                lineNumber: 476,
                 columnNumber: 9
             }, this),
             activeTab === 'hero' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -994,7 +1026,7 @@ function AboutSectionPage() {
                                 children: "Hero Section"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 552,
+                                lineNumber: 580,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1008,7 +1040,7 @@ function AboutSectionPage() {
                                                 children: "Hero Title *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 555,
+                                                lineNumber: 583,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1021,13 +1053,13 @@ function AboutSectionPage() {
                                                 placeholder: "About Our School"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 584,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 554,
+                                        lineNumber: 582,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1038,7 +1070,7 @@ function AboutSectionPage() {
                                                 children: "Hero Subtitle"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 567,
+                                                lineNumber: 595,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1050,36 +1082,58 @@ function AboutSectionPage() {
                                                 placeholder: "A brief tagline for the About page..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 568,
+                                                lineNumber: 596,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 566,
+                                        lineNumber: 594,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 553,
+                                lineNumber: 581,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 551,
+                        lineNumber: 579,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-semibold text-white mb-4",
-                                children: "History Section"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-between items-center mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold text-white",
+                                        children: "History Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 610,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setResetSection({
+                                                section: 'history',
+                                                endpoint: '/api/admin/content/about/page/reset/'
+                                            }),
+                                        className: "text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors",
+                                        children: "🗑️ Reset Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 611,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 581,
+                                lineNumber: 609,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1096,7 +1150,7 @@ function AboutSectionPage() {
                                                         children: "History Title *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 585,
+                                                        lineNumber: 622,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1109,13 +1163,13 @@ function AboutSectionPage() {
                                                         placeholder: "Our History"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 586,
+                                                        lineNumber: 623,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 584,
+                                                lineNumber: 621,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1126,7 +1180,7 @@ function AboutSectionPage() {
                                                         children: "History Content *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 597,
+                                                        lineNumber: 634,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1139,19 +1193,19 @@ function AboutSectionPage() {
                                                         placeholder: "Write the school's history here..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 598,
+                                                        lineNumber: 635,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 596,
+                                                lineNumber: 633,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 583,
+                                        lineNumber: 620,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1162,35 +1216,57 @@ function AboutSectionPage() {
                                             onRemove: ()=>setNewHistoryImage(null)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                            lineNumber: 610,
+                                            lineNumber: 647,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 609,
+                                        lineNumber: 646,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 582,
+                                lineNumber: 619,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 580,
+                        lineNumber: 608,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-semibold text-white mb-4",
-                                children: "Infrastructure Section"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-between items-center mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold text-white",
+                                        children: "Infrastructure Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 659,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setResetSection({
+                                                section: 'infrastructure',
+                                                endpoint: '/api/admin/content/about/page/reset/'
+                                            }),
+                                        className: "text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors",
+                                        children: "🗑️ Reset Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 660,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 621,
+                                lineNumber: 658,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1204,7 +1280,7 @@ function AboutSectionPage() {
                                                 children: "Section Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 624,
+                                                lineNumber: 670,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1216,13 +1292,13 @@ function AboutSectionPage() {
                                                 placeholder: "Our Infrastructure"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 625,
+                                                lineNumber: 671,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 623,
+                                        lineNumber: 669,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1233,7 +1309,7 @@ function AboutSectionPage() {
                                                 children: "Description"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 635,
+                                                lineNumber: 681,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1245,25 +1321,25 @@ function AboutSectionPage() {
                                                 placeholder: "Describe your school's infrastructure and facilities..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 636,
+                                                lineNumber: 682,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 634,
+                                        lineNumber: 680,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 622,
+                                lineNumber: 668,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 620,
+                        lineNumber: 657,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1275,18 +1351,18 @@ function AboutSectionPage() {
                             children: saving ? 'Saving...' : 'Save Changes'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 649,
+                            lineNumber: 695,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 648,
+                        lineNumber: 694,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 550,
+                lineNumber: 578,
                 columnNumber: 9
             }, this),
             activeTab === 'vision' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1296,12 +1372,34 @@ function AboutSectionPage() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-semibold text-white mb-4",
-                                children: "Vision"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-between items-center mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold text-white",
+                                        children: "Vision"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 711,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setResetSection({
+                                                section: 'vision',
+                                                endpoint: '/api/admin/content/vision-mission/reset/'
+                                            }),
+                                        className: "text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors",
+                                        children: "🗑️ Reset Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 712,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 664,
+                                lineNumber: 710,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1315,7 +1413,7 @@ function AboutSectionPage() {
                                                 children: "Vision Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 667,
+                                                lineNumber: 722,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1327,13 +1425,13 @@ function AboutSectionPage() {
                                                 placeholder: "Our Vision"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 668,
+                                                lineNumber: 723,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 666,
+                                        lineNumber: 721,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1344,7 +1442,7 @@ function AboutSectionPage() {
                                                 children: "Vision Content"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 678,
+                                                lineNumber: 733,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1356,36 +1454,58 @@ function AboutSectionPage() {
                                                 placeholder: "Describe your school's vision..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 679,
+                                                lineNumber: 734,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 677,
+                                        lineNumber: 732,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 665,
+                                lineNumber: 720,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 663,
+                        lineNumber: 709,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-semibold text-white mb-4",
-                                children: "Mission"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-between items-center mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold text-white",
+                                        children: "Mission"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 748,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setResetSection({
+                                                section: 'mission',
+                                                endpoint: '/api/admin/content/vision-mission/reset/'
+                                            }),
+                                        className: "text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors",
+                                        children: "🗑️ Reset Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 749,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 692,
+                                lineNumber: 747,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,7 +1519,7 @@ function AboutSectionPage() {
                                                 children: "Mission Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 695,
+                                                lineNumber: 759,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1411,13 +1531,13 @@ function AboutSectionPage() {
                                                 placeholder: "Our Mission"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 696,
+                                                lineNumber: 760,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 694,
+                                        lineNumber: 758,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1428,7 +1548,7 @@ function AboutSectionPage() {
                                                 children: "Mission Content"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 706,
+                                                lineNumber: 770,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1440,36 +1560,58 @@ function AboutSectionPage() {
                                                 placeholder: "Describe your school's mission..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 707,
+                                                lineNumber: 771,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 705,
+                                        lineNumber: 769,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 693,
+                                lineNumber: 757,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 691,
+                        lineNumber: 746,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-semibold text-white mb-4",
-                                children: "Core Values"
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-between items-center mb-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold text-white",
+                                        children: "Core Values"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 785,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        type: "button",
+                                        onClick: ()=>setResetSection({
+                                                section: 'values',
+                                                endpoint: '/api/admin/content/vision-mission/reset/'
+                                            }),
+                                        className: "text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors",
+                                        children: "🗑️ Reset Section"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                        lineNumber: 786,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 720,
+                                lineNumber: 784,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1483,7 +1625,7 @@ function AboutSectionPage() {
                                                 children: "Values Title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 723,
+                                                lineNumber: 796,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1495,13 +1637,13 @@ function AboutSectionPage() {
                                                 placeholder: "Our Core Values"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 724,
+                                                lineNumber: 797,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 722,
+                                        lineNumber: 795,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1512,7 +1654,7 @@ function AboutSectionPage() {
                                                 children: "Values Content"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 734,
+                                                lineNumber: 807,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1524,25 +1666,25 @@ function AboutSectionPage() {
                                                 placeholder: "List your school's core values..."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 735,
+                                                lineNumber: 808,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 733,
+                                        lineNumber: 806,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 721,
+                                lineNumber: 794,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 719,
+                        lineNumber: 783,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1554,18 +1696,18 @@ function AboutSectionPage() {
                             children: saving ? 'Saving...' : 'Save Changes'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 748,
+                            lineNumber: 821,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 747,
+                        lineNumber: 820,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 662,
+                lineNumber: 708,
                 columnNumber: 9
             }, this),
             activeTab === 'timeline' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1579,7 +1721,7 @@ function AboutSectionPage() {
                                 children: "School Timeline"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 763,
+                                lineNumber: 836,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1592,13 +1734,13 @@ function AboutSectionPage() {
                                 children: "+ Add Event"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 764,
+                                lineNumber: 837,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 762,
+                        lineNumber: 835,
                         columnNumber: 11
                     }, this),
                     editingTimeline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1610,7 +1752,7 @@ function AboutSectionPage() {
                                 children: editingTimeline.id ? 'Edit Event' : 'Add New Event'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 774,
+                                lineNumber: 847,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1624,7 +1766,7 @@ function AboutSectionPage() {
                                                 children: "Year *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 779,
+                                                lineNumber: 852,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1639,13 +1781,13 @@ function AboutSectionPage() {
                                                 placeholder: "e.g., 2010"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 780,
+                                                lineNumber: 853,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 778,
+                                        lineNumber: 851,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1656,7 +1798,7 @@ function AboutSectionPage() {
                                                 children: "Title *"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 790,
+                                                lineNumber: 863,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1671,19 +1813,19 @@ function AboutSectionPage() {
                                                 placeholder: "Event title"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 791,
+                                                lineNumber: 864,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 789,
+                                        lineNumber: 862,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 777,
+                                lineNumber: 850,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1694,7 +1836,7 @@ function AboutSectionPage() {
                                         children: "Description *"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 802,
+                                        lineNumber: 875,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1709,13 +1851,13 @@ function AboutSectionPage() {
                                         placeholder: "Event description"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 803,
+                                        lineNumber: 876,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 801,
+                                lineNumber: 874,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1728,7 +1870,7 @@ function AboutSectionPage() {
                                         children: saving ? 'Saving...' : 'Save Event'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 813,
+                                        lineNumber: 886,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1738,19 +1880,19 @@ function AboutSectionPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 820,
+                                        lineNumber: 893,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 812,
+                                lineNumber: 885,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 773,
+                        lineNumber: 846,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1760,7 +1902,7 @@ function AboutSectionPage() {
                             children: "No timeline events yet. Add your first milestone!"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 833,
+                            lineNumber: 906,
                             columnNumber: 15
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "divide-y divide-white/5",
@@ -1775,7 +1917,7 @@ function AboutSectionPage() {
                                                     children: event.year
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 841,
+                                                    lineNumber: 914,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1785,7 +1927,7 @@ function AboutSectionPage() {
                                                             children: event.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                            lineNumber: 843,
+                                                            lineNumber: 916,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1793,19 +1935,19 @@ function AboutSectionPage() {
                                                             children: event.description
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                            lineNumber: 844,
+                                                            lineNumber: 917,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 842,
+                                                    lineNumber: 915,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                            lineNumber: 840,
+                                            lineNumber: 913,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1817,7 +1959,7 @@ function AboutSectionPage() {
                                                     children: "✏️"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 848,
+                                                    lineNumber: 921,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1826,35 +1968,35 @@ function AboutSectionPage() {
                                                     children: "🗑️"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 854,
+                                                    lineNumber: 927,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                            lineNumber: 847,
+                                            lineNumber: 920,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, event.id, true, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 839,
+                                    lineNumber: 912,
                                     columnNumber: 19
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 837,
+                            lineNumber: 910,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 831,
+                        lineNumber: 904,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 761,
+                lineNumber: 834,
                 columnNumber: 9
             }, this),
             activeTab === 'management' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1868,7 +2010,7 @@ function AboutSectionPage() {
                                 children: "Leadership Team"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 873,
+                                lineNumber: 946,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1877,20 +2019,20 @@ function AboutSectionPage() {
                                         position: '',
                                         photo: null,
                                         bio: '',
-                                        order: management.length,
+                                        order: management.length + 1,
                                         is_active: true
                                     }),
                                 className: "px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-colors",
                                 children: "+ Add Member"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 874,
+                                lineNumber: 947,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 872,
+                        lineNumber: 945,
                         columnNumber: 11
                     }, this),
                     editingMember && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1902,7 +2044,7 @@ function AboutSectionPage() {
                                 children: editingMember.id ? 'Edit Member' : 'Add New Member'
                             }, void 0, false, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 884,
+                                lineNumber: 957,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1919,7 +2061,7 @@ function AboutSectionPage() {
                                                         children: "Name *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 890,
+                                                        lineNumber: 963,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1934,13 +2076,13 @@ function AboutSectionPage() {
                                                         placeholder: "Full name"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 891,
+                                                        lineNumber: 964,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 889,
+                                                lineNumber: 962,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1951,7 +2093,7 @@ function AboutSectionPage() {
                                                         children: "Position *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 901,
+                                                        lineNumber: 974,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1966,13 +2108,13 @@ function AboutSectionPage() {
                                                         placeholder: "e.g., Chairman, Principal"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 902,
+                                                        lineNumber: 975,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 900,
+                                                lineNumber: 973,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1983,7 +2125,7 @@ function AboutSectionPage() {
                                                         children: "Biography"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 912,
+                                                        lineNumber: 985,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1997,13 +2139,13 @@ function AboutSectionPage() {
                                                         placeholder: "Short biography..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 913,
+                                                        lineNumber: 986,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 911,
+                                                lineNumber: 984,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2017,7 +2159,7 @@ function AboutSectionPage() {
                                                                 children: "Display Order"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 923,
+                                                                lineNumber: 996,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2030,13 +2172,13 @@ function AboutSectionPage() {
                                                                 className: "w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 924,
+                                                                lineNumber: 997,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 922,
+                                                        lineNumber: 995,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2047,7 +2189,7 @@ function AboutSectionPage() {
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 932,
+                                                                lineNumber: 1005,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2063,7 +2205,7 @@ function AboutSectionPage() {
                                                                         children: "Active"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                        lineNumber: 938,
+                                                                        lineNumber: 1011,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2071,31 +2213,31 @@ function AboutSectionPage() {
                                                                         children: "Inactive"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                        lineNumber: 939,
+                                                                        lineNumber: 1012,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                                lineNumber: 933,
+                                                                lineNumber: 1006,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 931,
+                                                        lineNumber: 1004,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 921,
+                                                lineNumber: 994,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 888,
+                                        lineNumber: 961,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2106,18 +2248,18 @@ function AboutSectionPage() {
                                             onRemove: ()=>setNewMemberPhoto(null)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                            lineNumber: 945,
+                                            lineNumber: 1018,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 944,
+                                        lineNumber: 1017,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 887,
+                                lineNumber: 960,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2130,7 +2272,7 @@ function AboutSectionPage() {
                                         children: saving ? 'Saving...' : 'Save Member'
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 954,
+                                        lineNumber: 1027,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2143,19 +2285,19 @@ function AboutSectionPage() {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 961,
+                                        lineNumber: 1034,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 953,
+                                lineNumber: 1026,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 883,
+                        lineNumber: 956,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2165,7 +2307,7 @@ function AboutSectionPage() {
                             children: "No team members yet. Add your leadership team!"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 974,
+                            lineNumber: 1047,
                             columnNumber: 15
                         }, this) : management.sort((a, b)=>a.order - b.order).map((member)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-4 hover:border-purple-500/30 transition-colors",
@@ -2181,19 +2323,19 @@ function AboutSectionPage() {
                                                     className: "w-full h-full object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 983,
+                                                    lineNumber: 1056,
                                                     columnNumber: 25
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "text-2xl font-bold text-white/80",
                                                     children: member.name.charAt(0)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                    lineNumber: 985,
+                                                    lineNumber: 1058,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 981,
+                                                lineNumber: 1054,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2204,7 +2346,7 @@ function AboutSectionPage() {
                                                         children: member.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 989,
+                                                        lineNumber: 1062,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2212,7 +2354,7 @@ function AboutSectionPage() {
                                                         children: member.position
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 990,
+                                                        lineNumber: 1063,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2220,19 +2362,19 @@ function AboutSectionPage() {
                                                         children: member.is_active ? '● Active' : '○ Inactive'
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                        lineNumber: 991,
+                                                        lineNumber: 1064,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 988,
+                                                lineNumber: 1061,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 980,
+                                        lineNumber: 1053,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2244,7 +2386,7 @@ function AboutSectionPage() {
                                                 children: "Edit"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 997,
+                                                lineNumber: 1070,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2253,30 +2395,30 @@ function AboutSectionPage() {
                                                 children: "Delete"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                                lineNumber: 1003,
+                                                lineNumber: 1076,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                        lineNumber: 996,
+                                        lineNumber: 1069,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, member.id, true, {
                                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                lineNumber: 979,
+                                lineNumber: 1052,
                                 columnNumber: 17
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                        lineNumber: 972,
+                        lineNumber: 1045,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 871,
+                lineNumber: 944,
                 columnNumber: 9
             }, this),
             deleteParams && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2289,7 +2431,7 @@ function AboutSectionPage() {
                             children: "Confirm Delete"
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 1019,
+                            lineNumber: 1092,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2301,7 +2443,7 @@ function AboutSectionPage() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 1020,
+                            lineNumber: 1093,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2314,7 +2456,7 @@ function AboutSectionPage() {
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 1024,
+                                    lineNumber: 1097,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2324,30 +2466,102 @@ function AboutSectionPage() {
                                     children: saving ? 'Deleting...' : 'Delete'
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                                    lineNumber: 1031,
+                                    lineNumber: 1104,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                            lineNumber: 1023,
+                            lineNumber: 1096,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                    lineNumber: 1018,
+                    lineNumber: 1091,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/about/page.tsx",
-                lineNumber: 1017,
+                lineNumber: 1090,
+                columnNumber: 9
+            }, this),
+            resetSection && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-xl font-bold text-white mb-2",
+                            children: "Reset Section"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                            lineNumber: 1120,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-400 mb-6",
+                            children: [
+                                "Are you sure you want to reset the ",
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                    className: "text-white",
+                                    children: resetSection.section
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                    lineNumber: 1122,
+                                    columnNumber: 50
+                                }, this),
+                                " section? This will clear all content in this section. This action cannot be undone."
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                            lineNumber: 1121,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-4 justify-end",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setResetSection(null),
+                                    className: "px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors",
+                                    disabled: saving,
+                                    children: "Cancel"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                    lineNumber: 1126,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: confirmReset,
+                                    disabled: saving,
+                                    className: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all",
+                                    children: saving ? 'Resetting...' : 'Reset Section'
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                                    lineNumber: 1133,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                            lineNumber: 1125,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                    lineNumber: 1119,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/secure-admin/about/page.tsx",
+                lineNumber: 1118,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/about/page.tsx",
-        lineNumber: 396,
+        lineNumber: 424,
         columnNumber: 5
     }, this);
 }

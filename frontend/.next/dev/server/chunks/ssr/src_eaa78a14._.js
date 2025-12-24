@@ -183,6 +183,7 @@ function PrincipalPage() {
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [newImage, setNewImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [errors, setErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({});
+    const [showResetModal, setShowResetModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetchData();
     }, []);
@@ -258,12 +259,33 @@ function PrincipalPage() {
             setSaving(false);
         }
     };
+    const handleReset = async ()=>{
+        setSaving(true);
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post('/api/admin/content/principal/reset/');
+            setData(response.data.data);
+            setInitialData(response.data.data);
+            setMessage({
+                type: 'success',
+                text: response.data.message
+            });
+        } catch (error) {
+            console.error('Error resetting principal:', error);
+            setMessage({
+                type: 'error',
+                text: 'Failed to reset principal section'
+            });
+        } finally{
+            setSaving(false);
+            setShowResetModal(false);
+        }
+    };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "text-center p-8 text-gray-400",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-        lineNumber: 95,
+        lineNumber: 112,
         columnNumber: 23
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -271,33 +293,45 @@ function PrincipalPage() {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex items-center justify-between mb-8",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-2xl font-bold text-white",
-                            children: "Principal's Message"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                            lineNumber: 101,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-gray-400",
-                            children: "Manage principal information and welcome message"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                            lineNumber: 102,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                    lineNumber: 100,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                className: "text-2xl font-bold text-white",
+                                children: "Principal's Message"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                                lineNumber: 118,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-gray-400",
+                                children: "Manage principal information and welcome message"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                                lineNumber: 119,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                        lineNumber: 117,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        type: "button",
+                        onClick: ()=>setShowResetModal(true),
+                        className: "px-4 py-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-colors text-sm",
+                        children: "🗑️ Reset Section"
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                        lineNumber: 121,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                lineNumber: 99,
+                lineNumber: 116,
                 columnNumber: 7
             }, this),
             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -305,7 +339,7 @@ function PrincipalPage() {
                 children: message.text
             }, void 0, false, {
                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                lineNumber: 107,
+                lineNumber: 131,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -329,7 +363,7 @@ function PrincipalPage() {
                                                         children: "Name *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 119,
+                                                        lineNumber: 143,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -342,7 +376,7 @@ function PrincipalPage() {
                                                         placeholder: "e.g. Dr. Rajesh Kumar"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 120,
+                                                        lineNumber: 144,
                                                         columnNumber: 17
                                                     }, this),
                                                     errors.name && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -350,13 +384,13 @@ function PrincipalPage() {
                                                         children: errors.name[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 132,
+                                                        lineNumber: 156,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 118,
+                                                lineNumber: 142,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -367,7 +401,7 @@ function PrincipalPage() {
                                                         children: "Title *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 137,
+                                                        lineNumber: 161,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -380,7 +414,7 @@ function PrincipalPage() {
                                                         placeholder: "e.g. Principal"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 138,
+                                                        lineNumber: 162,
                                                         columnNumber: 17
                                                     }, this),
                                                     errors.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -388,13 +422,13 @@ function PrincipalPage() {
                                                         children: errors.title[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 150,
+                                                        lineNumber: 174,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 136,
+                                                lineNumber: 160,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -405,7 +439,7 @@ function PrincipalPage() {
                                                         children: "Qualifications *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 155,
+                                                        lineNumber: 179,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -417,7 +451,7 @@ function PrincipalPage() {
                                                         placeholder: "e.g. M.Sc., B.Ed., Ph.D."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 156,
+                                                        lineNumber: 180,
                                                         columnNumber: 17
                                                     }, this),
                                                     errors.qualification && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -425,19 +459,19 @@ function PrincipalPage() {
                                                         children: errors.qualification[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                        lineNumber: 167,
+                                                        lineNumber: 191,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 154,
+                                                lineNumber: 178,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                        lineNumber: 117,
+                                        lineNumber: 141,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -448,7 +482,7 @@ function PrincipalPage() {
                                                 onChange: (file)=>setNewImage(file)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 173,
+                                                lineNumber: 197,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -456,7 +490,7 @@ function PrincipalPage() {
                                                 children: "Recommended: A professional portrait photo."
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 178,
+                                                lineNumber: 202,
                                                 columnNumber: 15
                                             }, this),
                                             errors.photo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -464,19 +498,19 @@ function PrincipalPage() {
                                                 children: errors.photo[0]
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                                lineNumber: 182,
+                                                lineNumber: 206,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                        lineNumber: 172,
+                                        lineNumber: 196,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                lineNumber: 116,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -487,7 +521,7 @@ function PrincipalPage() {
                                         children: "Message *"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 212,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -500,7 +534,7 @@ function PrincipalPage() {
                                         placeholder: "Write the principal's welcome message here..."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 213,
                                         columnNumber: 13
                                     }, this),
                                     errors.message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -508,48 +542,109 @@ function PrincipalPage() {
                                         children: errors.message[0]
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 225,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                                lineNumber: 187,
+                                lineNumber: 211,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                        lineNumber: 115,
+                        lineNumber: 139,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-end",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "submit",
-                            disabled: saving || !initialData || JSON.stringify(data) === JSON.stringify(initialData) && !newImage || !data.name || !data.title || !data.message,
+                            disabled: saving || !data.name || !data.title || !data.message,
                             className: "px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all",
                             children: saving ? 'Saving...' : 'Save Changes'
                         }, void 0, false, {
                             fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                            lineNumber: 207,
+                            lineNumber: 231,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                        lineNumber: 206,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-                lineNumber: 114,
+                lineNumber: 138,
                 columnNumber: 7
+            }, this),
+            showResetModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            className: "text-xl font-bold text-white mb-2",
+                            children: "Reset Principal Section"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                            lineNumber: 250,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-gray-400 mb-6",
+                            children: "Are you sure you want to reset the principal section? This will clear all content including the photo. This action cannot be undone."
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                            lineNumber: 251,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex gap-4 justify-end",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setShowResetModal(false),
+                                    className: "px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors",
+                                    disabled: saving,
+                                    children: "Cancel"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                                    lineNumber: 255,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleReset,
+                                    disabled: saving,
+                                    className: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all",
+                                    children: saving ? 'Resetting...' : 'Reset Section'
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                                    lineNumber: 262,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                            lineNumber: 254,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                    lineNumber: 249,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/secure-admin/principal/page.tsx",
+                lineNumber: 248,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/secure-admin/principal/page.tsx",
-        lineNumber: 98,
+        lineNumber: 115,
         columnNumber: 5
     }, this);
 }
