@@ -69,14 +69,20 @@ const HoursEditor = memo(({
     }
   }, [value, rows]); // Added rows dependency to ensure comparison is fresh
 
-  // Update parent whenever rows change
+  // Update parent whenever rows change, but DEBOUNCED to prevent rapid re-renders/looping
   useEffect(() => {
-    // We only trigger if there's a real change to emit
-    const stringified = JSON.stringify(rows);
-    if (stringified !== value) {
-        onChange(stringified);
-    }
-  }, [rows]); // value intentionally excluded locally to avoid redundant loops, actually we just fire event
+    const timer = setTimeout(() => {
+        const stringified = JSON.stringify(rows);
+        if (stringified !== value) {
+            onChange(stringified);
+            // After we sync to parent, we can assume consecutive props will match.
+            // But we keep isLocalChange true until we see the match in the other effect? 
+            // Actually, we don't need isLocalChange as much if we debounce, but let's keep it for safety.
+        }
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(timer);
+  }, [rows, value, onChange]);
 
   const addRow = useCallback(() => {
     isLocalChange.current = true;
