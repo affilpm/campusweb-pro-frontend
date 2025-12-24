@@ -143,9 +143,22 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                      <a href={`tel:${siteSettings.phone}`} className="text-gray-600 hover:text-blue-600 transition-colors">
-                        {siteSettings.phone}
-                      </a>
+                      <div className="flex flex-col">
+                        {(() => {
+                            let phones = [siteSettings.phone];
+                            try {
+                                const parsed = JSON.parse(siteSettings.phone);
+                                if (Array.isArray(parsed)) phones = parsed;
+                                else phones = [String(parsed)];
+                            } catch {}
+
+                            return phones.map((phone, idx) => (
+                                <a key={idx} href={`tel:${phone}`} className="text-gray-600 hover:text-blue-600 transition-colors mb-1">
+                                    {phone}
+                                </a>
+                            ));
+                        })()}
+                      </div>
                     </div>
                   </div>
 

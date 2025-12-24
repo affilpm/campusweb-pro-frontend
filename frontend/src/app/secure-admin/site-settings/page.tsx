@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, FormEvent, useRef } from 'react';
+import { useEffect, useState, FormEvent, useRef, memo, useCallback } from 'react';
 import { useAuth } from '@/contexts/auth-context';
 import api from '@/lib/api';
 
@@ -27,6 +27,138 @@ interface SiteSettings {
   google_maps_link: string;
   footer_text: string;
 }
+// Helper component for managing a simple list of strings (e.g., phone numbers)
+const PhoneListEditor = memo(({ 
+  label, 
+  value, 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void;
+}) => {
+  const [items, setItems] = useState<string[]>([]);
+  const isLocalChange = useRef(false);
+
+  // Initialize from value prop
+  useEffect(() => {
+    if (!value) {
+      if (items.length !== 0) setItems([]);
+      return;
+    }
+
+    try {
+      // Try parsing as JSON first
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+        const stringifiedItems = JSON.stringify(items);
+        const stringifiedParsed = JSON.stringify(parsed);
+        // Avoid update if effectively equal
+        if (stringifiedParsed === stringifiedItems) {
+            return;
+        }
+        if (isLocalChange.current) return;
+        setItems(parsed);
+      } else {
+        // Not an array, maybe a single string?
+        // Only reset if completely different to avoid typing interruption if we were smart enough
+        // but here we just accept external updates if we aren't typing
+        if (!isLocalChange.current) {
+             setItems([String(parsed)]);
+        }
+      }
+    } catch {
+      // Fallback: split by commas if it's a plain string and looks like a list?
+      // Or just treat as single item
+      if (!isLocalChange.current) {
+          if (value.includes(',')) {
+              setItems(value.split(',').map(s => s.trim()).filter(Boolean));
+          } else {
+             // Avoid loop
+             if (items.length !== 1 || items[0] !== value) {
+                setItems([value]);
+             }
+          }
+      }
+    }
+  }, [value]); 
+
+  // Sync to parent
+  useEffect(() => {
+    if (!isLocalChange.current) return;
+    
+    const timer = setTimeout(() => {
+        const stringified = JSON.stringify(items);
+        if (stringified !== value) {
+            onChange(stringified);
+        }
+        isLocalChange.current = false; 
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [items, onChange, value]);
+
+  const addItem = useCallback(() => {
+    isLocalChange.current = true;
+    setItems(prev => [...prev, '']);
+  }, []);
+
+  const updateItem = useCallback((index: number, val: string) => {
+    isLocalChange.current = true;
+    setItems(prev => {
+        const newItems = [...prev];
+        newItems[index] = val;
+        return newItems;
+    });
+  }, []);
+
+  const removeItem = useCallback((index: number) => {
+    isLocalChange.current = true;
+    setItems(prev => prev.filter((_, i) => i !== index));
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-between items-center">
+        <label className="text-sm font-medium text-gray-300">{label}</label>
+        <button 
+          type="button" 
+          onClick={addItem}
+          className="text-xs bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 px-2 py-1 rounded transition-colors"
+        >
+          + Add Phone
+        </button>
+      </div>
+      <div className="space-y-2">
+        {items.map((item, idx) => (
+          <div key={idx} className="flex gap-2 items-center">
+            <input
+              type="text"
+              value={item}
+              onChange={(e) => updateItem(idx, e.target.value)}
+              placeholder="e.g. +1 555-0123"
+              className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+            />
+            <button
+              type="button"
+              onClick={() => removeItem(idx)}
+              className="p-2 hover:bg-red-500/20 text-gray-500 hover:text-red-400 rounded-lg transition-colors"
+              title="Remove"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        ))}
+        {items.length === 0 && (
+            <div className="text-gray-500 text-sm italic">No phone numbers added.</div>
+        )}
+      </div>
+    </div>
+  );
+});
+PhoneListEditor.displayName = 'PhoneListEditor';
+
 
 export default function SiteSettingsPage() {
   const [activeTab, setActiveTab] = useState<'settings' | 'links'>('settings');
@@ -103,6 +235,13 @@ export default function SiteSettingsPage() {
       setErrors((prev) => ({ ...prev, [name]: [] }));
     }
   };
+
+  const handlePhoneChange = useCallback((val: string) => {
+    setSettings((prev) => ({ ...prev, phone: val }));
+    if (errors.phone) {
+        setErrors((prev) => ({ ...prev, phone: [] }));
+    }
+  }, [errors.phone]);
 
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -408,16 +547,10 @@ export default function SiteSettingsPage() {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Phone *</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={settings.phone}
-                  onChange={handleChange}
-                  required
-                  className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
-                    errors.phone ? 'border-red-500/50' : 'border-white/10'
-                  }`}
+                <PhoneListEditor 
+                  label="Phone Numbers *" 
+                  value={settings.phone} 
+                  onChange={handlePhoneChange} 
                 />
                 {errors.phone && (
                   <p className="text-xs text-red-400">{errors.phone[0]}</p>
