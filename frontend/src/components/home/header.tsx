@@ -58,11 +58,26 @@ export default function Header({ siteSettings }: HeaderProps) {
       <div className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-all duration-300 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href={`tel:${siteSettings.phone}`} className="flex items-center gap-2 hover:text-amber-300 transition-colors">
+            <a href={`tel:${(() => {
+                try {
+                    const parsed = JSON.parse(siteSettings.phone);
+                    return Array.isArray(parsed) ? parsed[0] : siteSettings.phone;
+                } catch { return siteSettings.phone; }
+            })()}`} className="flex items-center gap-2 hover:text-amber-300 transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="hidden sm:inline">{siteSettings.phone}</span>
+              <span className="hidden sm:inline">
+                {(() => {
+                    try {
+                        const parsed = JSON.parse(siteSettings.phone);
+                        if (Array.isArray(parsed)) {
+                            return parsed.join(' / '); // Display all separated by slash, or just parsed[0] if filtered
+                        }
+                        return siteSettings.phone;
+                    } catch { return siteSettings.phone; }
+                })()}
+              </span>
             </a>
             <a href={`mailto:${siteSettings.email}`} className="hidden md:flex items-center gap-2 hover:text-amber-300 transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
