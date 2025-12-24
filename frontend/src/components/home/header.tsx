@@ -58,27 +58,56 @@ export default function Header({ siteSettings }: HeaderProps) {
       <div className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-all duration-300 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href={`tel:${(() => {
+            {(() => {
+                let phones = [siteSettings.phone];
                 try {
                     const parsed = JSON.parse(siteSettings.phone);
-                    return Array.isArray(parsed) ? parsed[0] : siteSettings.phone;
-                } catch { return siteSettings.phone; }
-            })()}`} className="flex items-center gap-2 hover:text-amber-300 transition-colors">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span className="hidden sm:inline">
-                {(() => {
-                    try {
-                        const parsed = JSON.parse(siteSettings.phone);
-                        if (Array.isArray(parsed)) {
-                            return parsed.join(' / '); // Display all separated by slash, or just parsed[0] if filtered
-                        }
-                        return siteSettings.phone;
-                    } catch { return siteSettings.phone; }
-                })()}
-              </span>
-            </a>
+                    if (Array.isArray(parsed)) phones = parsed;
+                    else phones = [String(parsed)];
+                } catch { /* treat as string */ }
+
+                if (phones.length > 1) {
+                    return (
+                        <div className="relative group">
+                            <button className="flex items-center gap-2 hover:text-amber-300 transition-colors py-2">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                <span className="hidden sm:inline font-medium">Call Us</span>
+                                <svg className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {/* Dropdown */}
+                            <div className="absolute top-full left-0 mt-0 w-48 bg-white rounded-xl shadow-xl overflow-hidden py-1 border border-blue-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left z-50">
+                                {phones.map((phone, idx) => (
+                                    <a 
+                                        key={idx} 
+                                        href={`tel:${phone}`} 
+                                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50 last:border-0"
+                                    >
+                                        <svg className="w-3.5 h-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        {phone}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                }
+
+                // Single phone fallback
+                return (
+                    <a href={`tel:${phones[0]}`} className="flex items-center gap-2 hover:text-amber-300 transition-colors">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        <span className="hidden sm:inline">{phones[0]}</span>
+                    </a>
+                );
+            })()}
             <a href={`mailto:${siteSettings.email}`} className="hidden md:flex items-center gap-2 hover:text-amber-300 transition-colors">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
