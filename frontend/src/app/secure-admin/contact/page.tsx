@@ -95,14 +95,14 @@ const HoursEditor = ({
               type="text"
               value={row.day}
               onChange={(e) => updateRow(idx, 'day', e.target.value)}
-              placeholder="Day (e.g. Mon-Fri)"
+              placeholder="e.g. Monday - Friday"
               className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             />
             <input
               type="text"
               value={row.time}
               onChange={(e) => updateRow(idx, 'time', e.target.value)}
-              placeholder="Time (e.g. 8am - 3pm)"
+              placeholder="e.g. 8:00 AM - 3:00 PM"
               className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             />
             <button
