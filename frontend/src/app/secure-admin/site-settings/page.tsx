@@ -24,6 +24,7 @@ interface SiteSettings {
   twitter_url: string;
   instagram_url: string;
   youtube_url: string;
+  google_maps_link: string;
   footer_text: string;
 }
 
@@ -40,6 +41,7 @@ export default function SiteSettingsPage() {
     twitter_url: '',
     instagram_url: '',
     youtube_url: '',
+    google_maps_link: '',
     footer_text: '',
   });
   const [quickLinks, setQuickLinks] = useState<QuickLink[]>([]);
