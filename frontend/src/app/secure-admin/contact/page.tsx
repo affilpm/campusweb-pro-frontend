@@ -11,6 +11,117 @@ interface ContactPageData {
   school_hours: string;
 }
 
+interface HourRow {
+  day: string;
+  time: string;
+}
+
+// Helper component for editing hours
+const HoursEditor = ({ 
+  label, 
+  value, 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void;
+}) => {
+  const [rows, setRows] = useState<HourRow[]>([]);
+
+  // Parse initial value and handle async updates
+  useEffect(() => {
+    if (!value) {
+       // Only set defaults if rows are also empty (initial load)
+       if (rows.length === 0) {
+          setRows([
+            { day: 'Monday - Friday', time: '8:00 AM - 3:00 PM' },
+            { day: 'Saturday', time: '8:00 AM - 12:00 PM' },
+            { day: 'Sunday', time: 'Closed' }
+          ]);
+       }
+       return;
+    }
+
+    try {
+      const parsed = JSON.parse(value);
+      // Avoid loop: only update if different from current rows
+      if (Array.isArray(parsed) && JSON.stringify(parsed) !== JSON.stringify(rows)) {
+        setRows(parsed);
+      }
+    } catch (e) {
+      // Ignore parse errors from value
+    }
+  }, [value]);
+
+  // Update parent whenever rows change
+  useEffect(() => {
+    const stringified = JSON.stringify(rows);
+    // Avoid loop: only call onChange if different from incoming value
+    if (stringified !== value) {
+        onChange(stringified);
+    }
+  }, [rows]);
+
+  const addRow = () => {
+    setRows([...rows, { day: '', time: '' }]);
+  };
+
+  const removeRow = (index: number) => {
+    setRows(rows.filter((_, i) => i !== index));
+  };
+
+  const updateRow = (index: number, field: keyof HourRow, val: string) => {
+    const newRows = [...rows];
+    newRows[index] = { ...newRows[index], [field]: val };
+    setRows(newRows);
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-between items-center">
+        <label className="text-sm font-medium text-gray-300">{label}</label>
+        <button 
+          type="button" 
+          onClick={addRow}
+          className="text-xs bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 px-2 py-1 rounded transition-colors"
+        >
+          + Add Row
+        </button>
+      </div>
+      <div className="space-y-2">
+        {rows.map((row, idx) => (
+          <div key={idx} className="flex gap-2 items-center">
+            <input
+              type="text"
+              value={row.day}
+              onChange={(e) => updateRow(idx, 'day', e.target.value)}
+              placeholder="Day (e.g. Mon-Fri)"
+              className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+            <input
+              type="text"
+              value={row.time}
+              onChange={(e) => updateRow(idx, 'time', e.target.value)}
+              placeholder="Time (e.g. 8am - 3pm)"
+              className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+            <button
+              type="button"
+              onClick={() => removeRow(idx)}
+              className="p-2 hover:bg-red-500/20 text-gray-500 hover:text-red-400 rounded-lg transition-colors"
+              title="Remove"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function ContactPageAdmin() {
   const [data, setData] = useState<ContactPageData>({
     hero_title: '',
@@ -39,9 +150,6 @@ export default function ContactPageAdmin() {
     try {
       const res = await api.get('/api/admin/content/contact/');
       if (res.data) {
-        // If some fields like address/phone are empty in ContactPage model but present in SiteSettings,
-        // we might want to auto-fill them, but for now we'll respect what's in the DB.
-        // User can manually copy them if needed, or we could fetch SiteSettings here too.
         setData(res.data);
       }
     } catch (error) {
@@ -54,6 +162,10 @@ export default function ContactPageAdmin() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    setData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleHoursChange = (name: 'school_hours' | 'office_hours', value: string) => {
     setData(prev => ({ ...prev, [name]: value }));
   };
 
@@ -151,31 +263,17 @@ export default function ContactPageAdmin() {
         {/* Hours */}
         <section className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Operating Hours</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">School Hours</label>
-              <textarea
-                name="school_hours"
-                rows={4}
-                value={data.school_hours}
-                onChange={handleChange}
-                placeholder="e.g. Mon - Fri: 8:00 AM - 3:00 PM"
-                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-              />
-              <p className="text-xs text-gray-500">Visible on Contact page.</p>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">Office Hours</label>
-              <textarea
-                name="office_hours"
-                rows={4}
-                value={data.office_hours}
-                onChange={handleChange}
-                placeholder="e.g. Mon - Fri: 9:00 AM - 4:00 PM"
-                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-              />
-              <p className="text-xs text-gray-500">Visible on Contact page.</p>
-            </div>
+          <div className="grid md:grid-cols-2 gap-8">
+             <HoursEditor 
+               label="School Hours" 
+               value={data.school_hours} 
+               onChange={(val) => handleHoursChange('school_hours', val)} 
+             />
+             <HoursEditor 
+               label="Office Hours" 
+               value={data.office_hours} 
+               onChange={(val) => handleHoursChange('office_hours', val)} 
+             />
           </div>
         </section>
 

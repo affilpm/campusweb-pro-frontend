@@ -263,7 +263,8 @@ export interface ContactPageData {
   title: string;
   subtitle: string;
   office_hours: string;
-  google_map_embed: string;
+  school_hours: string;
+  map_embed_code: string;
   site_settings: SiteSettings;
   quick_links: QuickLink[];
 }

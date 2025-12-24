@@ -13,6 +13,36 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  // Helper to parse hours (JSON or newline-separated string)
+  const renderHours = (hoursString: string | undefined) => {
+    if (!hoursString) return null;
+    try {
+      const parsed = JSON.parse(hoursString);
+      if (Array.isArray(parsed)) {
+        return (
+          <div className="space-y-1">
+            {parsed.map((item: any, idx: number) => (
+              <div key={idx} className="flex justify-between gap-4">
+                <span className="font-medium text-gray-900">{item.day}</span>
+                <span className="text-gray-600">{item.time}</span>
+              </div>
+            ))}
+          </div>
+        );
+      }
+    } catch (e) {
+      // Fallback: split by newlines
+      return (
+        <div className="space-y-1">
+          {hoursString.split('\n').map((line, idx) => (
+             <div key={idx} className="text-gray-600">{line}</div>
+          ))}
+        </div>
+      );
+    }
+    return <p className="text-gray-600">{hoursString}</p>;
+  };
   
   const [formData, setFormData] = useState({
     name: '',
@@ -161,21 +191,37 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                </div>
+                   
+                   {/* School Hours */}
+                   {data?.school_hours && (
+                    <div className="flex gap-4 mt-6 pt-6 border-t border-gray-100">
+                      <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="font-semibold text-gray-900 mb-1">School Hours</h3>
+                        {renderHours(data.school_hours)}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Office Hours */}
                   {data?.office_hours && (
                     <div className="flex gap-4">
                       <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
                         <svg className="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
-                      <div>
+                      <div className="flex-grow">
                         <h3 className="font-semibold text-gray-900 mb-1">Office Hours</h3>
-                        <p className="text-gray-600">{data.office_hours}</p>
+                         {renderHours(data.office_hours)}
                       </div>
                     </div>
                   )}
-                </div>
               </div>
             </AnimatedSection>
 
@@ -289,11 +335,11 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      {data?.google_map_embed && (
+      {data?.map_embed_code && (
         <section className="h-96 bg-gray-200">
           <div 
             className="w-full h-full"
-            dangerouslySetInnerHTML={{ __html: data.google_map_embed }}
+            dangerouslySetInnerHTML={{ __html: data.map_embed_code }}
           />
         </section>
       )}
