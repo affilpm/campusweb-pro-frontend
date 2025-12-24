@@ -184,38 +184,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
             </motion.div>
           </div>
 
-          {/* School Hours */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <h4 className="font-bold text-lg mb-6">School Hours</h4>
-              <div className="space-y-3 text-gray-400">
-                <div className="flex justify-between">
-                  <span>Monday - Friday</span>
-                  <span className="text-white">8:00 AM - 3:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span className="text-white">8:00 AM - 12:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span className="text-red-400">Closed</span>
-                </div>
-              </div>
 
-              <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
-                <p className="text-sm text-gray-400">
-                  <span className="text-amber-400 font-semibold">Office Hours:</span><br />
-                  9:00 AM - 5:00 PM (Mon-Sat)
-                </p>
-              </div>
-            </motion.div>
-          </div>
         </div>
 
         {/* Bottom Bar */}

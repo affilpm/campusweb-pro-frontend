@@ -338,7 +338,7 @@ export default function ContactPage() {
       {data?.map_embed_code && (
         <section className="h-96 bg-gray-200">
           <div 
-            className="w-full h-full"
+            className="w-full h-full [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0"
             dangerouslySetInnerHTML={{ __html: data.map_embed_code }}
           />
         </section>
