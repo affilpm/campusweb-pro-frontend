@@ -47,10 +47,31 @@ async function getPageData(): Promise<PageData | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'Documents | Public Disclosure',
-  description: 'Download official documents, certificates, and files.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('documents');
+  const title = 'Documents | Public Disclosure';
+  const description = 'Download official documents, certificates, and files.';
+
+  if (seo) {
+    return {
+      title: seo.title || title,
+      description: seo.meta_description || description,
+      keywords: seo.meta_keywords?.split(',').map(k => k.trim()),
+      openGraph: {
+        title: seo.title || title,
+        description: seo.meta_description || description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      }
+    };
+  }
+
+  return {
+    title,
+    description,
+  };
+}
 
 const defaultSettings: SiteSettings = {
   school_name: 'School',

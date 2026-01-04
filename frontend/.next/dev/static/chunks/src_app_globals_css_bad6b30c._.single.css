@@ -145,6 +145,7 @@
     --color-blue-900: #1c398e;
     --color-blue-950: #162456;
     --color-indigo-50: #eef2ff;
+    --color-indigo-100: #e0e7ff;
     --color-indigo-200: #c7d2ff;
     --color-indigo-300: #a4b3ff;
     --color-indigo-400: #7d87ff;
@@ -323,6 +324,7 @@
       --color-blue-900: lab(26.1542% 15.7545 -51.5504);
       --color-blue-950: lab(15.6723% 8.86232 -32.2945);
       --color-indigo-50: lab(95.4818% .411302 -6.78529);
+      --color-indigo-100: lab(91.6577% 1.04591 -12.7199);
       --color-indigo-200: lab(84.4329% 3.18977 -23.9688);
       --color-indigo-300: lab(74.0235% 8.54138 -41.6075);
       --color-indigo-400: lab(59.866% 22.4834 -64.4485);
@@ -964,6 +966,10 @@
     margin-block: auto;
   }
 
+  .mt-0 {
+    margin-top: calc(var(--spacing) * 0);
+  }
+
   .mt-0\.5 {
     margin-top: calc(var(--spacing) * .5);
   }
@@ -1056,6 +1062,10 @@
     margin-bottom: calc(var(--spacing) * 16);
   }
 
+  .ml-1 {
+    margin-left: calc(var(--spacing) * 1);
+  }
+
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
   }
@@ -1084,6 +1094,13 @@
 
   .line-clamp-3 {
     -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+  }
+
+  .line-clamp-5 {
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
@@ -1519,6 +1536,10 @@
 
   .flex-grow {
     flex-grow: 1;
+  }
+
+  .origin-top-left {
+    transform-origin: 0 0;
   }
 
   .-translate-x-1\/2 {
@@ -1976,6 +1997,10 @@
 
   .border-emerald-500 {
     border-color: var(--color-emerald-500);
+  }
+
+  .border-gray-50 {
+    border-color: var(--color-gray-50);
   }
 
   .border-gray-100 {
@@ -2506,6 +2531,10 @@
 
   .bg-indigo-50 {
     background-color: var(--color-indigo-50);
+  }
+
+  .bg-indigo-100 {
+    background-color: var(--color-indigo-100);
   }
 
   .bg-indigo-400\/10 {
@@ -3875,6 +3904,10 @@
     text-align: right;
   }
 
+  .font-mono {
+    font-family: var(--font-geist-mono);
+  }
+
   .font-serif {
     font-family: var(--font-serif);
   }
@@ -4027,12 +4060,26 @@
     color: #1a56a6;
   }
 
+  .text-amber-200\/80 {
+    color: #fee685cc;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .text-amber-200\/80 {
+      color: color-mix(in oklab, var(--color-amber-200) 80%, transparent);
+    }
+  }
+
   .text-amber-300 {
     color: var(--color-amber-300);
   }
 
   .text-amber-400 {
     color: var(--color-amber-400);
+  }
+
+  .text-amber-500 {
+    color: var(--color-amber-500);
   }
 
   .text-amber-600 {
@@ -4059,6 +4106,10 @@
 
   .text-blue-200 {
     color: var(--color-blue-200);
+  }
+
+  .text-blue-300 {
+    color: var(--color-blue-300);
   }
 
   .text-blue-400 {
@@ -4223,6 +4274,10 @@
     }
   }
 
+  .text-purple-300 {
+    color: var(--color-purple-300);
+  }
+
   .text-purple-400 {
     color: var(--color-purple-400);
   }
@@ -4335,6 +4390,10 @@
     color: var(--color-yellow-500);
   }
 
+  .capitalize {
+    text-transform: capitalize;
+  }
+
   .uppercase {
     text-transform: uppercase;
   }
@@ -4379,6 +4438,10 @@
 
   .opacity-60 {
     opacity: .6;
+  }
+
+  .opacity-70 {
+    opacity: .7;
   }
 
   .opacity-75 {
@@ -4774,6 +4837,11 @@
     margin-bottom: calc(var(--spacing) * 0);
   }
 
+  .last\:border-0:last-child {
+    border-style: var(--tw-border-style);
+    border-width: 0;
+  }
+
   @media (hover: hover) {
     .hover\:-translate-y-0\.5:hover {
       --tw-translate-y: calc(var(--spacing) * -.5);
@@ -4892,6 +4960,18 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-amber-500\/20:hover {
+      background-color: #f99c0033;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-amber-500\/20:hover {
+        background-color: color-mix(in oklab, var(--color-amber-500) 20%, transparent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-amber-600:hover {
       background-color: var(--color-amber-600);
     }
@@ -4954,6 +5034,18 @@
   @media (hover: hover) {
     .hover\:bg-blue-600:hover {
       background-color: var(--color-blue-600);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-blue-600\/40:hover {
+      background-color: #155dfc66;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-blue-600\/40:hover {
+        background-color: color-mix(in oklab, var(--color-blue-600) 40%, transparent);
+      }
     }
   }
 
@@ -5126,6 +5218,18 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-purple-500\/20:hover {
+      background-color: #ac4bff33;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-purple-500\/20:hover {
+        background-color: color-mix(in oklab, var(--color-purple-500) 20%, transparent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-purple-600\/30:hover {
       background-color: #9810fa4d;
     }
@@ -5133,6 +5237,18 @@
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:bg-purple-600\/30:hover {
         background-color: color-mix(in oklab, var(--color-purple-600) 30%, transparent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-purple-600\/40:hover {
+      background-color: #9810fa66;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-purple-600\/40:hover {
+        background-color: color-mix(in oklab, var(--color-purple-600) 40%, transparent);
       }
     }
   }
@@ -5726,6 +5842,16 @@
 
   .focus\:ring-blue-500:focus {
     --tw-ring-color: var(--color-blue-500);
+  }
+
+  .focus\:ring-blue-500\/50:focus {
+    --tw-ring-color: #3080ff80;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .focus\:ring-blue-500\/50:focus {
+      --tw-ring-color: color-mix(in oklab, var(--color-blue-500) 50%, transparent);
+    }
   }
 
   .focus\:ring-indigo-500:focus {
@@ -6650,6 +6776,15 @@
   }
 
   @media (min-width: 64rem) {
+    .lg\:line-clamp-6 {
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+    }
+  }
+
+  @media (min-width: 64rem) {
     .lg\:block {
       display: block;
     }
@@ -6966,6 +7101,19 @@
       font-size: var(--text-7xl);
       line-height: var(--tw-leading, var(--text-7xl--line-height));
     }
+  }
+
+  .\[\&\>iframe\]\:h-full > iframe {
+    height: 100%;
+  }
+
+  .\[\&\>iframe\]\:w-full > iframe {
+    width: 100%;
+  }
+
+  .\[\&\>iframe\]\:border-0 > iframe {
+    border-style: var(--tw-border-style);
+    border-width: 0;
   }
 }
 

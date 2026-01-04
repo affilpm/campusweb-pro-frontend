@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { AboutPageData, SiteSettings } from '@/lib/public-types';
+import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import AnimatedSection from '@/components/ui/animated-section';
@@ -19,10 +20,27 @@ async function getAboutData(): Promise<AboutPageData | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'About Us | School',
-  description: 'Learn about our school history, vision, mission, and leadership.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('about');
+  
+  if (seo) {
+    return {
+      title: seo.title || 'About Us | School',
+      description: seo.meta_description || 'Learn about our school history, vision, mission, and leadership.',
+      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : undefined,
+      openGraph: {
+        title: seo.title || 'About Us',
+        description: seo.meta_description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      },
+    };
+  }
+
+  return {
+    title: 'About Us | School',
+    description: 'Learn about our school history, vision, mission, and leadership.',
+  };
+}
 
 const defaultSettings: SiteSettings = {
   school_name: 'School',

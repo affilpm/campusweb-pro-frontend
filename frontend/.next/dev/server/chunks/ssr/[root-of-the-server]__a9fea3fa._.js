@@ -72,11 +72,13 @@ var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$g
 ;
 ;
 const metadata = {
-    title: "School Admin Portal",
-    description: "Secure admin portal for school content management",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+    title: "School Website",
+    description: "Welcome to our school website. Excellence in education.",
     icons: {
         icon: "/logo.png",
-        apple: "/logo.png"
+        apple: "/logo.png",
+        shortcut: "/logo.png"
     }
 };
 function RootLayout({ children }) {
@@ -87,12 +89,12 @@ function RootLayout({ children }) {
             children: children
         }, void 0, false, {
             fileName: "[project]/src/app/layout.tsx",
-            lineNumber: 31,
+            lineNumber: 33,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/layout.tsx",
-        lineNumber: 30,
+        lineNumber: 32,
         columnNumber: 5
     }, this);
 }

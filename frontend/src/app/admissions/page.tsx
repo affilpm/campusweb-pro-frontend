@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { AdmissionSettings, SiteSettings } from '@/lib/public-types';
+import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import Link from 'next/link';
@@ -18,10 +19,27 @@ async function getAdmissionsData(): Promise<AdmissionSettings | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'Admissions | School',
-  description: 'Apply for admission. Learn about our admission process, eligibility, and fee structure.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('admissions');
+  
+  if (seo) {
+    return {
+      title: seo.title || 'Admissions | School',
+      description: seo.meta_description || 'Apply for admission. Learn about our admission process, eligibility, and fee structure.',
+      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : undefined,
+      openGraph: {
+        title: seo.title || 'Admissions',
+        description: seo.meta_description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      },
+    };
+  }
+
+  return {
+    title: 'Admissions | School',
+    description: 'Apply for admission. Learn about our admission process, eligibility, and fee structure.',
+  };
+}
 
 const defaultSettings: SiteSettings = {
   school_name: 'School',

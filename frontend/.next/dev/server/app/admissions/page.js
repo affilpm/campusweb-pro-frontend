@@ -1,6 +1,6 @@
 var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/admissions/page.js")
 R.c("server/chunks/ssr/node_modules_ba7b9be4._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__3278cf49._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__c3a93aeb._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_3b4d20e1._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__7f148858._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_ece394eb.js")

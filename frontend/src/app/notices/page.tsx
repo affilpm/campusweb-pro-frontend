@@ -4,10 +4,31 @@ import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import { Notice, HomepageData } from '@/lib/public-types';
 
-export const metadata: Metadata = {
-  title: 'All Notices | School Website',
-  description: 'Latest updates, announcements and notices from our school.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('notices');
+  const title = 'All Notices | School Website';
+  const description = 'Latest updates, announcements and notices from our school.';
+
+  if (seo) {
+    return {
+      title: seo.title || title,
+      description: seo.meta_description || description,
+      keywords: seo.meta_keywords?.split(',').map(k => k.trim()),
+      openGraph: {
+        title: seo.title || title,
+        description: seo.meta_description || description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      }
+    };
+  }
+
+  return {
+    title,
+    description,
+  };
+}
 
 async function getData() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';

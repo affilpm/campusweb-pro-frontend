@@ -369,6 +369,15 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../../src/app/secure-admin/seo/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/secure-admin/seo">> = Specific
+  const handler = {} as typeof import("../../../src/app/secure-admin/seo/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../src/app/secure-admin/site-settings/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/secure-admin/site-settings">> = Specific
@@ -401,15 +410,6 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
 
 
 
-
-// Validate ../../../src/app/academics/layout.tsx
-{
-  type __IsExpected<Specific extends LayoutConfig<"/academics">> = Specific
-  const handler = {} as typeof import("../../../src/app/academics/layout.js")
-  type __Check = __IsExpected<typeof handler>
-  // @ts-ignore
-  type __Unused = __Check
-}
 
 // Validate ../../../src/app/contact/layout.tsx
 {

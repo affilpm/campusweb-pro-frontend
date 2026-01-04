@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { AcademicsPageData, SiteSettings } from '@/lib/public-types';
+import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import AnimatedSection from '@/components/ui/animated-section';
@@ -19,10 +20,27 @@ async function getAcademicsData(): Promise<AcademicsPageData | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'Academics | School',
-  description: 'Explore our curriculum, teaching methodology, and academic programs.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('academics');
+  
+  if (seo) {
+    return {
+      title: seo.title || 'Academics | School',
+      description: seo.meta_description || 'Explore our curriculum, teaching methodology, and academic programs.',
+      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : undefined,
+      openGraph: {
+        title: seo.title || 'Academics',
+        description: seo.meta_description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      },
+    };
+  }
+
+  return {
+    title: 'Academics | School',
+    description: 'Explore our curriculum, teaching methodology, and academic programs.',
+  };
+}
 
 const defaultSettings: SiteSettings = {
   school_name: 'School',

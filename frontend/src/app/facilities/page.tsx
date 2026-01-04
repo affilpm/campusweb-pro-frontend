@@ -34,10 +34,31 @@ async function getFacilitiesData(): Promise<FacilitiesPageData | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'Our Facilities | School',
-  description: 'Explore our world-class campus facilities designed for holistic student development.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('facilities');
+  const title = 'Our Facilities | School';
+  const description = 'Explore our world-class campus facilities designed for holistic student development.';
+
+  if (seo) {
+    return {
+      title: seo.title || title,
+      description: seo.meta_description || description,
+      keywords: seo.meta_keywords?.split(',').map(k => k.trim()),
+      openGraph: {
+        title: seo.title || title,
+        description: seo.meta_description || description,
+        images: seo.og_image ? [seo.og_image] : undefined,
+      }
+    };
+  }
+
+  return {
+    title,
+    description,
+  };
+}
 
 const defaultSettings: SiteSettings = {
   school_name: 'School',

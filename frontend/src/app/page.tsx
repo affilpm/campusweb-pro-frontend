@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { HomepageData } from '@/lib/public-types';
+import { getPageSEO } from '@/lib/seo-api';
 
 // Components
 import Header from '../components/home/header';
@@ -38,8 +39,25 @@ async function getHomepageData(): Promise<HomepageData | null> {
 
 // Dynamic metadata based on site settings
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getHomepageData();
+  const [data, seo] = await Promise.all([
+    getHomepageData(),
+    getPageSEO('home')
+  ]);
   
+  if (seo) {
+    return {
+      title: seo.title || data?.site_settings?.school_name || 'School Website',
+      description: seo.meta_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
+      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : ['school', 'education', 'CBSE', 'academics', 'admissions'],
+      openGraph: {
+        title: seo.title || data?.site_settings?.school_name,
+        description: seo.meta_description || data?.site_settings?.school_motto,
+        images: seo.og_image ? [seo.og_image] : undefined,
+        type: 'website',
+      },
+    };
+  }
+
   return {
     title: data?.site_settings?.school_name || 'School Website',
     description: data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',

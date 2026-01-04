@@ -13,11 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "School Admin Portal",
-  description: "Secure admin portal for school content management",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  title: "School Website",
+  description: "Welcome to our school website. Excellence in education.",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
+    shortcut: "/logo.png",
   },
 };
 
