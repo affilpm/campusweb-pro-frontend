@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:8000';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   const routes = [
     '',
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/gallery',
     '/notices',
     '/events',
-    '/downloads'
+    '/public-disclosure'
   ];
 
   return routes.map((route) => ({
