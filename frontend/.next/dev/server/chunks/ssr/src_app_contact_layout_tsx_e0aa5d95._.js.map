@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/affilpm/Documents/frontend%20scho/frontend/src/app/contact/layout.tsx"],"sourcesContent":["import { Metadata } from 'next';\n\nexport const metadata: Metadata = {\n  title: 'Contact Us | School',\n  description: 'Get in touch with us. Find our address, phone number, email, and office hours. Send us a message for any inquiries about admissions, academics, or general information.',\n  keywords: ['contact school', 'school address', 'school phone', 'school email', 'admissions inquiry'],\n  openGraph: {\n    title: 'Contact Us | School',\n    description: 'Get in touch with us for any inquiries about admissions, academics, or general information.',\n    type: 'website',\n  },\n};\n\nexport default function ContactLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return <>{children}</>;\n}\n"],"names":[],"mappings":";;;;;;;;AAEO,MAAM,WAAqB;IAChC,OAAO;IACP,aAAa;IACb,UAAU;QAAC;QAAkB;QAAkB;QAAgB;QAAgB;KAAqB;IACpG,WAAW;QACT,OAAO;QACP,aAAa;QACb,MAAM;IACR;AACF;AAEe,SAAS,cAAc,EACpC,QAAQ,EAGT;IACC,qBAAO;kBAAG;;AACZ"}}]
-}
