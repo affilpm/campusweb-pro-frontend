@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'api.affils.site',
+        hostname: 'api.novelschoolindia.com',
       },
       {
         protocol: 'https',
