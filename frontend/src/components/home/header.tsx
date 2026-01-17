@@ -379,9 +379,9 @@ export default function Header({ siteSettings }: HeaderProps) {
                   {navLinks.map((link, index) => (
                     <motion.div 
                       key={link.name}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
+                      transition={{ duration: 0.15 }}
                     >
                       {link.subItems ? (
                         <div>
@@ -447,9 +447,9 @@ export default function Header({ siteSettings }: HeaderProps) {
 
                   {/* Notices - Special highlight */}
                   <motion.div
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: navLinks.length * 0.05 }}
+                    transition={{ duration: 0.15 }}
                   >
                     <Link
                       href="/notices"
