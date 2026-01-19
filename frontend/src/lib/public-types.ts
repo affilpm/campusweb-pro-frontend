@@ -280,3 +280,8 @@ export interface PageSEO {
   og_image: string | null;
 }
 
+export interface LayoutData {
+  site_settings: SiteSettings;
+  quick_links: QuickLink[];
+}
+

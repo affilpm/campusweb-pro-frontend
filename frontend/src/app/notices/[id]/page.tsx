@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
-import { Notice, HomepageData } from '@/lib/public-types';
+import { Notice, LayoutData } from '@/lib/public-types';
 
 interface PageProps {
   params: {
@@ -33,8 +33,8 @@ async function getData(id: string) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const [homeRes, noticeRes] = await Promise.all([
-      fetch(`${apiUrl}/api/public/home/`, { 
+    const [layoutRes, noticeRes] = await Promise.all([
+      fetch(`${apiUrl}/api/public/layout/`, { 
         cache: 'force-cache',
         next: { revalidate: 300 } 
       }),
@@ -44,15 +44,15 @@ async function getData(id: string) {
       })
     ]);
 
-    if (!homeRes.ok) throw new Error('Failed to fetch home data');
+    if (!layoutRes.ok) throw new Error('Failed to fetch layout data');
     if (!noticeRes.ok) return null; // Handle 404 gracefully
 
-    const homeData: HomepageData = await homeRes.json();
+    const layoutData: LayoutData = await layoutRes.json();
     const notice: Notice = await noticeRes.json();
 
     return {
-      site_settings: homeData.site_settings,
-      quick_links: homeData.quick_links,
+      site_settings: layoutData.site_settings,
+      quick_links: layoutData.quick_links,
       notice
     };
   } catch (error) {

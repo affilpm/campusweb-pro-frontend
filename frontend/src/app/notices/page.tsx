@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
-import { Notice, HomepageData } from '@/lib/public-types';
+import { Notice, LayoutData } from '@/lib/public-types';
 
 import { getPageSEO } from '@/lib/seo-api';
 
@@ -34,27 +34,27 @@ async function getData() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const [homeRes, noticesRes] = await Promise.all([
-      fetch(`${apiUrl}/api/public/home/`, { 
+    const [layoutRes, noticesRes] = await Promise.all([
+      fetch(`${apiUrl}/api/public/layout/`, { 
         cache: 'force-cache',
         next: { revalidate: 300 } 
       }),
-      fetch(`${apiUrl}/api/public/notices/`, { 
+      fetch(`${apiUrl}/api/public/notices/?page=1`, { 
         cache: 'force-cache',
         next: { revalidate: 300 } 
       })
     ]);
 
-    if (!homeRes.ok || !noticesRes.ok) {
+    if (!layoutRes.ok || !noticesRes.ok) {
       throw new Error('Failed to fetch data');
     }
 
-    const homeData: HomepageData = await homeRes.json();
+    const layoutData: LayoutData = await layoutRes.json();
     const notices: Notice[] = await noticesRes.json();
 
     return {
-      site_settings: homeData.site_settings,
-      quick_links: homeData.quick_links,
+      site_settings: layoutData.site_settings,
+      quick_links: layoutData.quick_links,
       notices
     };
   } catch (error) {
