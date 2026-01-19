@@ -34,8 +34,14 @@ async function getData(id: string) {
   
   try {
     const [homeRes, noticeRes] = await Promise.all([
-      fetch(`${apiUrl}/api/public/home/`, { next: { revalidate: 300 } }),
-      fetch(`${apiUrl}/api/public/notices/${id}/`, { next: { revalidate: 300 } })
+      fetch(`${apiUrl}/api/public/home/`, { 
+        cache: 'force-cache',
+        next: { revalidate: 300 } 
+      }),
+      fetch(`${apiUrl}/api/public/notices/${id}/`, { 
+        cache: 'force-cache',
+        next: { revalidate: 300 } 
+      })
     ]);
 
     if (!homeRes.ok) throw new Error('Failed to fetch home data');

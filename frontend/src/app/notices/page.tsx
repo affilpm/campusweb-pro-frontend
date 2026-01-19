@@ -35,8 +35,14 @@ async function getData() {
   
   try {
     const [homeRes, noticesRes] = await Promise.all([
-      fetch(`${apiUrl}/api/public/home/`, { next: { revalidate: 300 } }),
-      fetch(`${apiUrl}/api/public/notices/`, { next: { revalidate: 300 } })
+      fetch(`${apiUrl}/api/public/home/`, { 
+        cache: 'force-cache',
+        next: { revalidate: 300 } 
+      }),
+      fetch(`${apiUrl}/api/public/notices/`, { 
+        cache: 'force-cache',
+        next: { revalidate: 300 } 
+      })
     ]);
 
     if (!homeRes.ok || !noticesRes.ok) {
