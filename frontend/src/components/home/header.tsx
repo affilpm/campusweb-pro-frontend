@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { SiteSettings } from '@/lib/public-types';
 
 interface HeaderProps {
@@ -16,7 +16,9 @@ export default function Header({ siteSettings }: HeaderProps) {
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<string | null>(null);
   const [isPhoneDropdownOpen, setIsPhoneDropdownOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const lastToggleTime = useRef<number>(0);
 
   // Scroll handler
@@ -68,14 +70,38 @@ export default function Header({ siteSettings }: HeaderProps) {
     setTimeout(() => setIsAnimating(false), 350);
   }, [isAnimating]);
 
-  // Close menu handler (for navigation clicks)
-  const closeMobileMenu = useCallback(() => {
-    if (isAnimating) return;
-    setIsAnimating(true);
+  // Optimized navigation handler for mobile - closes menu first, then navigates
+  const handleNavigation = useCallback((href: string) => {
+    if (isNavigating) return;
+    
+    // If already on this page, just close the menu
+    if (pathname === href) {
+      setIsMobileMenuOpen(false);
+      setOpenMobileSubMenu(null);
+      return;
+    }
+    
+    // Show loading state and close menu instantly
+    setIsNavigating(true);
     setIsMobileMenuOpen(false);
     setOpenMobileSubMenu(null);
-    setTimeout(() => setIsAnimating(false), 350);
-  }, [isAnimating]);
+    
+    // Navigate after a brief moment to let menu close smoothly
+    setTimeout(() => {
+      router.push(href);
+    }, 50);
+  }, [pathname, router, isNavigating]);
+
+  // Reset navigation state when pathname changes
+  useEffect(() => {
+    setIsNavigating(false);
+  }, [pathname]);
+
+  // Simple close for non-navigation actions (like backdrop click)
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    setOpenMobileSubMenu(null);
+  }, []);
 
   interface NavLink {
     name: string;
@@ -434,6 +460,16 @@ export default function Header({ siteSettings }: HeaderProps) {
                 </div>
               </div>
 
+              {/* Loading overlay when navigating */}
+              {isNavigating && (
+                <div className="absolute inset-0 bg-slate-900/80 flex items-center justify-center z-50">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-3 border-white/20 border-t-white rounded-full animate-spin" />
+                    <p className="text-white/80 text-sm">Loading...</p>
+                  </div>
+                </div>
+              )}
+
               {/* Navigation - with iOS scroll optimization */}
               <div className="relative p-4 pb-24 flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
                 <nav className="space-y-2">
@@ -478,12 +514,13 @@ export default function Header({ siteSettings }: HeaderProps) {
                                       <Link
                                         key={subItem.name}
                                         href={subItem.href}
-                                        className={`block py-2 px-3 text-sm rounded-lg transition-all duration-200 ${
+                                        prefetch={true}
+                                        className={`block py-2 px-3 text-sm rounded-lg transition-all duration-200 relative ${
                                           isSubActive
                                             ? 'text-white bg-blue-600/20 font-medium'
                                             : 'text-gray-400 hover:text-white hover:bg-white/5'
                                         }`}
-                                        onClick={closeMobileMenu}
+                                        onClick={(e) => { e.preventDefault(); handleNavigation(subItem.href); }}
                                       >
                                         {isSubActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-blue-500 rounded-full" />}
                                         <span className="relative">{subItem.name}</span>
@@ -498,12 +535,13 @@ export default function Header({ siteSettings }: HeaderProps) {
                       ) : (
                         <Link
                           href={link.href}
+                          prefetch={true}
                           className={`flex items-center gap-3 py-3 px-4 rounded-xl font-medium transition-all duration-200 relative ${
                             isActive 
                               ? 'text-white bg-blue-600/20 border-l-2 border-blue-500' 
                               : 'text-gray-200 hover:bg-white/10 hover:text-white'
                           }`}
-                          onClick={closeMobileMenu}
+                          onClick={(e) => { e.preventDefault(); handleNavigation(link.href); }}
                         >
                           {isActive && <span className="absolute right-3 w-2 h-2 bg-blue-500 rounded-full" />}
                           {link.name}
@@ -517,8 +555,9 @@ export default function Header({ siteSettings }: HeaderProps) {
                   <div className="touch-manipulation">
                     <Link
                       href="/notices"
+                      prefetch={true}
                       className={`flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30 ${pathname.startsWith('/notices') ? 'ring-2 ring-amber-400/50' : ''}`}
-                      onClick={closeMobileMenu}
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/notices'); }}
                     >
                       <div className="relative">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
