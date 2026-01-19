@@ -59,16 +59,18 @@ export default function Header({ siteSettings }: HeaderProps) {
   // Debounced toggle with animation guard
   const toggleMobileMenu = useCallback(() => {
     const now = Date.now();
-    // Debounce: ignore clicks within 300ms
-    if (isAnimating || now - lastToggleTime.current < 300) return;
+    // Debounce: ignore clicks within 150ms (reduced for responsiveness)
+    if (isAnimating || now - lastToggleTime.current < 150) return;
     
     lastToggleTime.current = now;
     setIsAnimating(true);
     setIsMobileMenuOpen(prev => !prev);
     
-    // Reset animation guard after transition completes
-    setTimeout(() => setIsAnimating(false), 350);
+    // Reset animation guard after transition completes (faster reset)
+    setTimeout(() => setIsAnimating(false), 200);
   }, [isAnimating]);
+
+
 
   // Optimized navigation handler for mobile - navigate immediately
   const handleNavigation = useCallback((href: string) => {
@@ -408,7 +410,7 @@ export default function Header({ siteSettings }: HeaderProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Backdrop with blur */}
+            {/* Backdrop with blur - Optimized for performance */}
             <motion.div 
               className="absolute inset-0 bg-black/60 backdrop-blur-sm touch-manipulation" 
               onClick={closeMobileMenu}
@@ -425,7 +427,7 @@ export default function Header({ siteSettings }: HeaderProps) {
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
+              transition={{ type: 'tween', duration: 0.2, ease: 'easeOut' }} // Faster animation (0.2s)
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {/* Decorative gradient orbs */}
@@ -461,16 +463,6 @@ export default function Header({ siteSettings }: HeaderProps) {
                   </button>
                 </div>
               </div>
-
-              {/* Loading overlay when navigating */}
-              {isNavigating && (
-                <div className="absolute inset-0 bg-slate-900/80 flex items-center justify-center z-50">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="w-8 h-8 border-3 border-white/20 border-t-white rounded-full animate-spin" />
-                    <p className="text-white/80 text-sm">Loading...</p>
-                  </div>
-                </div>
-              )}
 
               {/* Navigation - with iOS scroll optimization */}
               <div className="relative p-4 pb-24 flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
@@ -614,6 +606,15 @@ export default function Header({ siteSettings }: HeaderProps) {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Global Navigation Loader - Centered on Screen */}
+      {isNavigating && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/20">
+            <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+            <p className="text-white font-medium tracking-wide text-sm">Loading...</p>
+          </div>
+        </div>
+      )}
     </>
   );
 }
