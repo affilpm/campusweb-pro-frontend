@@ -101,6 +101,17 @@ export default function Header({ siteSettings }: HeaderProps) {
     setOpenMobileSubMenu(null);
   }, [pathname]);
 
+  // Safety timeout for navigation - prevents infinite loading state
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isNavigating) {
+      timeout = setTimeout(() => {
+        setIsNavigating(false);
+      }, 8000); // 8 seconds max loading time
+    }
+    return () => clearTimeout(timeout);
+  }, [isNavigating]);
+
   // Simple close for non-navigation actions (like backdrop click)
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
@@ -612,6 +623,12 @@ export default function Header({ siteSettings }: HeaderProps) {
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/20">
             <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
             <p className="text-white font-medium tracking-wide text-sm">Loading...</p>
+            <button 
+              onClick={() => setIsNavigating(false)}
+              className="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white/80 text-xs rounded-full transition-colors"
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}
