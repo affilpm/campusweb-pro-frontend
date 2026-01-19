@@ -165,6 +165,16 @@ export default function AdminLayoutClient({ children }: AdminLayoutProps) {
           </h2>
         </header>
         <div className="flex-1 p-4 md:p-6 overflow-x-auto overflow-y-auto">
+          {/* Cache Notification Banner */}
+          <div className="mb-4 px-4 py-3 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-start gap-3">
+            <svg className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <p className="text-sm font-medium text-amber-300">Content Sync Notice</p>
+              <p className="text-xs text-amber-400/80 mt-0.5">Changes may take up to <strong>5 minutes</strong> to appear on the public website due to caching.</p>
+            </div>
+          </div>
           {children}
         </div>
       </main>
