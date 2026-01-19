@@ -70,7 +70,7 @@ export default function Header({ siteSettings }: HeaderProps) {
     setTimeout(() => setIsAnimating(false), 350);
   }, [isAnimating]);
 
-  // Optimized navigation handler for mobile - closes menu first, then navigates
+  // Optimized navigation handler for mobile - navigate immediately
   const handleNavigation = useCallback((href: string) => {
     if (isNavigating) return;
     
@@ -81,15 +81,15 @@ export default function Header({ siteSettings }: HeaderProps) {
       return;
     }
     
-    // Show loading state and close menu instantly
+    // Close menu and navigate immediately - no delay for faster iPhone experience
     setIsNavigating(true);
     setIsMobileMenuOpen(false);
     setOpenMobileSubMenu(null);
     
-    // Navigate after a brief moment to let menu close smoothly
-    setTimeout(() => {
+    // Navigate immediately using requestAnimationFrame for smoother iOS experience
+    requestAnimationFrame(() => {
       router.push(href);
-    }, 50);
+    });
   }, [pathname, router, isNavigating]);
 
   // Reset navigation state when pathname changes
