@@ -1,28 +1,31 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Notice } from '@/lib/public-types';
-
 import { getPageSEO } from '@/lib/seo-api';
 
-export const metadata: Metadata = {
-  title: 'All Notices | School Website',
-  description: 'Latest updates, announcements and notices from our school.',
-};
+// Dynamic metadata with SEO API (matching other pages like gallery, about, facilities)
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('notices');
+  
+  return {
+    title: seo?.title || 'All Notices | School Website',
+    description: seo?.meta_description || 'Latest updates, announcements and notices from our school.',
+    openGraph: {
+      title: seo?.title || 'All Notices | School Website',
+      description: seo?.meta_description || 'Latest updates, announcements and notices from our school.',
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
+  };
+}
 
 async function getData() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
-
+    // Matching gallery/facilities caching strategy (no force-cache, just revalidate)
     const res = await fetch(`${apiUrl}/api/public/notices/?page=1`, { 
-      cache: 'force-cache',
-      next: { revalidate: 300 },
-      signal: controller.signal
+      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
-    
-    clearTimeout(timeoutId);
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
