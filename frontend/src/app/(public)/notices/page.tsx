@@ -105,8 +105,9 @@ export default async function NoticesPage() {
               </div>
             ) : (
               notices.map((notice) => (
-                <div 
+                <Link 
                   key={notice.id}
+                  href={`/notices/${notice.id}`}
                   className="group block bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 p-6 transition-all duration-200"
                 >
                   <div className="flex flex-col gap-4">
@@ -121,37 +122,21 @@ export default async function NoticesPage() {
                           </span>
                         )}
                       </div>
-                      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                      <h2 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">
                         {notice.title}
                       </h2>
-                      <div className="prose prose-amber max-w-none text-gray-700 whitespace-pre-wrap leading-relaxed">
+                      <div className="prose prose-amber max-w-none text-gray-600 line-clamp-3">
                         {notice.content}
                       </div>
-                      
-                      {/* Attachment */}
-                      {notice.attachment && (
-                        <div className="mt-6 pt-4 border-t border-gray-100">
-                          <a 
-                            href={notice.attachment} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center p-3 rounded-lg border border-gray-200 bg-gray-50 hover:bg-white hover:border-amber-400 hover:shadow-sm transition-all group"
-                          >
-                            <div className="w-8 h-8 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                              </svg>
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-900 group-hover:text-amber-700 text-sm">Download Attachment</p>
-                              <p className="text-xs text-gray-500">Click to view or download</p>
-                            </div>
-                          </a>
-                        </div>
-                      )}
+                      <div className="mt-4 flex items-center text-amber-600 font-medium text-sm">
+                        <span>Read full notice</span>
+                        <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>
