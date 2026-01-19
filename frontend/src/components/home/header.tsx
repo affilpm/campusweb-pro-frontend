@@ -99,6 +99,11 @@ export default function Header({ siteSettings }: HeaderProps) {
     setIsNavigating(false);
     setIsMobileMenuOpen(false);
     setOpenMobileSubMenu(null);
+    // Aggressively clean up any scroll locks
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
   }, [pathname]);
 
   // Safety timeout for navigation - prevents infinite loading state
@@ -107,6 +112,8 @@ export default function Header({ siteSettings }: HeaderProps) {
     if (isNavigating) {
       timeout = setTimeout(() => {
         setIsNavigating(false);
+        // Also cleanup scroll just in case
+        document.body.style.overflow = '';
       }, 8000); // 8 seconds max loading time
     }
     return () => clearTimeout(timeout);
@@ -275,7 +282,7 @@ export default function Header({ siteSettings }: HeaderProps) {
 
       {/* Main Header */}
       <motion.header 
-        className={`fixed left-0 right-0 z-40 transition-all duration-500 ${
+        className={`fixed left-0 right-0 z-60 transition-all duration-500 ${
           isScrolled 
             ? 'top-0 bg-white/95 backdrop-blur-md shadow-lg' 
             : 'top-11 bg-transparent'
@@ -623,12 +630,6 @@ export default function Header({ siteSettings }: HeaderProps) {
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/20">
             <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
             <p className="text-white font-medium tracking-wide text-sm">Loading...</p>
-            <button 
-              onClick={() => setIsNavigating(false)}
-              className="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white/80 text-xs rounded-full transition-colors"
-            >
-              Cancel
-            </button>
           </div>
         </div>
       )}
