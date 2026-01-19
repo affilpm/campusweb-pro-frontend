@@ -567,7 +567,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                   <div className="touch-manipulation">
                     <Link
                       href="/notices"
-                      prefetch={true}
+                      prefetch={false}
                       className={`flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30 ${pathname.startsWith('/notices') ? 'ring-2 ring-amber-400/50' : ''}`}
                       onClick={(e) => { e.preventDefault(); handleNavigation('/notices'); }}
                     >
