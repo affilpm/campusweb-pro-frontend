@@ -81,20 +81,22 @@ export default function Header({ siteSettings }: HeaderProps) {
       return;
     }
     
-    // Close menu and navigate immediately - no delay for faster iPhone experience
+    // Show loading state but KEEP menu open until navigation completes
     setIsNavigating(true);
-    setIsMobileMenuOpen(false);
-    setOpenMobileSubMenu(null);
+    // We do NOT close the menu here anymore - it will close in the useEffect when pathname changes
+    // This allows the loading overlay to be visible while the new page loads
     
-    // Navigate immediately using requestAnimationFrame for smoother iOS experience
+    // Navigate immediately
     requestAnimationFrame(() => {
       router.push(href);
     });
   }, [pathname, router, isNavigating]);
 
-  // Reset navigation state when pathname changes
+  // Reset navigation state and close menu when pathname changes (navigation completed)
   useEffect(() => {
     setIsNavigating(false);
+    setIsMobileMenuOpen(false);
+    setOpenMobileSubMenu(null);
   }, [pathname]);
 
   // Simple close for non-navigation actions (like backdrop click)
