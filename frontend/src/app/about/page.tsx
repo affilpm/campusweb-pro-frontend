@@ -10,7 +10,7 @@ async function getAboutData(): Promise<AboutPageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/about/`, {
       cache: 'force-cache',
-      next: { revalidate: 60 } // Revalidate every minute
+      next: { revalidate: 300 } // Revalidate every minute
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();

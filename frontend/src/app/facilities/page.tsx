@@ -16,7 +16,7 @@ async function getFacilitiesData(): Promise<FacilitiesPageData | null> {
     
     // Fetch homepage data for site settings and quick links
     const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 300 },
     });
     
     if (!homeRes.ok) throw new Error('Failed to fetch data');

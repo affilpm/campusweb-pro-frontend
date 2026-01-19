@@ -23,7 +23,7 @@ async function getHomepageData(): Promise<HomepageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/home/`, {
-      next: { revalidate: 60 }, // ISR: revalidate every 60 seconds
+      next: { revalidate: 300 }, // ISR: revalidate every 60 seconds
     });
     
     if (!res.ok) {

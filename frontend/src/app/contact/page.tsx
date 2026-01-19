@@ -1,87 +1,87 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import { Metadata } from 'next';
 import { ContactPageData, SiteSettings } from '@/lib/public-types';
 import { renderHours } from '@/lib/utils';
+import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import AnimatedSection from '@/components/ui/animated-section';
-import axios from 'axios';
+import ContactForm from '@/components/contact/contact-form';
 
-export default function ContactPage() {
-  const [data, setData] = useState<ContactPageData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
-
-  // renderHours is now imported from '@/lib/utils'
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
-
-  const defaultSettings: SiteSettings = {
-    school_name: 'School',
-    school_motto: '',
-    school_logo: null,
-    favicon: null,
-    address: '',
-    phone: '',
-    email: '',
-    facebook_url: '',
-    twitter_url: '',
-    instagram_url: '',
-    youtube_url: '',
-    footer_text: ''
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const res = await axios.get(`${apiUrl}/api/public/contact/`);
-        setData(res.data);
-      } catch (err) {
-        console.error('Error fetching contact data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError('');
+// Fetch contact data with ISR caching
+async function getContactData(): Promise<ContactPageData | null> {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const res = await fetch(`${apiUrl}/api/public/contact/`, {
+      cache: 'force-cache',
+      next: { revalidate: 300 }, // ISR: revalidate every 60 seconds
+    });
     
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      await axios.post(`${apiUrl}/api/public/contact/submit/`, formData);
-      setSuccess(true);
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    } catch (err) {
-      setError('Failed to send message. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    if (!res.ok) throw new Error('Failed to fetch');
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching contact data:', error);
+    return null;
+  }
+}
 
-  if (loading) {
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const [data, seo] = await Promise.all([
+    getContactData(),
+    getPageSEO('contact')
+  ]);
+  
+  return {
+    title: seo?.title || data?.title || 'Contact Us',
+    description: seo?.meta_description || data?.subtitle || 'Get in touch with us',
+    openGraph: {
+      title: seo?.title || 'Contact Us',
+      description: seo?.meta_description || 'Get in touch with us',
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
+  };
+}
+
+const defaultSettings: SiteSettings = {
+  school_name: 'School',
+  school_motto: '',
+  school_logo: null,
+  favicon: null,
+  address: '',
+  phone: '',
+  email: '',
+  facebook_url: '',
+  twitter_url: '',
+  instagram_url: '',
+  youtube_url: '',
+  footer_text: ''
+};
+
+export default async function ContactPage() {
+  const data = await getContactData();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  
+  if (!data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Unable to load content</h1>
+          <p className="text-gray-600">Please try again later</p>
+        </div>
       </div>
     );
   }
 
-  const siteSettings = data?.site_settings || defaultSettings;
-  const quickLinks = data?.quick_links || [];
+  const siteSettings = data.site_settings || defaultSettings;
+  const quickLinks = data.quick_links || [];
+
+  // Parse phone numbers
+  let phones: string[] = [siteSettings.phone];
+  try {
+    const parsed = JSON.parse(siteSettings.phone);
+    if (Array.isArray(parsed)) phones = parsed;
+    else phones = [String(parsed)];
+  } catch { /* treat as single string */ }
 
   return (
     <main className="overflow-hidden">
@@ -96,10 +96,10 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimatedSection>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              {data?.title || 'Contact Us'}
+              {data.title || 'Contact Us'}
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              {data?.subtitle || "We'd love to hear from you"}
+              {data.subtitle || "We'd love to hear from you"}
             </p>
           </AnimatedSection>
         </div>
@@ -144,20 +144,11 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
                       <div className="flex flex-col">
-                        {(() => {
-                            let phones = [siteSettings.phone];
-                            try {
-                                const parsed = JSON.parse(siteSettings.phone);
-                                if (Array.isArray(parsed)) phones = parsed;
-                                else phones = [String(parsed)];
-                            } catch {}
-
-                            return phones.map((phone, idx) => (
-                                <a key={idx} href={`tel:${phone}`} className="text-gray-600 hover:text-blue-600 transition-colors mb-1">
-                                    {phone}
-                                </a>
-                            ));
-                        })()}
+                        {phones.map((phone, idx) => (
+                          <a key={idx} href={`tel:${phone}`} className="text-gray-600 hover:text-blue-600 transition-colors mb-1">
+                            {phone}
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -176,148 +167,49 @@ export default function ContactPage() {
                       </a>
                     </div>
                   </div>
-
                 </div>
                    
-                   {/* School Hours */}
-                   {data?.school_hours && (
-                    <div className="flex gap-4 mt-6 pt-6 border-t border-gray-100">
-                      <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <h3 className="font-semibold text-gray-900 mb-1">School Hours</h3>
-                        <div className="whitespace-pre-line text-gray-600">
-                            {renderHours(data.school_hours)}
-                        </div>
+                {/* School Hours */}
+                {data.school_hours && (
+                  <div className="flex gap-4 mt-6 pt-6 border-t border-gray-100">
+                    <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="font-semibold text-gray-900 mb-1">School Hours</h3>
+                      <div className="whitespace-pre-line text-gray-600">
+                        {renderHours(data.school_hours)}
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Office Hours */}
-                  {data?.office_hours && (
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                        <svg className="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                      </div>
-                      <div className="flex-grow">
-                        <h3 className="font-semibold text-gray-900 mb-1">Office Hours</h3>
-                        <div className="whitespace-pre-line text-gray-600">
-                           {renderHours(data.office_hours)}
-                        </div>
+                {/* Office Hours */}
+                {data.office_hours && (
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="font-semibold text-gray-900 mb-1">Office Hours</h3>
+                      <div className="whitespace-pre-line text-gray-600">
+                        {renderHours(data.office_hours)}
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
             </AnimatedSection>
 
-            {/* Contact Form */}
+            {/* Contact Form - Client Component */}
             <AnimatedSection delay={0.2}>
               <div className="bg-gray-50 rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-                
-                {success ? (
-                  <div className="bg-green-50 border border-green-200 text-green-700 px-6 py-4 rounded-xl">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="font-medium">Message sent successfully!</span>
-                    </div>
-                    <p className="text-sm mt-2">We will get back to you soon.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {error && (
-                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
-                        {error}
-                      </div>
-                    )}
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          placeholder="Your name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                        <input
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          placeholder="Your phone number"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Subject *</label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.subject}
-                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                          placeholder="Message subject"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                      <textarea
-                        required
-                        rows={5}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
-                        placeholder="How can we help you?"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {submitting ? (
-                        <span className="flex items-center justify-center gap-2">
-                          <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                          Sending...
-                        </span>
-                      ) : (
-                        'Send Message'
-                      )}
-                    </button>
-                  </form>
-                )}
+                <ContactForm apiUrl={apiUrl} />
               </div>
             </AnimatedSection>
           </div>
@@ -325,7 +217,7 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      {data?.map_embed_code && (
+      {data.map_embed_code && (
         <section className="h-96 bg-gray-200">
           <div 
             className="w-full h-full [&>iframe]:w-full [&>iframe]:h-full [&>iframe]:border-0"

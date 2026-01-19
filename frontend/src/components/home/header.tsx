@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SiteSettings } from '@/lib/public-types';
@@ -15,16 +15,67 @@ export default function Header({ siteSettings }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<string | null>(null);
   const [isPhoneDropdownOpen, setIsPhoneDropdownOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const pathname = usePathname();
+  const lastToggleTime = useRef<number>(0);
 
+  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open (prevents iOS Safari issues)
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Debounced toggle with animation guard
+  const toggleMobileMenu = useCallback(() => {
+    const now = Date.now();
+    // Debounce: ignore clicks within 300ms
+    if (isAnimating || now - lastToggleTime.current < 300) return;
+    
+    lastToggleTime.current = now;
+    setIsAnimating(true);
+    setIsMobileMenuOpen(prev => !prev);
+    
+    // Reset animation guard after transition completes
+    setTimeout(() => setIsAnimating(false), 350);
+  }, [isAnimating]);
+
+  // Close menu handler (for navigation clicks)
+  const closeMobileMenu = useCallback(() => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setIsMobileMenuOpen(false);
+    setOpenMobileSubMenu(null);
+    setTimeout(() => setIsAnimating(false), 350);
+  }, [isAnimating]);
 
   interface NavLink {
     name: string;
@@ -197,8 +248,11 @@ export default function Header({ siteSettings }: HeaderProps) {
             {/* Left side - Mobile Menu Button */}
             <div className="flex items-center gap-4">
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={`lg:hidden p-2 rounded-lg ${isScrolled ? 'text-gray-900' : 'text-white'}`}
+                onClick={toggleMobileMenu}
+                disabled={isAnimating}
+                className={`lg:hidden p-2 rounded-lg touch-manipulation select-none ${isScrolled ? 'text-gray-900' : 'text-white'} ${isAnimating ? 'opacity-50' : ''}`}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   {isMobileMenuOpen ? (
@@ -316,31 +370,35 @@ export default function Header({ siteSettings }: HeaderProps) {
         </div>
       </motion.header>
 
-      {/* Mobile Menu - Modern UI */}
-      <AnimatePresence>
+      {/* Mobile Menu - Modern UI with iOS optimizations */}
+      <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
           <motion.div
             className="fixed inset-0 z-50 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
             {/* Backdrop with blur */}
             <motion.div 
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm touch-manipulation" 
+              onClick={closeMobileMenu}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              style={{ WebkitTapHighlightColor: 'transparent' }}
             />
             
             {/* Sidebar Panel */}
             <motion.div
-              className="absolute top-0 left-0 w-80 h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl overflow-hidden flex flex-col"
+              className="absolute top-0 left-0 w-80 max-w-[85vw] h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl overflow-hidden flex flex-col will-change-transform"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
+              style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {/* Decorative gradient orbs */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl" />
@@ -363,8 +421,11 @@ export default function Header({ siteSettings }: HeaderProps) {
                     </div>
                   </div>
                   <button 
-                    onClick={() => setIsMobileMenuOpen(false)} 
-                    className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                    onClick={closeMobileMenu}
+                    disabled={isAnimating}
+                    className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors touch-manipulation"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                    aria-label="Close menu"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -373,15 +434,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="relative p-4 pb-24 flex-1 overflow-y-auto">
+              {/* Navigation - with iOS scroll optimization */}
+              <div className="relative p-4 pb-24 flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
                 <nav className="space-y-2">
-                  {navLinks.map((link, index) => (
-                    <motion.div 
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href || (link.subItems && pathname.startsWith(link.href));
+                    return (
+                    <div 
                       key={link.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.15 }}
+                      className="touch-manipulation"
                     >
                       {link.subItems ? (
                         <div>
@@ -422,9 +483,10 @@ export default function Header({ siteSettings }: HeaderProps) {
                                             ? 'text-white bg-blue-600/20 font-medium'
                                             : 'text-gray-400 hover:text-white hover:bg-white/5'
                                         }`}
-                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        onClick={closeMobileMenu}
                                       >
-                                        {subItem.name}
+                                        {isSubActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-blue-500 rounded-full" />}
+                                        <span className="relative">{subItem.name}</span>
                                       </Link>
                                     );
                                   })}
@@ -436,25 +498,27 @@ export default function Header({ siteSettings }: HeaderProps) {
                       ) : (
                         <Link
                           href={link.href}
-                          className="flex items-center gap-3 py-3 px-4 text-gray-200 hover:bg-white/10 hover:text-white rounded-xl font-medium transition-all duration-200"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center gap-3 py-3 px-4 rounded-xl font-medium transition-all duration-200 relative ${
+                            isActive 
+                              ? 'text-white bg-blue-600/20 border-l-2 border-blue-500' 
+                              : 'text-gray-200 hover:bg-white/10 hover:text-white'
+                          }`}
+                          onClick={closeMobileMenu}
                         >
+                          {isActive && <span className="absolute right-3 w-2 h-2 bg-blue-500 rounded-full" />}
                           {link.name}
                         </Link>
                       )}
-                    </motion.div>
-                  ))}
+                    </div>
+                    );
+                  })}
 
                   {/* Notices - Special highlight */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.15 }}
-                  >
+                  <div className="touch-manipulation">
                     <Link
                       href="/notices"
-                      className="flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30 ${pathname.startsWith('/notices') ? 'ring-2 ring-amber-400/50' : ''}`}
+                      onClick={closeMobileMenu}
                     >
                       <div className="relative">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -467,7 +531,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                       </div>
                       Notices & Announcements
                     </Link>
-                  </motion.div>
+                  </div>
                 </nav>
               </div>
 

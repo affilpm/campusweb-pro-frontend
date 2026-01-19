@@ -22,13 +22,13 @@ async function getPageData(): Promise<PageData | null> {
     // Fetch site settings from homepage
     const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
       cache: 'force-cache',
-      next: { revalidate: 60 },
+      next: { revalidate: 300 },
     });
     
     // Fetch fees
     const feesRes = await fetch(`${apiUrl}/api/public/fees/`, {
       cache: 'force-cache',
-      next: { revalidate: 60 },
+      next: { revalidate: 300 },
     });
     
     if (!homeRes.ok) throw new Error('Failed to fetch');

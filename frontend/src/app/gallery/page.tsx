@@ -1,13 +1,10 @@
-'use client';
-
-import { useState, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Metadata } from 'next';
 import { GalleryImage, SiteSettings, QuickLink } from '@/lib/public-types';
+import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
 import AnimatedSection from '@/components/ui/animated-section';
-import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
+import GalleryGrid from '@/components/gallery/gallery-grid';
 
 interface GalleryCategory {
   id: number;
@@ -20,67 +17,99 @@ interface GalleryData {
   images: GalleryImage[];
 }
 
-function GalleryContent() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'all';
+interface HomeData {
+  site_settings: SiteSettings;
+  quick_links: QuickLink[];
+}
+
+// Fetch gallery data with ISR caching
+async function getGalleryData(): Promise<GalleryData | null> {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const res = await fetch(`${apiUrl}/api/public/gallery/`, {
+      cache: 'force-cache',
+      next: { revalidate: 300 }, // ISR: revalidate every 60 seconds
+    });
+    
+    if (!res.ok) throw new Error('Failed to fetch');
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching gallery data:', error);
+    return null;
+  }
+}
+
+// Fetch home data for header/footer
+async function getHomeData(): Promise<HomeData | null> {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const res = await fetch(`${apiUrl}/api/public/home/`, {
+      cache: 'force-cache',
+      next: { revalidate: 300 },
+    });
+    
+    if (!res.ok) throw new Error('Failed to fetch');
+    return res.json();
+  } catch (error) {
+    console.error('Error fetching home data:', error);
+    return null;
+  }
+}
+
+// Generate metadata for SEO
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('gallery');
   
-  const [data, setData] = useState<GalleryData | null>(null);
-  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
-  const [quickLinks, setQuickLinks] = useState<QuickLink[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | { image: string; title: string; caption?: string } | null>(null);
-
-  const defaultSettings: SiteSettings = {
-    school_name: 'School',
-    school_motto: '',
-    school_logo: null,
-    favicon: null,
-    address: '',
-    phone: '',
-    email: '',
-    facebook_url: '',
-    twitter_url: '',
-    instagram_url: '',
-    youtube_url: '',
-    footer_text: ''
+  return {
+    title: seo?.title || 'Photo Gallery',
+    description: seo?.meta_description || 'View our school photo gallery',
+    openGraph: {
+      title: seo?.title || 'Photo Gallery',
+      description: seo?.meta_description || 'View our school photo gallery',
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
   };
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const [galleryRes, homeRes] = await Promise.all([
-          axios.get(`${apiUrl}/api/public/gallery/`),
-          axios.get(`${apiUrl}/api/public/home/`)
-        ]);
-        setData(galleryRes.data);
-        setSiteSettings(homeRes.data.site_settings);
-        setQuickLinks(homeRes.data.quick_links || []);
-      } catch (err) {
-        console.error('Error fetching gallery:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+const defaultSettings: SiteSettings = {
+  school_name: 'School',
+  school_motto: '',
+  school_logo: null,
+  favicon: null,
+  address: '',
+  phone: '',
+  email: '',
+  facebook_url: '',
+  twitter_url: '',
+  instagram_url: '',
+  youtube_url: '',
+  footer_text: ''
+};
 
-  const filteredImages = data?.images.filter(img => 
-    selectedCategory === 'all' || img.category_name === selectedCategory
-  ) || [];
-
-  if (loading) {
+export default async function GalleryPage() {
+  const [galleryData, homeData] = await Promise.all([
+    getGalleryData(),
+    getHomeData()
+  ]);
+  
+  if (!galleryData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+        <div className="text-center">
+          <div className="text-6xl mb-4">📷</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Gallery Coming Soon</h1>
+          <p className="text-gray-600">Check back later for photos!</p>
+        </div>
       </div>
     );
   }
 
+  const siteSettings = homeData?.site_settings || defaultSettings;
+  const quickLinks = homeData?.quick_links || [];
+
   return (
     <main className="overflow-hidden">
-      <Header siteSettings={siteSettings || defaultSettings} />
+      <Header siteSettings={siteSettings} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-purple-900 via-violet-800 to-indigo-900 text-white overflow-hidden">
@@ -104,131 +133,13 @@ function GalleryContent() {
         </div>
       </section>
 
-      {/* Category Filter */}
-      {data?.categories && data.categories.length > 0 && (
-        <section className="py-8 bg-white border-b border-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-3">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`px-6 py-2 rounded-full font-medium transition-all ${
-                  selectedCategory === 'all'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                All
-              </button>
-              {data.categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.name)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all ${
-                    selectedCategory === cat.name
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Gallery Grid - Client Component for interactivity */}
+      <GalleryGrid 
+        categories={galleryData.categories} 
+        images={galleryData.images} 
+      />
 
-      {/* Gallery Grid */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          {filteredImages.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">📷</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">No Images Yet</h3>
-              <p className="text-gray-600">Check back soon for updates!</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredImages.map((image, idx) => (
-                <AnimatedSection key={image.id} delay={idx * 0.05}>
-                  <motion.div
-                    className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md aspect-square"
-                    whileHover={{ scale: 1.02 }}
-                    onClick={() => setSelectedImage(image)}
-                  >
-                    <img
-                      src={image.image}
-                      alt={image.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="text-white font-semibold text-sm">{image.title}</h3>
-                      {image.category_name && (
-                        <span className="text-white/70 text-xs">{image.category_name}</span>
-                      )}
-                    </div>
-                  </motion.div>
-                </AnimatedSection>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-          >
-            <button
-              className="absolute top-6 right-6 text-white/70 hover:text-white p-2"
-              onClick={() => setSelectedImage(null)}
-            >
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <motion.div
-              className="max-w-4xl max-h-[80vh] mx-4"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={selectedImage.image}
-                alt={selectedImage.title}
-                className="max-w-full max-h-[70vh] object-contain rounded-lg"
-              />
-              <div className="mt-4 text-center">
-                <h3 className="text-white text-xl font-semibold">{selectedImage.title}</h3>
-                {selectedImage.caption && (
-                  <p className="text-white/70 mt-2">{selectedImage.caption}</p>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <Footer siteSettings={siteSettings || defaultSettings} quickLinks={quickLinks} />
+      <Footer siteSettings={siteSettings} quickLinks={quickLinks} />
     </main>
-  );
-}
-
-export default function GalleryPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
-      </div>
-    }>
-      <GalleryContent />
-    </Suspense>
   );
 }

@@ -35,8 +35,8 @@ async function getData() {
   
   try {
     const [homeRes, noticesRes] = await Promise.all([
-      fetch(`${apiUrl}/api/public/home/`, { next: { revalidate: 60 } }),
-      fetch(`${apiUrl}/api/public/notices/`, { next: { revalidate: 60 } })
+      fetch(`${apiUrl}/api/public/home/`, { next: { revalidate: 300 } }),
+      fetch(`${apiUrl}/api/public/notices/`, { next: { revalidate: 300 } })
     ]);
 
     if (!homeRes.ok || !noticesRes.ok) {
