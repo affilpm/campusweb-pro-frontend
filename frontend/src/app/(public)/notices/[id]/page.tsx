@@ -31,9 +31,9 @@ async function getData(id: string) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
+    // Consistent caching strategy matching other pages (no force-cache)
     const noticeRes = await fetch(`${apiUrl}/api/public/notices/${id}/`, { 
-      cache: 'force-cache',
-      next: { revalidate: 300 } 
+      next: { revalidate: 300 } // ISR: revalidate every 5 minutes
     });
 
     if (!noticeRes.ok) return null; // Handle 404 gracefully
