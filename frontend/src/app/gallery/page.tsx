@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { GalleryImage, SiteSettings, QuickLink } from '@/lib/public-types';
+import { GalleryImage, LayoutData } from '@/lib/public-types';
 import { getPageSEO } from '@/lib/seo-api';
 import Header from '@/components/home/header';
 import Footer from '@/components/home/footer';
@@ -17,18 +17,14 @@ interface GalleryData {
   images: GalleryImage[];
 }
 
-interface HomeData {
-  site_settings: SiteSettings;
-  quick_links: QuickLink[];
-}
-
 // Fetch gallery data with ISR caching
 async function getGalleryData(): Promise<GalleryData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/gallery/`, {
+    // Explicitly set limit to 50 to match frontend expectation
+    const res = await fetch(`${apiUrl}/api/public/gallery/?limit=50`, {
       cache: 'force-cache',
-      next: { revalidate: 300 }, // ISR: revalidate every 60 seconds
+      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
     
     if (!res.ok) throw new Error('Failed to fetch');
@@ -39,11 +35,11 @@ async function getGalleryData(): Promise<GalleryData | null> {
   }
 }
 
-// Fetch home data for header/footer
-async function getHomeData(): Promise<HomeData | null> {
+// Fetch layout data for header/footer
+async function getLayoutData(): Promise<LayoutData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/home/`, {
+    const res = await fetch(`${apiUrl}/api/public/layout/`, {
       cache: 'force-cache',
       next: { revalidate: 300 },
     });
@@ -51,7 +47,7 @@ async function getHomeData(): Promise<HomeData | null> {
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();
   } catch (error) {
-    console.error('Error fetching home data:', error);
+    console.error('Error fetching layout data:', error);
     return null;
   }
 }
@@ -71,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const defaultSettings: SiteSettings = {
+const defaultSettings = {
   school_name: 'School',
   school_motto: '',
   school_logo: null,
@@ -87,9 +83,9 @@ const defaultSettings: SiteSettings = {
 };
 
 export default async function GalleryPage() {
-  const [galleryData, homeData] = await Promise.all([
+  const [galleryData, layoutData] = await Promise.all([
     getGalleryData(),
-    getHomeData()
+    getLayoutData()
   ]);
   
   if (!galleryData) {
@@ -104,8 +100,8 @@ export default async function GalleryPage() {
     );
   }
 
-  const siteSettings = homeData?.site_settings || defaultSettings;
-  const quickLinks = homeData?.quick_links || [];
+  const siteSettings = layoutData?.site_settings || defaultSettings;
+  const quickLinks = layoutData?.quick_links || [];
 
   return (
     <main className="overflow-hidden">
