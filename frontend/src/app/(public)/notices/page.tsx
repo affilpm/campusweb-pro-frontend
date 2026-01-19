@@ -70,9 +70,11 @@ export default async function NoticesPage() {
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Page Header with Dark Background */}
       <div className="pt-32 pb-12 sm:pb-16 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-800 text-white relative overflow-hidden">
-        {/* Abstract shapes */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+        {/* Abstract shapes - wrapped in opacity container for iOS Safari performance */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-amber-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
+        </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
