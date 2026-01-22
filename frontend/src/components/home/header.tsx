@@ -289,7 +289,7 @@ export default function Header({ siteSettings }: HeaderProps) {
         className={`fixed left-0 right-0 z-50 will-change-transform ${
           isScrolled 
             ? 'top-0 bg-white/95 backdrop-blur-md shadow-lg' 
-            : 'top-11 bg-transparent'
+            : 'top-[52px] bg-transparent'
         }`}
         style={{
           transition: 'top 400ms ease-out, background-color 400ms ease-out, box-shadow 400ms ease-out'
