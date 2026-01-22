@@ -159,7 +159,7 @@ export default function Header({ siteSettings }: HeaderProps) {
   return (
     <>
       {/* Top Bar */}
-      <div className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-transform duration-[400ms] ease-out will-change-transform ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
+      <div className={`fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-transform duration-[400ms] ease-out will-change-transform ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {(() => {
