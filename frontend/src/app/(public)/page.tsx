@@ -16,7 +16,7 @@ import GallerySection from '@/components/home/gallery-section';
 import CTASection from '@/components/home/cta-section';
 import TestimonialsSection from '@/components/home/testimonials-section';
 import PublicDisclosureSection from '@/components/home/public-disclosure-section';
-
+import ErrorRetry from '@/components/ui/error-retry';
 // Fetch homepage data from Django API with ISR
 async function getHomepageData(): Promise<HomepageData | null> {
   try {
@@ -31,7 +31,9 @@ async function getHomepageData(): Promise<HomepageData | null> {
     
     return res.json();
   } catch (error) {
-    console.error('Error fetching homepage data:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching homepage data:', error);
+    }
     return null;
   }
 }
@@ -75,13 +77,11 @@ export default async function HomePage() {
   // Loading/Error State
   if (!data) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 to-indigo-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-16 w-16 border-4 border-white border-t-transparent mb-6"></div>
-          <h1 className="text-2xl font-bold text-white mb-2">Loading...</h1>
-          <p className="text-blue-200">Please wait while we load the content</p>
-        </div>
-      </div>
+      <ErrorRetry 
+        title="Unable to Load Content"
+        message="The homepage data could not be retrieved. We are trying to reconnect..."
+        autoRetry={true}
+      />
     );
   }
 
