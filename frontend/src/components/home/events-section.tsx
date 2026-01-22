@@ -113,8 +113,8 @@ export default function EventsSection({ events }: EventsSectionProps) {
               return (
                 <motion.article
                   key={event.id}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className="flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group snap-start"
