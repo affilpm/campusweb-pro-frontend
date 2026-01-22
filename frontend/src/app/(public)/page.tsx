@@ -98,7 +98,8 @@ export default async function HomePage() {
     achievements,
     testimonials, 
     quick_links,
-    general_info
+    general_info,
+    admission
   } = data;
 
   return (
@@ -107,6 +108,7 @@ export default async function HomePage() {
       <HeroSection 
         data={hero} 
         schoolName={site_settings.school_name} 
+        admissionOpen={admission?.is_open ?? false}
       />
 
       {/* Notices Banner - Animated ticker */}
@@ -141,7 +143,7 @@ export default async function HomePage() {
       <GallerySection images={gallery} />
 
       {/* CTA Section - Parallax background */}
-      <CTASection />
+      <CTASection admissionOpen={admission?.is_open ?? false} />
 
       {/* Testimonials Section - Interactive carousel */}
       <TestimonialsSection testimonials={testimonials} />

@@ -7,9 +7,10 @@ import { HeroSection as HeroData } from '@/lib/public-types';
 interface HeroSectionProps {
   data: HeroData;
   schoolName: string;
+  admissionOpen: boolean;
 }
 
-export default function HeroSection({ data, schoolName }: HeroSectionProps) {
+export default function HeroSection({ data, schoolName, admissionOpen }: HeroSectionProps) {
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -37,10 +38,17 @@ export default function HeroSection({ data, schoolName }: HeroSectionProps) {
               transition={{ duration: 0.6 }}
               className="mb-6 sm:mb-8"
             >
-              <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse" />
-                Admissions Open 2025-26
-              </span>
+              {admissionOpen ? (
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse" />
+                  Admissions Open 2025-26
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full" />
+                  Admissions Closed
+                </span>
+              )}
             </motion.div>
 
             {/* Title */}
@@ -70,15 +78,17 @@ export default function HeroSection({ data, schoolName }: HeroSectionProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <Link 
-                href="/admissions"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold text-base sm:text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              >
-                Apply Now
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
+              {admissionOpen && (
+                <Link 
+                  href="/admissions"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold text-base sm:text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  Apply Now
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              )}
               <Link 
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold text-base sm:text-lg rounded-lg border border-white/30 transition-all duration-300"

@@ -141,6 +141,11 @@ export interface HomepageData {
   testimonials: Testimonial[];
   quick_links: QuickLink[];
   general_info: GeneralInfo[];
+  admission: AdmissionStatus;
+}
+
+export interface AdmissionStatus {
+  is_open: boolean;
 }
 
 // Achievement

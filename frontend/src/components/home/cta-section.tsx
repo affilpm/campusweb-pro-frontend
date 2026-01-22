@@ -2,7 +2,11 @@
 
 import Link from 'next/link';
 
-export default function CTASection() {
+interface CTASectionProps {
+  admissionOpen: boolean;
+}
+
+export default function CTASection({ admissionOpen }: CTASectionProps) {
   return (
     <section className="relative py-16 sm:py-20 lg:py-28 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 overflow-hidden">
       {/* Decorative Elements */}
@@ -22,15 +26,17 @@ export default function CTASection() {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center px-4">
-          <Link 
-            href="/admissions"
-            className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold text-base sm:text-lg rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
-          >
-            Apply for Admission
-            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          {admissionOpen && (
+            <Link 
+              href="/admissions"
+              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold text-base sm:text-lg rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            >
+              Apply for Admission
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          )}
           <Link 
             href="/contact"
             className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-5 bg-white/10 hover:bg-white/20 backdrop-blur text-white font-bold text-base sm:text-lg rounded-lg border border-white/30 transition-all duration-300"
