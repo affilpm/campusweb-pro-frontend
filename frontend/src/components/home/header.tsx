@@ -155,7 +155,7 @@ export default function Header({ siteSettings }: HeaderProps) {
   return (
     <>
       {/* Top Bar */}
-      <div className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-all duration-300 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
+      <div className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-transform duration-400 ease-out will-change-transform ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {(() => {
@@ -282,14 +282,17 @@ export default function Header({ siteSettings }: HeaderProps) {
 
       {/* Main Header */}
       <motion.header 
-        className={`fixed left-0 right-0 z-60 transition-all duration-500 ${
+        className={`fixed left-0 right-0 z-50 will-change-transform ${
           isScrolled 
             ? 'top-0 bg-white/95 backdrop-blur-md shadow-lg' 
             : 'top-11 bg-transparent'
         }`}
+        style={{
+          transition: 'top 400ms ease-out, background-color 400ms ease-out, box-shadow 400ms ease-out'
+        }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
