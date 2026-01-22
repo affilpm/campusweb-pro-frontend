@@ -15,7 +15,7 @@ export default function Header({ siteSettings }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<string | null>(null);
   const [isPhoneDropdownOpen, setIsPhoneDropdownOpen] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
+
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -63,16 +63,12 @@ export default function Header({ siteSettings }: HeaderProps) {
   // Debounced toggle with animation guard
   const toggleMobileMenu = useCallback(() => {
     const now = Date.now();
-    // Debounce: ignore clicks within 150ms (reduced for responsiveness)
-    if (isAnimating || now - lastToggleTime.current < 150) return;
+    // Debounce: ignore clicks within 50ms (iOS-friendly short debounce)
+    if (now - lastToggleTime.current < 50) return;
     
     lastToggleTime.current = now;
-    setIsAnimating(true);
     setIsMobileMenuOpen(prev => !prev);
-    
-    // Reset animation guard after transition completes (faster reset)
-    setTimeout(() => setIsAnimating(false), 200);
-  }, [isAnimating]);
+  }, []);
 
 
 
@@ -304,8 +300,8 @@ export default function Header({ siteSettings }: HeaderProps) {
             <div className="flex items-center gap-4">
               <button
                 onClick={toggleMobileMenu}
-                disabled={isAnimating}
-                className={`lg:hidden p-2 rounded-lg touch-manipulation select-none ${isScrolled ? 'text-gray-900' : 'text-white'} ${isAnimating ? 'opacity-50' : ''}`}
+                onTouchEnd={(e) => { e.preventDefault(); toggleMobileMenu(); }}
+                className={`lg:hidden p-2 rounded-lg touch-manipulation select-none ${isScrolled ? 'text-gray-900' : 'text-white'}`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
@@ -477,7 +473,6 @@ export default function Header({ siteSettings }: HeaderProps) {
                   </div>
                   <button 
                     onClick={closeMobileMenu}
-                    disabled={isAnimating}
                     className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors touch-manipulation"
                     style={{ WebkitTapHighlightColor: 'transparent' }}
                     aria-label="Close menu"
