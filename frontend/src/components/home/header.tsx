@@ -184,7 +184,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                             
                             {/* Dropdown */}
                             {isPhoneDropdownOpen && (
-                                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-xl overflow-hidden py-1 border border-blue-100 z-50">
+                                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-xl shadow-xl overflow-hidden py-1 border border-blue-100 z-[70]">
                                     {phones.map((phone, idx) => (
                                         <a 
                                             key={idx} 
