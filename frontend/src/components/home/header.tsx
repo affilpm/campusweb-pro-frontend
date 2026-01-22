@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { SiteSettings } from '@/lib/public-types';
+import { NavigationLoader } from '@/components/ui/loading';
 
 interface HeaderProps {
   siteSettings: SiteSettings;
@@ -627,14 +628,9 @@ export default function Header({ siteSettings }: HeaderProps) {
         )}
       </AnimatePresence>
       {/* Global Navigation Loader - Centered on Screen */}
-      {isNavigating && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/20">
-            <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-            <p className="text-white font-medium tracking-wide text-sm">Loading...</p>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isNavigating && <NavigationLoader />}
+      </AnimatePresence>
     </>
   );
 }
