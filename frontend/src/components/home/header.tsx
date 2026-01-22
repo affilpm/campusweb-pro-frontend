@@ -25,6 +25,10 @@ export default function Header({ siteSettings }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      // Close phone dropdown when scrolling to prevent overlap with header
+      if (window.scrollY > 50) {
+        setIsPhoneDropdownOpen(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
