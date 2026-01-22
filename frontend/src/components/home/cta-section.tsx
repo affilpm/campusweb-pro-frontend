@@ -22,7 +22,9 @@ export default function CTASection({ admissionOpen }: CTASectionProps) {
         </h2>
         
         <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-blue-100 mb-8 sm:mb-10 lg:mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-          Admissions are open for the upcoming academic year. Join our community of learners and achieve your full potential.
+          {admissionOpen 
+            ? "Admissions are open for the upcoming academic year. Join our community of learners and achieve your full potential."
+            : "Join our community of learners and achieve your full potential. Contact us for more information."}
         </p>
         
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center px-4">

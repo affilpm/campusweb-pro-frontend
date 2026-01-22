@@ -38,15 +38,10 @@ export default function HeroSection({ data, schoolName, admissionOpen }: HeroSec
               transition={{ duration: 0.6 }}
               className="mb-6 sm:mb-8"
             >
-              {admissionOpen ? (
+              {admissionOpen && (
                 <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
                   <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse" />
                   Admissions Open 2025-26
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full" />
-                  Admissions Closed
                 </span>
               )}
             </motion.div>
