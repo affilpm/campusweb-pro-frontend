@@ -429,7 +429,7 @@ export default function Header({ siteSettings }: HeaderProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
           >
             {/* Backdrop with blur - Optimized for performance */}
             <motion.div 
@@ -438,7 +438,7 @@ export default function Header({ siteSettings }: HeaderProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0.08 }}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             />
             
@@ -448,7 +448,7 @@ export default function Header({ siteSettings }: HeaderProps) {
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'tween', duration: 0.2, ease: 'easeOut' }} // Faster animation (0.2s)
+              transition={{ type: 'tween', duration: 0.12, ease: [0.32, 0.72, 0, 1] }} // Faster animation (0.2s)
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {/* Decorative gradient orbs */}
