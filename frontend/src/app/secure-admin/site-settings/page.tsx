@@ -162,6 +162,136 @@ const PhoneListEditor = memo(({
 });
 PhoneListEditor.displayName = 'PhoneListEditor';
 
+interface HourRow {
+  day: string;
+  time: string;
+}
+
+// Helper component for editing hours (day/time pairs)
+const HoursEditor = memo(({ 
+  label, 
+  value, 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void;
+}) => {
+  const [rows, setRows] = useState<HourRow[]>([]);
+  const isLocalChange = useRef(false);
+
+  // Parse initial value and handle async updates
+  useEffect(() => {
+    if (!value) {
+       if (rows.length === 0) {
+          setRows([
+            { day: 'Monday - Friday', time: '8:00 AM - 3:00 PM' },
+            { day: 'Saturday', time: '8:00 AM - 12:00 PM' },
+            { day: 'Sunday', time: 'Closed' }
+          ]);
+       }
+       return;
+    }
+
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+          const stringifiedRows = JSON.stringify(rows);
+          const stringifiedParsed = JSON.stringify(parsed);
+          
+          if (stringifiedParsed === stringifiedRows) {
+              isLocalChange.current = false;
+              return;
+          }
+          
+          if (isLocalChange.current) {
+              return;
+          }
+          
+          setRows(parsed);
+      }
+    } catch (e) {
+      // Ignore parse errors
+    }
+  }, [value, rows]);
+
+  // Update parent whenever rows change (debounced)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        const stringified = JSON.stringify(rows);
+        if (stringified !== value) {
+            onChange(stringified);
+        }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [rows, value, onChange]);
+
+  const addRow = useCallback(() => {
+    isLocalChange.current = true;
+    setRows(prev => [...prev, { day: '', time: '' }]);
+  }, []);
+
+  const removeRow = useCallback((index: number) => {
+    isLocalChange.current = true;
+    setRows(prev => prev.filter((_, i) => i !== index));
+  }, []);
+
+  const updateRow = useCallback((index: number, field: keyof HourRow, val: string) => {
+    isLocalChange.current = true;
+    setRows(prev => {
+        const newRows = [...prev];
+        newRows[index] = { ...newRows[index], [field]: val };
+        return newRows;
+    });
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex justify-between items-center">
+        <label className="text-sm font-medium text-gray-300">{label}</label>
+        <button 
+          type="button" 
+          onClick={addRow}
+          className="text-xs bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 px-2 py-1 rounded transition-colors"
+        >
+          + Add Row
+        </button>
+      </div>
+      <div className="space-y-2">
+        {rows.map((row, idx) => (
+          <div key={idx} className="flex gap-2 items-center">
+            <input
+              type="text"
+              value={row.day}
+              onChange={(e) => updateRow(idx, 'day', e.target.value)}
+              placeholder="e.g. Monday - Friday"
+              className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+            <input
+              type="text"
+              value={row.time}
+              onChange={(e) => updateRow(idx, 'time', e.target.value)}
+              placeholder="e.g. 8:00 AM - 3:00 PM"
+              className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+            <button
+              type="button"
+              onClick={() => removeRow(idx)}
+              className="p-2 hover:bg-red-500/20 text-gray-500 hover:text-red-400 rounded-lg transition-colors"
+              title="Remove"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+});
+HoursEditor.displayName = 'HoursEditor';
 
 export default function SiteSettingsPage() {
   const [activeTab, setActiveTab] = useState<'settings' | 'links'>('settings');
@@ -248,6 +378,10 @@ export default function SiteSettingsPage() {
         setErrors((prev) => ({ ...prev, phone: [] }));
     }
   }, [errors.phone]);
+
+  const handleHoursChange = useCallback((name: 'school_hours' | 'office_hours', val: string) => {
+    setSettings((prev) => ({ ...prev, [name]: val }));
+  }, []);
 
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -706,39 +840,17 @@ export default function SiteSettingsPage() {
         <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Operating Hours</h2>
           <p className="text-sm text-gray-400 mb-4">These hours are displayed in the footer and contact page.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">School Hours</label>
-              <textarea
-                name="school_hours"
-                value={settings.school_hours}
-                onChange={handleChange}
-                rows={4}
-                placeholder="e.g. Mon-Fri: 8:00 AM - 3:00 PM&#10;Sat: 8:00 AM - 12:00 PM"
-                className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
-                  errors.school_hours ? 'border-red-500/50' : 'border-white/10'
-                }`}
-              />
-              {errors.school_hours && (
-                <p className="text-xs text-red-400">{errors.school_hours[0]}</p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">Office Hours</label>
-              <textarea
-                name="office_hours"
-                value={settings.office_hours}
-                onChange={handleChange}
-                rows={4}
-                placeholder="e.g. Mon-Fri: 9:00 AM - 5:00 PM&#10;Sat: 9:00 AM - 1:00 PM"
-                className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
-                  errors.office_hours ? 'border-red-500/50' : 'border-white/10'
-                }`}
-              />
-              {errors.office_hours && (
-                <p className="text-xs text-red-400">{errors.office_hours[0]}</p>
-              )}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <HoursEditor 
+              label="School Hours" 
+              value={settings.school_hours} 
+              onChange={(val) => handleHoursChange('school_hours', val)} 
+            />
+            <HoursEditor 
+              label="Office Hours" 
+              value={settings.office_hours} 
+              onChange={(val) => handleHoursChange('office_hours', val)} 
+            />
           </div>
         </div>
 
