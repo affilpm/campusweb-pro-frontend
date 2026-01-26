@@ -44,8 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
   ]);
   
   if (seo) {
+    // If title is just "Home", replace it with School Name for better SEO
+    const effectiveTitle = (seo.title?.toLowerCase() === 'home' || !seo.title) 
+      ? (data?.site_settings?.school_name || 'School Website')
+      : seo.title;
+
     return {
-      title: seo.title || data?.site_settings?.school_name || 'School Website',
+      title: effectiveTitle,
       description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
       keywords: [
         ...(seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : ['school', 'education', 'CBSE', 'academics', 'admissions']),
@@ -58,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
         })() : [])
       ],
       openGraph: {
-        title: seo.title || data?.site_settings?.school_name,
+        title: effectiveTitle,
         description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto,
         images: seo.og_image ? [seo.og_image] : undefined,
         type: 'website',
