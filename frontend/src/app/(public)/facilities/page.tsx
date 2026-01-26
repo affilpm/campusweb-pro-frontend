@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Facility } from '@/lib/public-types';
 import { getPageSEO } from '@/lib/seo-api';
 
@@ -109,12 +108,10 @@ export default async function FacilitiesPage() {
                   {/* Image or Icon Header */}
                   <div className="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center relative overflow-hidden">
                     {facility.image ? (
-                      <Image 
+                      <img 
                         src={facility.image} 
                         alt={facility.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     ) : (
                       <span className="text-7xl opacity-80 group-hover:scale-110 transition-transform duration-300">

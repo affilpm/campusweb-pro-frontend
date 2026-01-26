@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface FacilityImage {
   id: number;
@@ -37,12 +36,10 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
       <section className="relative h-[50vh] min-h-[400px] bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
         {facility.cover_image ? (
           <>
-            <Image 
+            <img 
               src={facility.cover_image} 
               alt={facility.name}
-              fill
-              priority
-              className="object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
           </>
@@ -157,12 +154,10 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedImage(img)}
                 >
-                  <Image 
+                  <img 
                     src={img.image} 
                     alt={img.caption || `${facility.name} - Image ${idx + 1}`}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   
                   {/* Overlay */}
