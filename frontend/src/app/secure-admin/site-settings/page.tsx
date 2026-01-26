@@ -27,6 +27,8 @@ interface SiteSettings {
   youtube_url: string;
   google_maps_link: string;
   footer_text: string;
+  school_hours: string;
+  office_hours: string;
 }
 // Helper component for managing a simple list of strings (e.g., phone numbers)
 const PhoneListEditor = memo(({ 
@@ -177,6 +179,8 @@ export default function SiteSettingsPage() {
     youtube_url: '',
     google_maps_link: '',
     footer_text: '',
+    school_hours: '',
+    office_hours: '',
   });
   const [quickLinks, setQuickLinks] = useState<QuickLink[]>([]);
   const [initialSettings, setInitialSettings] = useState<SiteSettings | null>(null);
@@ -541,13 +545,13 @@ export default function SiteSettingsPage() {
               )}
             </div>
             <div className="space-y-2 md:col-span-2">
-              <label className="text-sm font-medium text-gray-300">School Description (Footer)</label>
+              <label className="text-sm font-medium text-gray-300">School Description</label>
               <textarea
                 name="school_description"
                 value={settings.school_description}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Short description displayed in footer below motto"
+                placeholder="Brief description of your school (used in footer and SEO)"
                 className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
                   errors.school_description ? 'border-red-500/50' : 'border-white/10'
                 }`}
@@ -695,6 +699,46 @@ export default function SiteSettingsPage() {
             {errors.footer_text && (
               <p className="text-xs text-red-400">{errors.footer_text[0]}</p>
             )}
+          </div>
+        </div>
+
+        {/* Operating Hours */}
+        <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
+          <h2 className="text-lg font-semibold text-white mb-4">Operating Hours</h2>
+          <p className="text-sm text-gray-400 mb-4">These hours are displayed in the footer and contact page.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300">School Hours</label>
+              <textarea
+                name="school_hours"
+                value={settings.school_hours}
+                onChange={handleChange}
+                rows={4}
+                placeholder="e.g. Mon-Fri: 8:00 AM - 3:00 PM&#10;Sat: 8:00 AM - 12:00 PM"
+                className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
+                  errors.school_hours ? 'border-red-500/50' : 'border-white/10'
+                }`}
+              />
+              {errors.school_hours && (
+                <p className="text-xs text-red-400">{errors.school_hours[0]}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300">Office Hours</label>
+              <textarea
+                name="office_hours"
+                value={settings.office_hours}
+                onChange={handleChange}
+                rows={4}
+                placeholder="e.g. Mon-Fri: 9:00 AM - 5:00 PM&#10;Sat: 9:00 AM - 1:00 PM"
+                className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
+                  errors.office_hours ? 'border-red-500/50' : 'border-white/10'
+                }`}
+              />
+              {errors.office_hours && (
+                <p className="text-xs text-red-400">{errors.office_hours[0]}</p>
+              )}
+            </div>
           </div>
         </div>
 
