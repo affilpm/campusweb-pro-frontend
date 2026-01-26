@@ -47,7 +47,16 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title: seo.title || data?.site_settings?.school_name || 'School Website',
       description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
-      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : ['school', 'education', 'CBSE', 'academics', 'admissions'],
+      keywords: [
+        ...(seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : ['school', 'education', 'CBSE', 'academics', 'admissions']),
+        // Inject local keywords if address is available
+        ...(data?.site_settings?.address ? (() => {
+          const parts = data.site_settings.address.split(',');
+          // Attempt to find city/locality (usually 2nd or 3rd to last part)
+          const city = parts.length > 1 ? parts[parts.length - 2].trim() : parts[0];
+          return city ? [`School in ${city}`, `Best School in ${city}`, `Admissions in ${city}`] : [];
+        })() : [])
+      ],
       openGraph: {
         title: seo.title || data?.site_settings?.school_name,
         description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto,

@@ -18,7 +18,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-import { SiteSettings } from "@/lib/public-types";
+import { SiteSettings, ContactPageData } from "@/lib/public-types";
 
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
@@ -29,6 +29,38 @@ async function getSiteSettings(): Promise<SiteSettings | null> {
     if (!res.ok) return null;
     const data = await res.json();
     return data.site_settings;
+  } catch {
+    return null;
+  }
+}
+
+async function getContactData(): Promise<ContactPageData | null> {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const res = await fetch(`${apiUrl}/api/public/contact/`, {
+      next: { revalidate: 3600 }
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+function extractCoordinates(embedCode: string): { lat: string, lng: string } | null {
+  try {
+    // Look for !2d... and !3d... patterns in the Google Maps embed URL
+    // Standard format: ...!2d77.634...!3d12.982...
+    const lngMatch = embedCode.match(/!2d(-?\d+\.\d+)/);
+    const latMatch = embedCode.match(/!3d(-?\d+\.\d+)/);
+
+    if (latMatch && lngMatch) {
+      return {
+        lat: latMatch[1],
+        lng: lngMatch[1]
+      };
+    }
+    return null;
   } catch {
     return null;
   }
@@ -65,6 +97,9 @@ export async function generateMetadata(): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
+    alternates: {
+      canonical: './',
+    },
     openGraph: {
       type: 'website',
       locale: 'en_US',
@@ -89,8 +124,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSiteSettings();
+  const contactData = await getContactData();
+  
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://novelschoolindia.com';
 
+  // Extract coordinates if available
+  const coordinates = contactData?.map_embed_code ? extractCoordinates(contactData.map_embed_code) : null;
+  
   // Parse potential multiple phone numbers
   let telephone: string | string[] = settings?.phone || "";
   if (settings?.phone) {
@@ -120,10 +160,40 @@ export default async function RootLayout({
               "name": settings?.school_name || "Novel School",
               "url": siteUrl,
               "logo": settings?.school_logo || `${siteUrl}/logo.png`,
+              "image": settings?.school_logo || `${siteUrl}/logo.png`,
+              "description": settings?.school_description || settings?.school_motto,
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": settings?.address || ""
+                "streetAddress": settings?.address || "",
+                "addressCountry": "IN"
               },
+              "geo": (coordinates || settings?.google_maps_link) ? {
+                "@type": "GeoCoordinates",
+                "latitude": coordinates?.lat || "",
+                "longitude": coordinates?.lng || ""
+              } : undefined,
+              "hasMap": settings?.google_maps_link,
+              "openingHoursSpecification": (() => {
+                if (!settings?.school_hours) return undefined;
+                try {
+                  const parsed = JSON.parse(settings.school_hours);
+                  if (Array.isArray(parsed)) {
+                    return parsed.map((item: any) => {
+                      const times = item.time.split('-').map((t: string) => t.trim());
+                      return {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": item.day,
+                        "opens": times[0] || "08:00",
+                        "closes": times[1] || "16:00"
+                      };
+                    });
+                  }
+                } catch {
+                  // Fallback for plain string or invalid JSON
+                  return undefined;
+                }
+                return undefined;
+              })(),
               "telephone": telephone,
               "email": settings?.email || "",
               "sameAs": [
