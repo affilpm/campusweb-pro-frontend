@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -150,7 +151,13 @@ export function NavigationLoader({ logo }: { logo?: string | null }) {
             transition={{ duration: 2, repeat: Infinity }}
           >
             {logo ? (
-              <img src={logo} alt="Loading..." className="w-full h-full object-contain p-1" />
+              <Image 
+                src={logo} 
+                alt="Loading..." 
+                fill
+                className="object-contain p-1"
+                sizes="64px"
+              />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                 <span className="text-3xl">🎓</span>

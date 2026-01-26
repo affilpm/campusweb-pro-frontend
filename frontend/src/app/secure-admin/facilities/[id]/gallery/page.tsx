@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface FacilityImage {
   id: number;
@@ -209,11 +210,13 @@ export default function FacilityGalleryPage() {
               }`}
             >
               {/* Image */}
-              <div className="aspect-square">
-                <img 
+              <div className="aspect-square relative">
+                <Image 
                   src={image.image} 
                   alt={image.caption || 'Gallery image'}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
               </div>
 

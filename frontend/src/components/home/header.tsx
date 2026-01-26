@@ -335,7 +335,15 @@ export default function Header({ siteSettings }: HeaderProps) {
               {/* Logo */}
               <Link href="/" className="flex items-center gap-3">
                 {siteSettings.school_logo ? (
-                  <img src={siteSettings.school_logo} alt="Logo" className="h-12 lg:h-14 w-auto object-contain" />
+                  <div className="relative h-12 w-12 lg:h-14 lg:w-14">
+                    <Image 
+                      src={siteSettings.school_logo} 
+                      alt="Logo" 
+                      fill
+                      className="object-contain"
+                      sizes="56px"
+                    />
+                  </div>
                 ) : (
                   <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg">
                     <span className="text-xl lg:text-2xl">🎓</span>
@@ -478,7 +486,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     {siteSettings.school_logo ? (
-                      <img src={siteSettings.school_logo} alt="Logo" className="h-10 w-10 rounded-lg object-contain bg-white p-1" />
+                      <div className="relative h-10 w-10 rounded-lg bg-white p-1 overflow-hidden">
+                        <Image 
+                          src={siteSettings.school_logo} 
+                          alt="Logo" 
+                          fill
+                          className="object-contain" 
+                          sizes="40px"
+                        />
+                      </div>
                     ) : (
                       <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                         <span className="text-xl">🎓</span>

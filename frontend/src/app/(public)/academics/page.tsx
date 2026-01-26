@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { AcademicsPageData } from '@/lib/public-types';
 import { getPageSEO } from '@/lib/seo-api';
 import AnimatedSection from '@/components/ui/animated-section';
@@ -128,10 +129,12 @@ export default async function AcademicsPage() {
                     <div className="relative">
                       <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur-2xl" />
                       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                        <img 
+                        <Image 
                           src={data.curriculum_image} 
                           alt={data.curriculum_title || 'Curriculum'} 
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                       </div>
                       {/* Decorative element */}
@@ -157,10 +160,12 @@ export default async function AcademicsPage() {
                       {/* Category Image */}
                       {category.image && (
                         <div className="relative h-48 overflow-hidden">
-                          <img 
+                          <Image 
                             src={category.image} 
                             alt={category.name}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                           {category.classes_range && (

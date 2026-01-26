@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 
 interface ImageUploadProps {
   label: string;
@@ -36,7 +37,13 @@ export default function ImageUpload({ label, currentImage, onChange, onRemove }:
       <div className="relative group">
         {preview ? (
           <div className="relative w-full h-48 rounded-xl overflow-hidden border border-white/10 bg-white/5">
-            <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+            <Image 
+              src={preview} 
+              alt="Preview" 
+              fill 
+              className="object-cover" 
+              unoptimized={preview?.startsWith('blob:')}
+            />
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <button
                 type="button"

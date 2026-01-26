@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Testimonial } from '@/lib/public-types';
 
 interface TestimonialsSectionProps {
@@ -76,12 +77,14 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                   </p>
                   
                   <div className="flex flex-col items-center gap-3 sm:gap-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 sm:border-4 border-white shadow-lg">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 sm:border-4 border-white shadow-lg relative">
                       {testimonial.photo ? (
-                        <img 
+                        <Image 
                           src={testimonial.photo} 
                           alt={testimonial.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="64px"
                         />
                       ) : (
                         <div className="w-full h-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg sm:text-xl">

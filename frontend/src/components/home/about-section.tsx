@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AboutSection as AboutData } from '@/lib/public-types';
 
 interface AboutSectionProps {
@@ -21,12 +22,14 @@ export default function AboutSection({ data }: AboutSectionProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
               {data.image ? (
-                <img 
+                <Image 
                   src={data.image} 
                   alt="About our school"
-                  className="w-full h-auto object-cover aspect-[4/3]"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               ) : (
                 <div className="w-full aspect-[4/3] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">

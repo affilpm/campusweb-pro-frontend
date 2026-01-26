@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Facility {
   id: number;
@@ -231,7 +232,13 @@ export default function FacilitiesPage() {
               {/* Image or Placeholder */}
               <div className="h-40 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 flex items-center justify-center relative">
                 {facility.image ? (
-                  <img src={facility.image} alt={facility.name} className="w-full h-full object-cover" />
+                  <Image 
+                    src={facility.image} 
+                    alt={facility.name} 
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
                 ) : (
                   <span className="text-6xl opacity-50">{facility.icon}</span>
                 )}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, FormEvent } from 'react';
+import Image from 'next/image';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 
@@ -1053,7 +1054,16 @@ export default function AboutSectionPage() {
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
                       {member.photo ? (
-                        <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+
+                        <div className="relative w-full h-full">
+                          <Image 
+                            src={member.photo} 
+                            alt={member.name} 
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        </div>
                       ) : (
                         <span className="text-2xl font-bold text-white/80">{member.name.charAt(0)}</span>
                       )}

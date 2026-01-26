@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { HeroSection as HeroData } from '@/lib/public-types';
 
 interface HeroSectionProps {
@@ -16,10 +17,12 @@ export default function HeroSection({ data, schoolName, admissionOpen }: HeroSec
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         {data.background_image ? (
-          <img 
+          <Image 
             src={data.background_image} 
             alt="Campus"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950" />

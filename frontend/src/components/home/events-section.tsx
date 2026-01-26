@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Event } from '@/lib/public-types';
 
 interface EventsSectionProps {
@@ -123,10 +124,12 @@ export default function EventsSection({ events }: EventsSectionProps) {
                   {/* Image */}
                   <div className="relative h-40 sm:h-48 lg:h-52 overflow-hidden bg-gray-100 cursor-pointer">
                     {event.image ? (
-                      <img 
+                      <Image 
                         src={event.image} 
                         alt={event.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-blue-50">
@@ -196,10 +199,12 @@ export default function EventsSection({ events }: EventsSectionProps) {
             {/* Modal Image */}
             <div className="relative h-48 sm:h-64 bg-gray-100 flex-shrink-0">
                {selectedEvent.image ? (
-                <img 
+                <Image 
                   src={selectedEvent.image} 
                   alt={selectedEvent.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 800px"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-blue-50">

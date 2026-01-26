@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, FormEvent, useRef, memo, useCallback } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/contexts/auth-context';
 import api from '@/lib/api';
 
@@ -575,12 +576,14 @@ export default function SiteSettingsPage() {
           <div className="flex items-start gap-6">
             {/* Logo Preview */}
             <div className="flex-shrink-0">
-              <div className="w-32 h-32 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+              <div className="w-32 h-32 relative rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                 {logoPreview || settings.school_logo ? (
-                  <img 
+                  <Image 
                     src={logoPreview || settings.school_logo || ''} 
                     alt="School Logo" 
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain"
+                    unoptimized={!!logoPreview}
                   />
                 ) : (
                   <div className="text-center text-gray-500">

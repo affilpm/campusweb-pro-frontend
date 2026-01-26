@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { PrincipalMessage as PrincipalData } from '@/lib/public-types';
 
 interface PrincipalSectionProps {
@@ -26,10 +27,12 @@ export default function PrincipalSection({ data }: PrincipalSectionProps) {
               viewport={{ once: true }}
             >
               {data.photo ? (
-                <img 
+                <Image 
                   src={data.photo} 
                   alt={data.name}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 40vw"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">

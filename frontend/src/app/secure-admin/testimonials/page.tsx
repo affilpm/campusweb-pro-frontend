@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 
@@ -143,7 +144,16 @@ export default function TestimonialsManagementPage() {
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-700 border border-white/10 flex-shrink-0">
                 {testimonial.photo ? (
-                  <img src={testimonial.photo} alt={testimonial.name} className="w-full h-full object-cover" />
+
+                  <div className="relative w-full h-full">
+                    <Image 
+                      src={testimonial.photo} 
+                      alt={testimonial.name} 
+                      fill
+                      className="object-cover"
+                      sizes="48px"
+                    />
+                  </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-xl font-bold text-gray-500">
                     {testimonial.name.charAt(0)}

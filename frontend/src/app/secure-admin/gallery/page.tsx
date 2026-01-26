@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 
@@ -242,7 +243,13 @@ export default function GalleryPage() {
         {images.map((img) => (
           <div key={img.id} className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden group">
             <div className="relative h-48">
-              <img src={img.image} alt={img.title} className="w-full h-full object-cover" />
+              <Image 
+                src={img.image} 
+                alt={img.title} 
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+              />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <button
                   onClick={() => handleEdit(img)}

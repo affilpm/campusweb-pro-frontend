@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { GalleryImage } from '@/lib/public-types';
 
 interface GallerySectionProps {
@@ -52,11 +53,13 @@ export default function GallerySection({ images }: GallerySectionProps) {
               `}
               onClick={() => setSelectedImage(image)}
             >
-              <div className={`${index === 0 ? 'aspect-square md:aspect-auto md:h-full min-h-[200px] sm:min-h-[300px] md:min-h-[400px]' : 'aspect-square'}`}>
-                <img 
+              <div className={`${index === 0 ? 'aspect-square md:aspect-auto md:h-full min-h-[200px] sm:min-h-[300px] md:min-h-[400px]' : 'aspect-square'} relative`}>
+                <Image 
                   src={image.image} 
                   alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
               </div>
               

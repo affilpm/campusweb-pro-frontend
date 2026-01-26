@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, FormEvent, useMemo } from 'react';
+import Image from 'next/image';
 import api from '@/lib/api';
 import ImageUpload from '@/components/admin/image-upload';
 
@@ -626,8 +627,14 @@ export default function AcademicsAdminPage() {
               categories.sort((a, b) => a.order - b.order).map((category) => (
                 <div key={category.id} className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden hover:border-indigo-500/30 transition-colors">
                   {category.image && (
-                    <div className="h-32 overflow-hidden">
-                      <img src={category.image} alt={category.name} className="w-full h-full object-cover" />
+                    <div className="h-32 overflow-hidden relative">
+                      <Image 
+                        src={category.image} 
+                        alt={category.name} 
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 300px"
+                      />
                     </div>
                   )}
                   <div className="p-4">

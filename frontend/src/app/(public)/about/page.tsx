@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { AboutPageData } from '@/lib/public-types';
 import { getPageSEO } from '@/lib/seo-api';
 import AnimatedSection from '@/components/ui/animated-section';
@@ -166,10 +167,12 @@ export default async function AboutPage() {
                     <div className="relative">
                       <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-3xl blur-2xl" />
                       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                        <img 
+                        <Image 
                           src={data.about_section.image} 
                           alt={data.about_section.title || ''} 
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                       </div>
                       {/* Decorative element */}
@@ -221,10 +224,12 @@ export default async function AboutPage() {
                     <div className="relative">
                       <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-3xl blur-2xl" />
                       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                        <img 
+                        <Image 
                           src={data.history_image} 
                           alt={data.history_title || 'Our History'} 
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                       </div>
                       {/* Decorative element */}
@@ -332,10 +337,12 @@ export default async function AboutPage() {
                     <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/30 to-indigo-500/30 rounded-3xl blur-2xl" />
                     <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
                       {data.principal.photo ? (
-                        <img 
+                        <Image 
                           src={data.principal.photo} 
                           alt={data.principal.name || ''} 
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
@@ -494,7 +501,7 @@ export default async function AboutPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity blur-xl scale-110" />
                       <div className="relative w-full h-full rounded-full overflow-hidden shadow-xl ring-4 ring-white group-hover:ring-blue-100 transition-all">
                         {member.photo ? (
-                          <img src={member.photo} alt={member.name || ''} className="w-full h-full object-cover" />
+                          <Image src={member.photo} alt={member.name || ''} fill className="object-cover" sizes="(max-width: 768px) 160px, 200px" />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                             <span className="text-4xl font-bold text-white/80">{member.name?.charAt(0) || ''}</span>

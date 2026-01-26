@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { GalleryImage } from '@/lib/public-types';
 import AnimatedSection from '@/components/ui/animated-section';
 
@@ -126,11 +127,12 @@ export default function GalleryGrid({ categories, images: initialImages, initial
                       whileHover={{ scale: 1.02 }}
                       onClick={() => setSelectedImage(image)}
                     >
-                      <img
+                      <Image
                         src={image.image}
                         alt={image.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
