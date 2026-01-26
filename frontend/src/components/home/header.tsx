@@ -40,25 +40,41 @@ export default function Header({ siteSettings }: HeaderProps) {
   // Lock body scroll when mobile menu is open (prevents iOS Safari issues)
   useEffect(() => {
     if (isMobileMenuOpen) {
+      // Save current scroll position before locking
+      const scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.top = `-${window.scrollY}px`;
+      document.body.style.top = `-${scrollY}px`;
     } else {
+      // Get the saved scroll position from body.style.top
+      const scrollY = document.body.style.top;
+      // Reset body styles first
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      // Restore scroll position if we had one saved
+      if (scrollY) {
+        window.scrollTo({
+          top: parseInt(scrollY, 10) * -1,
+          behavior: 'instant'
+        });
+      }
+    }
+    return () => {
+      // Cleanup on unmount - restore scroll position if menu was open
       const scrollY = document.body.style.top;
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
       document.body.style.top = '';
       if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        window.scrollTo({
+          top: parseInt(scrollY, 10) * -1,
+          behavior: 'instant'
+        });
       }
-    }
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
     };
   }, [isMobileMenuOpen]);
 
