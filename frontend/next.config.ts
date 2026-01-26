@@ -19,11 +19,15 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*.r2.dev',
+        hostname: 'pub-30421f2590ac4738b43f524395aa8a2b.r2.dev',
       },
       {
         protocol: 'https',
-        hostname: '*.cloudfront.net',
+        hostname: 'pub-057f5009996946a7b2df09fb3bea1c0c.r2.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd2isa6df9sgb8p.cloudfront.net',
       },
       {
         protocol: 'https',
