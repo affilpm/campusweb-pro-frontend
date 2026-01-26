@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Facility } from '@/lib/public-types';
@@ -51,10 +52,12 @@ export default function FacilitiesSection({ facilities, initialCount = 6 }: Faci
                 {/* Image Background */}
                 <div className="absolute inset-0 bg-gray-200">
                   {facility.image ? (
-                    <img
+                    <Image
                       src={facility.image}
                       alt={facility.name}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-emerald-500 to-cyan-600">
