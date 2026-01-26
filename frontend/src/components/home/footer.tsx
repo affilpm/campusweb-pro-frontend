@@ -45,15 +45,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
             >
               <div className="flex items-center gap-3 mb-6">
                 {siteSettings.school_logo ? (
-                  <div className="relative h-12 w-16">
-                    <Image 
-                      src={siteSettings.school_logo} 
-                      alt="Logo" 
-                      fill
-                      className="object-contain"
-                      sizes="64px"
-                    />
-                  </div>
+                  <img src={siteSettings.school_logo} alt="Logo" className="h-12 w-auto" />
                 ) : (
                   <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center">
                     <span className="text-xl">🎓</span>
