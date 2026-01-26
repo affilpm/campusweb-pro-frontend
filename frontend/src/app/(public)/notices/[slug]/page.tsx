@@ -4,17 +4,18 @@ import { notFound } from 'next/navigation';
 import { Notice } from '@/lib/public-types';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 // Generate metadata for the notice page
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const res = await fetch(`${apiUrl}/api/public/notices/${params.id}/`);
+    const res = await fetch(`${apiUrl}/api/public/notices/${slug}/`);
     if (!res.ok) return { title: 'Notice Not Found' };
     
     const notice: Notice = await res.json();
@@ -27,12 +28,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-async function getData(id: string) {
+async function getData(slug: string) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
     // Consistent caching strategy matching other pages (no force-cache)
-    const noticeRes = await fetch(`${apiUrl}/api/public/notices/${id}/`, { 
+    const noticeRes = await fetch(`${apiUrl}/api/public/notices/${slug}/`, { 
       next: { revalidate: 300 } // ISR: revalidate every 5 minutes
     });
 
@@ -50,7 +51,8 @@ async function getData(id: string) {
 }
 
 export default async function NoticeDetailPage({ params }: PageProps) {
-  const data = await getData(params.id);
+  const { slug } = await params;
+  const data = await getData(slug);
 
   if (!data) {
     notFound();

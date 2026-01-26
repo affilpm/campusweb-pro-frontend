@@ -52,6 +52,7 @@ export interface VisionMission {
 export interface Notice {
   id: number;
   title: string;
+  slug: string;
   content: string;
   attachment: string | null;
   is_important: boolean;

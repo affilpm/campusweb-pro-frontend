@@ -99,7 +99,7 @@ export default async function NoticesPage() {
               notices.map((notice) => (
                 <Link 
                   key={notice.id}
-                  href={`/notices/${notice.id}`}
+                  href={`/notices/${notice.slug}`}
                   className="group block bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 p-6 transition-all duration-200"
                 >
                   <div className="flex flex-col gap-4">

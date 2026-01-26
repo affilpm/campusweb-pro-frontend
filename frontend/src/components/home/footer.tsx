@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SiteSettings, QuickLink } from '@/lib/public-types';
 
 interface FooterProps {
@@ -10,10 +11,12 @@ interface FooterProps {
   quickLinks: QuickLink[];
 }
 
+interface HoursRow {
+  day: string;
+  time: string;
+}
+
 export default function Footer({ siteSettings, quickLinks }: FooterProps) {
-  // Debug to see if hours are present
-  console.log('Footer SiteSettings:', siteSettings);
-  
   // Use a static initial value to prevent hydration mismatch
   const [currentYear, setCurrentYear] = useState(2025);
   
@@ -42,7 +45,15 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
             >
               <div className="flex items-center gap-3 mb-6">
                 {siteSettings.school_logo ? (
-                  <img src={siteSettings.school_logo} alt="Logo" className="h-12 w-auto" />
+                  <div className="relative h-12 w-16">
+                    <Image 
+                      src={siteSettings.school_logo} 
+                      alt="Logo" 
+                      fill
+                      className="object-contain"
+                      sizes="64px"
+                    />
+                  </div>
                 ) : (
                   <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center">
                     <span className="text-xl">🎓</span>
@@ -222,7 +233,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                                 if(Array.isArray(parsed)) {
                                     return (
                                         <div className="space-y-1">
-                                            {parsed.map((row: any, i: number) => (
+                                            {parsed.map((row: HoursRow, i: number) => (
                                                 <div key={i} className="flex justify-between gap-4">
                                                     <span>{row.day}</span>
                                                     <span>{row.time}</span>
@@ -247,7 +258,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                                 if(Array.isArray(parsed)) {
                                     return (
                                         <div className="space-y-1">
-                                            {parsed.map((row: any, i: number) => (
+                                            {parsed.map((row: HoursRow, i: number) => (
                                                 <div key={i} className="flex justify-between gap-4">
                                                     <span>{row.day}</span>
                                                     <span>{row.time}</span>

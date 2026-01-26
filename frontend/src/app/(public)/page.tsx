@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 import { HomepageData } from '@/lib/public-types';
 import { getPageSEO } from '@/lib/seo-api';
 
-// Components
-// Components
 import HeroSection from '@/components/home/hero-section';
 import StatsSection from '@/components/home/stats-section';
 import AboutSection from '@/components/home/about-section';
@@ -97,7 +95,6 @@ export default async function HomePage() {
     academics, 
     achievements,
     testimonials, 
-    quick_links,
     general_info,
     admission
   } = data;
