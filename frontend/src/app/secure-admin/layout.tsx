@@ -6,6 +6,14 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'School Admin Portal',
   description: 'Secure Content Management System',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 interface AdminLayoutProps {
