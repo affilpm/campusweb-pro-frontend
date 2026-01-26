@@ -1,9 +1,20 @@
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Terms of Use | Novel International School',
-  description: 'Terms and conditions for using the Novel International School website.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('terms');
+  
+  return {
+    title: seo?.title || 'Terms of Use | Novel International School',
+    description: seo?.meta_description || 'Terms and conditions for using the Novel International School website.',
+    openGraph: {
+      title: seo?.title || 'Terms of Use',
+      description: seo?.meta_description,
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
+  };
+}
 
 export default function TermsPage() {
   return (

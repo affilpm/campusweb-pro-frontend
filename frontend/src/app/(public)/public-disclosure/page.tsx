@@ -1,10 +1,21 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Public Disclosure | School',
-  description: 'Public disclosure information including general details and mandatory documents.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('public-disclosure');
+  
+  return {
+    title: seo?.title || 'Public Disclosure | School',
+    description: seo?.meta_description || 'Public disclosure information including general details and mandatory documents.',
+    openGraph: {
+      title: seo?.title || 'Public Disclosure',
+      description: seo?.meta_description,
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
+  };
+}
 
 const disclosureSections = [
   {

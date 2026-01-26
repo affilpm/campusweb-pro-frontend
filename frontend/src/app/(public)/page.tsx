@@ -46,11 +46,11 @@ export async function generateMetadata(): Promise<Metadata> {
   if (seo) {
     return {
       title: seo.title || data?.site_settings?.school_name || 'School Website',
-      description: seo.meta_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
+      description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
       keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : ['school', 'education', 'CBSE', 'academics', 'admissions'],
       openGraph: {
         title: seo.title || data?.site_settings?.school_name,
-        description: seo.meta_description || data?.site_settings?.school_motto,
+        description: seo.meta_description || data?.site_settings?.school_description || data?.site_settings?.school_motto,
         images: seo.og_image ? [seo.og_image] : undefined,
         type: 'website',
       },
@@ -59,11 +59,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: data?.site_settings?.school_name || 'School Website',
-    description: data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
+    description: data?.site_settings?.school_description || data?.site_settings?.school_motto || 'Quality education for tomorrow\'s leaders',
     keywords: ['school', 'education', 'CBSE', 'academics', 'admissions'],
     openGraph: {
       title: data?.site_settings?.school_name,
-      description: data?.site_settings?.school_motto,
+      description: data?.site_settings?.school_description || data?.site_settings?.school_motto,
       type: 'website',
     },
   };

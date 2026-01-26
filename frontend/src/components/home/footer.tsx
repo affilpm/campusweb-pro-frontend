@@ -57,7 +57,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed mb-6">
-                Committed to providing quality education and nurturing future leaders since establishment.
+                {siteSettings.school_description || "Committed to providing quality education and nurturing future leaders since establishment."}
               </p>
               
               {/* Social Links */}

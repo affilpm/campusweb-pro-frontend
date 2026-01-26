@@ -3,6 +3,7 @@
 export interface SiteSettings {
   school_name: string;
   school_motto: string;
+  school_description: string;
   school_logo: string | null;
   favicon: string | null;
   address: string;
@@ -12,6 +13,8 @@ export interface SiteSettings {
   twitter_url: string;
   instagram_url: string;
   youtube_url: string;
+  linkedin_url: string;
+  google_maps_link: string;
   footer_text: string;
   school_hours?: string;
   office_hours?: string;

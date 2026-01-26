@@ -16,6 +16,7 @@ interface QuickLink {
 interface SiteSettings {
   school_name: string;
   school_motto: string;
+  school_description: string;
   school_logo: string | null;
   address: string;
   phone: string;
@@ -165,6 +166,7 @@ export default function SiteSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings>({
     school_name: '',
     school_motto: '',
+    school_description: '',
     school_logo: null,
     address: '',
     phone: '',
@@ -536,6 +538,22 @@ export default function SiteSettingsPage() {
               />
               {errors.school_motto && (
                 <p className="text-xs text-red-400">{errors.school_motto[0]}</p>
+              )}
+            </div>
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-sm font-medium text-gray-300">School Description (Footer)</label>
+              <textarea
+                name="school_description"
+                value={settings.school_description}
+                onChange={handleChange}
+                rows={3}
+                placeholder="Short description displayed in footer below motto"
+                className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
+                  errors.school_description ? 'border-red-500/50' : 'border-white/10'
+                }`}
+              />
+              {errors.school_description && (
+                <p className="text-xs text-red-400">{errors.school_description[0]}</p>
               )}
             </div>
           </div>

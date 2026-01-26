@@ -1,9 +1,20 @@
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Novel International School',
-  description: 'Privacy Policy and data protection guidelines for Novel International School.',
-};
+import { getPageSEO } from '@/lib/seo-api';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSEO('privacy');
+  
+  return {
+    title: seo?.title || 'Privacy Policy | Novel International School',
+    description: seo?.meta_description || 'Privacy Policy and data protection guidelines for Novel International School.',
+    openGraph: {
+      title: seo?.title || 'Privacy Policy',
+      description: seo?.meta_description,
+      images: seo?.og_image ? [seo.og_image] : undefined,
+    },
+  };
+}
 
 export default function PrivacyPolicyPage() {
   return (
