@@ -44,6 +44,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/pages',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
   // reactCompiler: true, // Commenting out experimental feature if causing issues, or leave it if works
   experimental: {
     // reactCompiler: true, // Usually it's in experimental
