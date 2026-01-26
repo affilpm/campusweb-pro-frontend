@@ -183,13 +183,7 @@ const HoursEditor = memo(({
   // Parse initial value and handle async updates
   useEffect(() => {
     if (!value) {
-       if (rows.length === 0) {
-          setRows([
-            { day: 'Monday - Friday', time: '8:00 AM - 3:00 PM' },
-            { day: 'Saturday', time: '8:00 AM - 12:00 PM' },
-            { day: 'Sunday', time: 'Closed' }
-          ]);
-       }
+       // No defaults in admin - show empty
        return;
     }
 
