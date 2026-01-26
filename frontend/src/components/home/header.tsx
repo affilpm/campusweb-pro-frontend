@@ -646,7 +646,7 @@ export default function Header({ siteSettings }: HeaderProps) {
       </AnimatePresence>
       {/* Global Navigation Loader - Centered on Screen */}
       <AnimatePresence>
-        {isNavigating && <NavigationLoader />}
+        {isNavigating && <NavigationLoader logo={siteSettings.school_logo} />}
       </AnimatePresence>
     </>
   );

@@ -128,7 +128,7 @@ export function PageLoadingSkeleton() {
 }
 
 // Navigation loading overlay (improved version)
-export function NavigationLoader() {
+export function NavigationLoader({ logo }: { logo?: string | null }) {
   return (
     <motion.div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
@@ -145,11 +145,17 @@ export function NavigationLoader() {
         {/* Animated school logo placeholder */}
         <div className="relative">
           <motion.div
-            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center"
+            className="w-16 h-16 rounded-2xl flex items-center justify-center overflow-hidden"
             animate={{ rotate: [0, 5, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <span className="text-3xl">🎓</span>
+            {logo ? (
+              <img src={logo} alt="Loading..." className="w-full h-full object-contain p-1" />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                <span className="text-3xl">🎓</span>
+              </div>
+            )}
           </motion.div>
           
           {/* Progress ring */}
