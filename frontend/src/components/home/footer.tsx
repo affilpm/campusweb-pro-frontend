@@ -75,6 +75,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                     href={siteSettings.facebook_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our Facebook page"
                     className="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
                     whileHover={{ y: -2 }}
                   >
@@ -88,6 +89,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                     href={siteSettings.twitter_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our Twitter profile"
                     className="w-10 h-10 bg-white/10 hover:bg-sky-500 rounded-lg flex items-center justify-center transition-colors"
                     whileHover={{ y: -2 }}
                   >
@@ -101,6 +103,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                     href={siteSettings.instagram_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our Instagram profile"
                     className="w-10 h-10 bg-white/10 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 rounded-lg flex items-center justify-center transition-colors"
                     whileHover={{ y: -2 }}
                   >
@@ -114,6 +117,7 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                     href={siteSettings.youtube_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Visit our YouTube channel"
                     className="w-10 h-10 bg-white/10 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
                     whileHover={{ y: -2 }}
                   >
