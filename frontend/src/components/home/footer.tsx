@@ -205,7 +205,8 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
             </motion.div>
           </div>
           
-          {/* Hours (New Column) */}
+          {/* Hours (New Column) - Only show if data exists */}
+          {(siteSettings.school_hours || siteSettings.office_hours) && (
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -215,12 +216,11 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
             >
               <h4 className="font-bold text-lg mb-6">Opening Hours</h4>
               <div className="space-y-6 text-gray-400">
-                <div>
-                  <h5 className="text-white font-medium mb-2">School Hours</h5>
-                  <div className="whitespace-pre-line text-sm">
-                    {(() => {
-                      // Try to parse from database first
-                      if (siteSettings.school_hours) {
+                {siteSettings.school_hours && (
+                  <div>
+                    <h5 className="text-white font-medium mb-2">School Hours</h5>
+                    <div className="whitespace-pre-line text-sm">
+                      {(() => {
                         try {
                           const parsed = JSON.parse(siteSettings.school_hours);
                           if (Array.isArray(parsed) && parsed.length > 0) {
@@ -236,33 +236,16 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                             );
                           }
                         } catch {}
-                      }
-                      // Fallback to hardcoded defaults for public display
-                      return (
-                        <div className="space-y-1">
-                          <div className="flex justify-between gap-4">
-                            <span>Monday - Friday</span>
-                            <span>8:00 AM - 3:00 PM</span>
-                          </div>
-                          <div className="flex justify-between gap-4">
-                            <span>Saturday</span>
-                            <span>8:00 AM - 12:00 PM</span>
-                          </div>
-                          <div className="flex justify-between gap-4">
-                            <span>Sunday</span>
-                            <span>Closed</span>
-                          </div>
-                        </div>
-                      );
-                    })()}
+                        return siteSettings.school_hours;
+                      })()}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h5 className="text-white font-medium mb-2">Office Hours</h5>
-                  <div className="whitespace-pre-line text-sm">
-                    {(() => {
-                      // Try to parse from database first
-                      if (siteSettings.office_hours) {
+                )}
+                {siteSettings.office_hours && (
+                  <div>
+                    <h5 className="text-white font-medium mb-2">Office Hours</h5>
+                    <div className="whitespace-pre-line text-sm">
+                      {(() => {
                         try {
                           const parsed = JSON.parse(siteSettings.office_hours);
                           if (Array.isArray(parsed) && parsed.length > 0) {
@@ -278,30 +261,15 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                             );
                           }
                         } catch {}
-                      }
-                      // Fallback to hardcoded defaults for public display
-                      return (
-                        <div className="space-y-1">
-                          <div className="flex justify-between gap-4">
-                            <span>Monday - Friday</span>
-                            <span>9:00 AM - 5:00 PM</span>
-                          </div>
-                          <div className="flex justify-between gap-4">
-                            <span>Saturday</span>
-                            <span>9:00 AM - 1:00 PM</span>
-                          </div>
-                          <div className="flex justify-between gap-4">
-                            <span>Sunday</span>
-                            <span>Closed</span>
-                          </div>
-                        </div>
-                      );
-                    })()}
+                        return siteSettings.office_hours;
+                      })()}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </motion.div>
           </div>
+          )}
 
 
 
