@@ -14,26 +14,19 @@ import GallerySection from '@/components/home/gallery-section';
 import CTASection from '@/components/home/cta-section';
 import TestimonialsSection from '@/components/home/testimonials-section';
 import PublicDisclosureSection from '@/components/home/public-disclosure-section';
-import ErrorRetry from '@/components/ui/error-retry';
+import ResultsAcademicsSection from '@/components/home/results-academics-section';
 // Fetch homepage data from Django API with ISR
-async function getHomepageData(): Promise<HomepageData | null> {
-  try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/home/`, {
-      next: { revalidate: 300 }, // ISR: revalidate every 60 seconds
-    });
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch homepage data');
-    }
-    
-    return res.json();
-  } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Error fetching homepage data:', error);
-    }
-    return null;
+async function getHomepageData(): Promise<HomepageData> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const res = await fetch(`${apiUrl}/api/v1/landing/home/`, {
+    next: { revalidate: 1 }, // ISR: revalidate every 1 second
+  });
+  
+  if (!res.ok) {
+    throw new Error('Failed to fetch homepage data');
   }
+  
+  return res.json();
 }
 
 // Dynamic metadata based on site settings
@@ -83,19 +76,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// ... (imports)
+
 export default async function HomePage() {
   const data = await getHomepageData();
-  
-  // Loading/Error State
-  if (!data) {
-    return (
-      <ErrorRetry 
-        title="Unable to Load Content"
-        message="The homepage data could not be retrieved. We are trying to reconnect..."
-        autoRetry={true}
-      />
-    );
-  }
 
   const { 
     site_settings, 
@@ -110,7 +94,8 @@ export default async function HomePage() {
     achievements,
     testimonials, 
     general_info,
-    admission
+    admission,
+    results_academics
   } = data;
 
   return (
@@ -131,7 +116,7 @@ export default async function HomePage() {
           { id: 'est', value: about.established_year?.toString() || '1990', label: 'Established' },
           { id: 'students', value: about.students_count || '2000+', label: 'Students' },
           { id: 'teachers', value: about.teachers_count || '100+', label: 'Teachers' },
-          ...(academics || []).map(a => ({ id: `acad-${a.id}`, value: a.value, label: a.title }))
+          ...(academics || []).map(a => ({ id: `acad-${a.id}`, value: a.value, label: a.title, icon: a.icon }))
         ]}
       />
 
@@ -155,6 +140,9 @@ export default async function HomePage() {
 
       {/* CTA Section - Parallax background */}
       <CTASection admissionOpen={admission?.is_open ?? false} />
+
+      {/* Results & Academics Section - Documents */}
+      <ResultsAcademicsSection documents={results_academics} />
 
       {/* Testimonials Section - Interactive carousel */}
       <TestimonialsSection testimonials={testimonials} />

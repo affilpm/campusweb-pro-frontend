@@ -20,10 +20,10 @@ export default function AdminDashboardPage() {
     const fetchStats = async () => {
       try {
         const [notices, events, gallery, facilities] = await Promise.all([
-          api.get('/api/admin/content/notices/'),
-          api.get('/api/admin/content/events/'),
-          api.get('/api/admin/content/gallery/images/'),
-          api.get('/api/admin/content/facilities/'),
+          api.get('/api/v1/communication/admin/notices/'),
+          api.get('/api/v1/communication/admin/events/'),
+          api.get('/api/v1/gallery/admin/images/'),
+          api.get('/api/v1/school-info/admin/facilities/'),
         ]);
         setStats({
           notices: notices.data.length || 0,

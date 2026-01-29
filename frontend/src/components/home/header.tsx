@@ -173,7 +173,12 @@ export default function Header({ siteSettings }: HeaderProps) {
   return (
     <>
       {/* Top Bar */}
-      <div className={`fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-sm transition-transform duration-[400ms] ease-out will-change-transform ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
+      <div className={`fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r ${
+        pathname.startsWith('/academics') ? 'from-teal-900 to-emerald-900'
+        : pathname.startsWith('/contact') ? 'from-amber-900 to-orange-900'
+        : pathname.startsWith('/notices') ? 'from-purple-900 to-violet-900'
+        : 'from-blue-900 to-indigo-900'
+      } text-white text-sm transition-transform duration-[400ms] ease-out will-change-transform ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}>
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {(() => {
@@ -376,7 +381,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                       href={link.href}
                       className={`font-medium transition-colors relative flex items-center gap-1 ${
                         isActive 
-                          ? (isScrolled ? 'text-blue-600' : 'text-amber-400')
+                          ? (isScrolled 
+                              ? (pathname.startsWith('/academics') ? 'text-teal-600' 
+                                : pathname.startsWith('/contact') ? 'text-amber-600'
+                                : pathname.startsWith('/notices') ? 'text-purple-600'
+                                : 'text-blue-600') 
+                              : (pathname.startsWith('/academics') ? 'text-emerald-400' 
+                                : pathname.startsWith('/contact') ? 'text-amber-400'
+                                : pathname.startsWith('/notices') ? 'text-purple-300'
+                                : 'text-amber-400'))
                           : (isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/90 hover:text-white')
                       }`}
                     >
@@ -389,7 +402,15 @@ export default function Header({ siteSettings }: HeaderProps) {
                       <span className={`absolute -bottom-1 left-0 h-0.5 transition-all duration-300 ${
                         isActive ? 'w-full' : 'w-0 group-hover:w-full'
                       } ${
-                        isScrolled ? 'bg-blue-600' : 'bg-amber-400'
+                        isScrolled 
+                          ? (pathname.startsWith('/academics') ? 'bg-teal-600' 
+                            : pathname.startsWith('/contact') ? 'bg-amber-600'
+                            : pathname.startsWith('/notices') ? 'bg-purple-600'
+                            : 'bg-blue-600')
+                          : (pathname.startsWith('/academics') ? 'bg-emerald-400' 
+                            : pathname.startsWith('/contact') ? 'bg-amber-400'
+                            : pathname.startsWith('/notices') ? 'bg-purple-300'
+                            : 'bg-amber-400')
                       }`} />
                     </Link>
 
@@ -451,219 +472,206 @@ export default function Header({ siteSettings }: HeaderProps) {
         </div>
       </motion.header>
 
-      {/* Mobile Menu - Modern UI with iOS optimizations */}
-      <AnimatePresence mode="wait">
-        {isMobileMenuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[80] lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-          >
-            {/* Backdrop with blur - Optimized for performance */}
-            <motion.div 
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm touch-manipulation" 
-              onClick={closeMobileMenu}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.08 }}
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            />
-            
-            {/* Sidebar Panel */}
-            <motion.div
-              className="absolute top-0 left-0 w-80 max-w-[85vw] h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl overflow-hidden flex flex-col will-change-transform"
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'tween', duration: 0.12, ease: [0.32, 0.72, 0, 1] }} // Faster animation (0.2s)
-              style={{ WebkitOverflowScrolling: 'touch' }}
-            >
-              {/* Decorative gradient orbs */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl" />
-              <div className="absolute bottom-20 left-0 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl" />
-              
-              {/* Header with gradient */}
-              <div className="relative p-6 bg-gradient-to-r from-blue-600 to-indigo-700">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    {siteSettings.school_logo ? (
-                      <div className="relative h-10 w-10 rounded-lg bg-white p-1 overflow-hidden">
-                        <Image 
-                          src={siteSettings.school_logo} 
-                          alt="Logo" 
-                          fill
-                          className="object-contain" 
-                          sizes="40px"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                        <span className="text-xl">🎓</span>
-                      </div>
-                    )}
+      {/* Mobile Menu - CSS Optimized (No heavy JS animations/blurs) */}
+      <div 
+        className={`fixed inset-0 z-[80] lg:hidden transition-visibility duration-300 ${
+           isMobileMenuOpen ? 'visible' : 'invisible delay-300'
+        }`}
+      >
+        {/* Backdrop */}
+        <div 
+          className={`absolute inset-0 bg-black/60 touch-manipulation transition-opacity duration-300 ease-in-out ${
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={closeMobileMenu}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        />
+        
+        {/* Sidebar Panel */}
+        <div 
+          className={`absolute top-0 left-0 w-80 max-w-[85vw] h-full bg-slate-900 shadow-2xl flex flex-col transition-transform duration-300 cubic-bezier(0.32,0.72,0,1) transform ${
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+          style={{ 
+            transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)', 
+            willChange: 'transform',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
+          {/* Header with gradient (Simplified - No Orbs) */}
+          <div className={`relative p-6 bg-gradient-to-r ${
+            pathname.startsWith('/academics') ? 'from-teal-600 to-emerald-700'
+            : pathname.startsWith('/contact') ? 'from-amber-600 to-orange-700'
+            : pathname.startsWith('/notices') ? 'from-purple-600 to-violet-700'
+            : 'from-blue-600 to-indigo-700'
+          }`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                {siteSettings.school_logo ? (
+                  <div className="relative h-10 w-10 rounded-lg bg-white p-1 overflow-hidden">
+                    <Image 
+                      src={siteSettings.school_logo} 
+                      alt="Logo" 
+                      fill
+                      className="object-contain" 
+                      sizes="40px"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">🎓</span>
+                  </div>
+                )}
+                <div>
+                  <h2 className="text-white font-bold text-lg leading-tight">{siteSettings.school_name || 'Menu'}</h2>
+                  <p className="text-blue-200 text-xs">{siteSettings.school_motto || 'Navigation'}</p>
+                </div>
+              </div>
+              <button 
+                onClick={closeMobileMenu}
+                className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors touch-manipulation"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+                aria-label="Close menu"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="relative p-4 pb-24 flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <nav className="space-y-2">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || (link.subItems && pathname.startsWith(link.href));
+                const isSubMenuOpen = openMobileSubMenu === link.name;
+                
+                return (
+                <div 
+                  key={link.name}
+                  className="touch-manipulation"
+                >
+                  {link.subItems ? (
                     <div>
-                      <h2 className="text-white font-bold text-lg leading-tight">{siteSettings.school_name || 'Menu'}</h2>
-                      <p className="text-blue-200 text-xs">{siteSettings.school_motto || 'Navigation'}</p>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={closeMobileMenu}
-                    className="p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors touch-manipulation"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
-                    aria-label="Close menu"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              {/* Navigation - with iOS scroll optimization */}
-              <div className="relative p-4 pb-24 flex-1 overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
-                <nav className="space-y-2">
-                  {navLinks.map((link) => {
-                    const isActive = pathname === link.href || (link.subItems && pathname.startsWith(link.href));
-                    return (
-                    <div 
-                      key={link.name}
-                      className="touch-manipulation"
-                    >
-                      {link.subItems ? (
-                        <div>
-                          <button
-                            onClick={() => setOpenMobileSubMenu(openMobileSubMenu === link.name ? null : link.name)}
-                            className="flex items-center justify-between w-full py-3 px-4 text-gray-200 hover:bg-white/10 rounded-xl font-medium transition-all duration-200 group"
-                          >
-                            <span className="group-hover:text-white transition-colors">{link.name}</span>
-                            <motion.svg 
-                              className="w-4 h-4 text-gray-400 group-hover:text-white"
-                              animate={{ rotate: openMobileSubMenu === link.name ? 180 : 0 }}
-                              transition={{ duration: 0.2 }}
-                              fill="none" 
-                              viewBox="0 0 24 24" 
-                              stroke="currentColor"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </motion.svg>
-                          </button>
-                          <AnimatePresence>
-                            {openMobileSubMenu === link.name && (
-                              <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="overflow-hidden"
-                              >
-                                <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-3">
-                                  {link.subItems.map((subItem) => {
-                                    const isSubActive = pathname === subItem.href;
-                                    return (
-                                      <Link
-                                        key={subItem.name}
-                                        href={subItem.href}
-                                        prefetch={true}
-                                        className={`block py-2 px-3 text-sm rounded-lg transition-all duration-200 relative ${
-                                          isSubActive
-                                            ? 'text-white bg-blue-600/20 font-medium'
-                                            : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                        }`}
-                                        onClick={(e) => { e.preventDefault(); handleNavigation(subItem.href); }}
-                                      >
-                                        {isSubActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-blue-500 rounded-full" />}
-                                        <span className="relative">{subItem.name}</span>
-                                      </Link>
-                                    );
-                                  })}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </div>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          prefetch={true}
-                          className={`flex items-center gap-3 py-3 px-4 rounded-xl font-medium transition-all duration-200 relative ${
-                            isActive 
-                              ? 'text-white bg-blue-600/20 border-l-2 border-blue-500' 
-                              : 'text-gray-200 hover:bg-white/10 hover:text-white'
-                          }`}
-                          onClick={(e) => { e.preventDefault(); handleNavigation(link.href); }}
+                      <button
+                        onClick={() => setOpenMobileSubMenu(isSubMenuOpen ? null : link.name)}
+                        className="flex items-center justify-between w-full py-3 px-4 text-gray-200 hover:bg-white/10 rounded-xl font-medium transition-all duration-200 group"
+                      >
+                        <span className="group-hover:text-white transition-colors">{link.name}</span>
+                        <svg 
+                          className={`w-4 h-4 text-gray-400 group-hover:text-white transition-transform duration-200 ${isSubMenuOpen ? 'rotate-180' : ''}`}
+                          fill="none" 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor"
                         >
-                          {isActive && <span className="absolute right-3 w-2 h-2 bg-blue-500 rounded-full" />}
-                          {link.name}
-                        </Link>
-                      )}
-                    </div>
-                    );
-                  })}
-
-                  {/* Notices - Special highlight */}
-                  <div className="touch-manipulation">
-                    <Link
-                      href="/notices"
-                      prefetch={true}
-                      className={`flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30 ${pathname.startsWith('/notices') ? 'ring-2 ring-amber-400/50' : ''}`}
-                      onClick={(e) => { e.preventDefault(); handleNavigation('/notices'); }}
-                    >
-                      <div className="relative">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
-                        <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                        </span>
+                      </button>
+                      
+                      {/* Submenu - CSS Height Transition or Simple Conditional */}
+                      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isSubMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className="ml-4 mt-1 space-y-1 border-l-2 border-blue-500/30 pl-3">
+                          {link.subItems.map((subItem) => {
+                            const isSubActive = pathname === subItem.href;
+                            return (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                prefetch={true}
+                                className={`block py-2 px-3 text-sm rounded-lg transition-all duration-200 relative ${
+                                  isSubActive
+                                    ? 'text-white bg-blue-600/20 font-medium'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                }`}
+                                onClick={(e) => { e.preventDefault(); handleNavigation(subItem.href); }}
+                              >
+                                {isSubActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-blue-500 rounded-full" />}
+                                <span className="relative">{subItem.name}</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
-                      Notices & Announcements
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      prefetch={true}
+                      className={`flex items-center gap-3 py-3 px-4 rounded-xl font-medium transition-all duration-200 relative ${
+                        isActive 
+                          ? 'text-white bg-blue-600/20 border-l-2 border-blue-500' 
+                          : 'text-gray-200 hover:bg-white/10 hover:text-white'
+                      }`}
+                      onClick={(e) => { e.preventDefault(); handleNavigation(link.href); }}
+                    >
+                      {isActive && <span className="absolute right-3 w-2 h-2 bg-blue-500 rounded-full" />}
+                      {link.name}
                     </Link>
-                  </div>
-                </nav>
-              </div>
-
-              {/* Footer with Social Links */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
-                <p className="text-xs text-gray-500 mb-3 uppercase tracking-wider">Follow Us</p>
-                <div className="flex items-center gap-2">
-                  {siteSettings.facebook_url && (
-                    <a href={siteSettings.facebook_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-all duration-200">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
-                      </svg>
-                    </a>
-                  )}
-                  {siteSettings.instagram_url && (
-                    <a href={siteSettings.instagram_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-pink-500/20 text-pink-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all duration-200">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                      </svg>
-                    </a>
-                  )}
-                  {siteSettings.youtube_url && (
-                    <a href={siteSettings.youtube_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white transition-all duration-200">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                    </a>
-                  )}
-                  {siteSettings.twitter_url && (
-                    <a href={siteSettings.twitter_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 hover:bg-sky-500 hover:text-white transition-all duration-200">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                      </svg>
-                    </a>
                   )}
                 </div>
+                );
+              })}
+
+              {/* Notices */}
+              <div className="touch-manipulation">
+                <Link
+                  href="/notices"
+                  prefetch={true}
+                  className={`flex items-center gap-3 py-3 px-4 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl font-medium transition-all duration-200 border border-amber-500/30 ${pathname.startsWith('/notices') ? 'ring-2 ring-amber-400/50' : ''}`}
+                  onClick={(e) => { e.preventDefault(); handleNavigation('/notices'); }}
+                >
+                  <div className="relative">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                    </span>
+                  </div>
+                  Notices & Announcements
+                </Link>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </nav>
+          </div>
+
+          {/* Footer Social Links */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-900 via-slate-900/95 to-transparent pt-8">
+            <p className="text-xs text-gray-500 mb-3 uppercase tracking-wider">Follow Us</p>
+            <div className="flex items-center gap-2">
+              {siteSettings.facebook_url && (
+                <a href={siteSettings.facebook_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                  </svg>
+                </a>
+              )}
+              {siteSettings.instagram_url && (
+                <a href={siteSettings.instagram_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-pink-500/20 text-pink-400 hover:bg-gradient-to-br hover:from-purple-600 hover:via-pink-500 hover:to-orange-400 hover:text-white transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                  </svg>
+                </a>
+              )}
+              {siteSettings.youtube_url && (
+                <a href={siteSettings.youtube_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+              )}
+              {siteSettings.twitter_url && (
+                <a href={siteSettings.twitter_url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center rounded-lg bg-sky-500/20 text-sky-400 hover:bg-sky-500 hover:text-white transition-all duration-200">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
       {/* Global Navigation Loader - Centered on Screen */}
       <AnimatePresence>
         {isNavigating && <NavigationLoader logo={siteSettings.school_logo} />}

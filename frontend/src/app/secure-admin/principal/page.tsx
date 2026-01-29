@@ -34,7 +34,7 @@ export default function PrincipalPage() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/api/admin/content/principal/');
+      const response = await api.get('/api/v1/school-info/admin/principal/');
       setData(response.data);
       setInitialData(response.data);
     } catch (error) {
@@ -71,7 +71,7 @@ export default function PrincipalPage() {
         formData.append('photo', newImage);
       }
 
-      const response = await api.put('/api/admin/content/principal/', formData, {
+      const response = await api.put('/api/v1/school-info/admin/principal/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -96,7 +96,7 @@ export default function PrincipalPage() {
   const handleReset = async () => {
     setSaving(true);
     try {
-      const response = await api.post('/api/admin/content/principal/reset/');
+      const response = await api.post('/api/v1/school-info/admin/principal/reset/');
       setData(response.data.data);
       setInitialData(response.data.data);
       setMessage({ type: 'success', text: response.data.message });

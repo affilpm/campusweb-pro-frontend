@@ -7,9 +7,9 @@ import AnimatedSection from '@/components/ui/animated-section';
 async function getAboutData(): Promise<AboutPageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/about/`, {
+    const res = await fetch(`${apiUrl}/api/v1/school-info/about/`, {
       cache: 'force-cache',
-      next: { revalidate: 300 } // Revalidate every minute
+      next: { revalidate: 1 } // Revalidate every second
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();
@@ -59,49 +59,35 @@ export default async function AboutPage() {
     <main className="overflow-hidden bg-white">
       {/* Hero Section */}
       {(data.hero_title || data.hero_subtitle) && (
-        <section className="relative pt-32 pb-24 md:pb-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-full blur-3xl" />
+        <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-3xl" />
           </div>
-          
-          {/* Subtle grid pattern overlay */}
-          <div className="absolute inset-0 opacity-5" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <AnimatedSection className="max-w-4xl mx-auto text-center">
+          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <AnimatedSection>
               {/* Badge with established year */}
               {data.about_section?.established_year && (
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-8 border border-white/10">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white/90 text-sm font-medium mb-6">
                   <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-                  {data.about_section.established_year}
+                  Established {data.about_section.established_year}
                 </div>
               )}
               
               {data.hero_title && (
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight tracking-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
                   {data.hero_title}
                 </h1>
               )}
               
               {data.hero_subtitle && (
-                <p className="text-lg sm:text-xl lg:text-2xl text-blue-100/90 max-w-3xl mx-auto leading-relaxed font-light">
+                <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
                   {data.hero_subtitle}
                 </p>
               )}
             </AnimatedSection>
-          </div>
-
-          {/* Bottom wave */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-              <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-            </svg>
           </div>
         </section>
       )}

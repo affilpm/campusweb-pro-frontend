@@ -43,8 +43,8 @@ export default function GalleryPage() {
   const fetchData = async () => {
     try {
       const [imagesRes, categoriesRes] = await Promise.all([
-        api.get('/api/admin/content/gallery/images/'),
-        api.get('/api/admin/content/gallery/categories/'),
+        api.get('/api/v1/gallery/admin/images/'),
+        api.get('/api/v1/gallery/admin/categories/'),
       ]);
       setImages(imagesRes.data);
       setCategories(categoriesRes.data);
@@ -69,7 +69,7 @@ export default function GalleryPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/gallery/images/${deleteId}/`);
+      await api.delete(`/api/v1/gallery/admin/images/${deleteId}/`);
       setImages(images.filter(img => img.id !== deleteId));
     } catch (error) {
       console.error('Error deleting image:', error);
@@ -94,11 +94,11 @@ export default function GalleryPage() {
       }
 
       if (currentImage.id) {
-        await api.patch(`/api/admin/content/gallery/images/${currentImage.id}/`, formData, {
+        await api.patch(`/api/v1/gallery/admin/images/${currentImage.id}/`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        await api.post('/api/admin/content/gallery/images/', formData, {
+        await api.post('/api/v1/gallery/admin/images/', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       }
@@ -120,9 +120,9 @@ export default function GalleryPage() {
     setSaving(true);
     try {
       if (editingCategory.id) {
-        await api.put(`/api/admin/content/gallery/categories/${editingCategory.id}/`, editingCategory);
+        await api.put(`/api/v1/gallery/admin/categories/${editingCategory.id}/`, editingCategory);
       } else {
-        await api.post('/api/admin/content/gallery/categories/', editingCategory);
+        await api.post('/api/v1/gallery/admin/categories/', editingCategory);
       }
       fetchData();
       setIsCategoryModalOpen(false);
@@ -137,7 +137,7 @@ export default function GalleryPage() {
   const confirmDeleteCategory = async () => {
     if (!deleteCategoryId) return;
     try {
-      await api.delete(`/api/admin/content/gallery/categories/${deleteCategoryId}/`);
+      await api.delete(`/api/v1/gallery/admin/categories/${deleteCategoryId}/`);
       setCategories(categories.filter(c => c.id !== deleteCategoryId));
       fetchData();
     } catch (error) {

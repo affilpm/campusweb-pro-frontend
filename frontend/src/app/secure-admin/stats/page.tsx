@@ -46,8 +46,8 @@ export default function StatsPage() {
   const fetchData = async () => {
     try {
       const [aboutRes, academicsRes] = await Promise.all([
-        api.get('/api/admin/content/home-about/'),
-        api.get('/api/admin/content/academics/')
+        api.get('/api/v1/landing/admin/home-about/'),
+        api.get('/api/v1/landing/admin/highlights/')
       ]);
       
       setAboutStats({
@@ -86,9 +86,9 @@ export default function StatsPage() {
     setErrors({});
     setMessage(null);
     try {
-      await api.put('/api/admin/content/home-about/', aboutStats);
+      await api.put('/api/v1/landing/admin/home-about/', aboutStats);
       setMessage({ type: 'success', text: 'Basic stats updated successfully' });
-    } catch (error: any) {
+    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.error('Error saving about stats:', error);
       if (error.response && error.response.status === 400) {
         setErrors(error.response.data);
@@ -118,14 +118,14 @@ export default function StatsPage() {
     
     try {
       if (editingHighlight.id) {
-        await api.put(`/api/admin/content/academics/${editingHighlight.id}/`, editingHighlight);
+        await api.put(`/api/v1/landing/admin/highlights/${editingHighlight.id}/`, editingHighlight);
       } else {
-        await api.post('/api/admin/content/academics/', editingHighlight);
+        await api.post('/api/v1/landing/admin/highlights/', editingHighlight);
       }
       await fetchData();
       setEditingHighlight(null);
       setMessage({ type: 'success', text: 'Stat saved successfully' });
-    } catch (error: any) {
+    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.error('Error saving highlight:', error);
       if (error.response && error.response.status === 400) {
         setErrors(error.response.data);
@@ -144,7 +144,7 @@ export default function StatsPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/academics/${deleteId}/`);
+      await api.delete(`/api/v1/landing/admin/highlights/${deleteId}/`);
       await fetchData();
       setMessage({ type: 'success', text: 'Stat deleted successfully' });
     } catch (error) {
@@ -199,7 +199,7 @@ export default function StatsPage() {
               value={aboutStats.established_year}
               onChange={(e) => {
                   const val = parseInt(e.target.value);
-                  handleAboutStatsChange({ target: { name: 'established_year', value: val } } as any);
+                  handleAboutStatsChange({ target: { name: 'established_year', value: val } } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
               }}
               className={`w-full px-4 py-3 bg-white/5 border rounded-xl text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none ${
                 errors.established_year ? 'border-red-500/50' : 'border-white/10'
@@ -286,7 +286,7 @@ export default function StatsPage() {
         {/* Stats List */}
         <div className="space-y-4 mb-6">
           {academicHighlights.length === 0 ? (
-            <p className="text-gray-400 text-center py-8">No additional stats yet. Click "Add Stat" to create one.</p>
+            <p className="text-gray-400 text-center py-8">No additional stats yet. Click &quot;Add Stat&quot; to create one.</p>
           ) : (
             academicHighlights.map((highlight) => (
               <div 

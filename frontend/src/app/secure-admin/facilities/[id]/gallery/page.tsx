@@ -39,8 +39,8 @@ export default function FacilityGalleryPage() {
   const fetchData = async () => {
     try {
       const [facilityRes, imagesRes] = await Promise.all([
-        api.get(`/api/admin/content/facilities/${facilityId}/`),
-        api.get(`/api/admin/content/facilities/${facilityId}/images/`)
+        api.get(`/api/v1/school-info/admin/facilities/${facilityId}/`),
+        api.get(`/api/v1/school-info/admin/facilities/${facilityId}/images/`)
       ]);
       setFacility(facilityRes.data);
       setImages(imagesRes.data);
@@ -54,17 +54,18 @@ export default function FacilityGalleryPage() {
 
   const handleUpload = async (files: FileList) => {
     setUploading(true);
-    try {
-      for (let i = 0; i < files.length; i++) {
+    // 1. Create promises for parallel upload
+    const uploadPromises = Array.from(files).map((file, i) => {
         const formData = new FormData();
-        formData.append('image', files[i]);
+        formData.append('image', file);
         formData.append('order', String(images.length + i));
         formData.append('is_active', 'true');
-        
-        await api.post(`/api/admin/content/facilities/${facilityId}/images/`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-      }
+        return api.post(`/api/v1/school-info/admin/facilities/${facilityId}/images/`, formData);
+    });
+
+    try {
+      // 2. Execute all uploads in parallel
+      await Promise.all(uploadPromises);
       await fetchData();
       setMessage({ type: 'success', text: `${files.length} image(s) uploaded successfully` });
     } catch (error) {
@@ -72,6 +73,7 @@ export default function FacilityGalleryPage() {
       setMessage({ type: 'error', text: 'Failed to upload images' });
     } finally {
       setUploading(false);
+      // Reset file input if possible (React handles checking file input value usually via ref, but here we can just rely on re-render or let user click again)
     }
   };
 
@@ -81,39 +83,54 @@ export default function FacilityGalleryPage() {
 
   const confirmDelete = async () => {
     if (!deleteId) return;
+    
+    // Optimistic Delete
+    const previousImages = [...images];
+    setImages(images.filter(img => img.id !== deleteId));
+    setDeleteId(null); // Close modal immediately
+
     try {
-      await api.delete(`/api/admin/content/facility-images/${deleteId}/`);
-      setImages(images.filter(img => img.id !== deleteId));
+      await api.delete(`/api/v1/school-info/admin/facility-images/${deleteId}/`);
       setMessage({ type: 'success', text: 'Image deleted' });
     } catch (error) {
       console.error('Error deleting image:', error);
+      setImages(previousImages); // Revert on error
       setMessage({ type: 'error', text: 'Failed to delete image' });
-    } finally {
-      setDeleteId(null);
     }
   };
 
   const toggleActive = async (image: FacilityImage) => {
+    // Optimistic Update
+    const previousImages = [...images];
+    const newStatus = !image.is_active;
+    
+    setImages(images.map(img => 
+      img.id === image.id ? { ...img, is_active: newStatus } : img
+    ));
+
     try {
-      await api.patch(`/api/admin/content/facility-images/${image.id}/`, {
-        is_active: !image.is_active
+      await api.patch(`/api/v1/school-info/admin/facility-images/${image.id}/`, {
+        is_active: newStatus
       });
-      setImages(images.map(img => 
-        img.id === image.id ? { ...img, is_active: !img.is_active } : img
-      ));
     } catch (error) {
       console.error('Error toggling image:', error);
+      setImages(previousImages); // Revert
+      setMessage({ type: 'error', text: 'Failed to update status' });
     }
   };
 
   const updateCaption = async (image: FacilityImage, caption: string) => {
+    // Optimistic Update
+    setImages(images.map(img => 
+      img.id === image.id ? { ...img, caption } : img
+    ));
+
+    // Debounce this in a real app, but for now direct is fine or use blur
     try {
-      await api.patch(`/api/admin/content/facility-images/${image.id}/`, { caption });
-      setImages(images.map(img => 
-        img.id === image.id ? { ...img, caption } : img
-      ));
+      await api.patch(`/api/v1/school-info/admin/facility-images/${image.id}/`, { caption });
     } catch (error) {
       console.error('Error updating caption:', error);
+      // No revert needed usually for text unless critical, but user might lose typing.
     }
   };
 

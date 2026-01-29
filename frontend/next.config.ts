@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-
     remotePatterns: [
       {
         protocol: 'http',
@@ -15,19 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'api.novelschoolindia.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'pub-30421f2590ac4738b43f524395aa8a2b.r2.dev',
-      },
-      {
-        protocol: 'https',
-        hostname: 'pub-057f5009996946a7b2df09fb3bea1c0c.r2.dev',
-      },
-      {
-        protocol: 'https',
-        hostname: 'd2isa6df9sgb8p.cloudfront.net',
+        hostname: process.env.NEXT_PUBLIC_R2_URL ? new URL(process.env.NEXT_PUBLIC_R2_URL).hostname : 'media.novelschoolindia.com',
       },
       {
         protocol: 'https',

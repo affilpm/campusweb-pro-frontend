@@ -29,7 +29,7 @@ export default function FeesPage() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/api/admin/content/fees/');
+      const response = await api.get('/api/v1/school-info/admin/fees/');
       setItems(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -56,9 +56,9 @@ export default function FeesPage() {
 
     try {
       if (editingItem.id) {
-        await api.put(`/api/admin/content/fees/${editingItem.id}/`, editingItem);
+        await api.put(`/api/v1/school-info/admin/fees/${editingItem.id}/`, editingItem);
       } else {
-        await api.post('/api/admin/content/fees/', editingItem);
+        await api.post('/api/v1/school-info/admin/fees/', editingItem);
       }
       await fetchData();
       setEditingItem(null);
@@ -83,7 +83,7 @@ export default function FeesPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/fees/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/fees/${deleteId}/`);
       await fetchData();
       setMessage({ type: 'success', text: 'Item deleted successfully' });
     } catch (error) {

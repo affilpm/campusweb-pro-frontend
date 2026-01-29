@@ -26,7 +26,7 @@ export default function ContactSubmissionsPage() {
 
   const fetchData = async () => {
     try {
-      const res = await api.get('/api/admin/content/contact/submissions/');
+      const res = await api.get('/api/v1/school-info/admin/messages/');
       setSubmissions(res.data);
     } catch (error) {
       console.error('Error fetching submissions:', error);
@@ -37,7 +37,7 @@ export default function ContactSubmissionsPage() {
 
   const markAsRead = async (id: number) => {
     try {
-      await api.put(`/api/admin/content/contact/submissions/${id}/`, { is_read: true });
+      await api.put(`/api/v1/school-info/admin/messages/${id}/`, { is_read: true });
       fetchData();
     } catch (error) {
       console.error('Error updating submission:', error);
@@ -51,7 +51,7 @@ export default function ContactSubmissionsPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/contact/submissions/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/messages/${deleteId}/`);
       fetchData();
       if (selected?.id === deleteId) {
         setSelected(null);

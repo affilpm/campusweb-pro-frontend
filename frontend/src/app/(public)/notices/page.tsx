@@ -23,8 +23,8 @@ async function getData() {
   
   try {
     // Matching gallery/facilities caching strategy (no force-cache, just revalidate)
-    const res = await fetch(`${apiUrl}/api/public/notices/?page=1`, { 
-      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
+    const res = await fetch(`${apiUrl}/api/v1/communication/notices/?page=1`, { 
+      next: { revalidate: 1 }, // ISR: revalidate every 1 second
     });
 
     if (!res.ok) {
@@ -69,18 +69,26 @@ export default async function NoticesPage() {
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Page Header with Dark Background */}
-      <div className="pt-32 pb-12 sm:pb-16 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-800 text-white relative overflow-hidden">
-        {/* Abstract shapes - wrapped in opacity container for iOS Safari performance */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-20 right-20 w-72 h-72 bg-amber-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
+      <div className="bg-gradient-to-br from-purple-900 via-violet-900 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 relative overflow-hidden text-white">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-3xl" />
         </div>
         
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white/90 text-sm font-medium mb-6">
+            <svg className="w-4 h-4 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            Announcements
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             School Notice Board
           </h1>
-          <p className="text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-purple-100 max-w-2xl mx-auto leading-relaxed">
             Stay updated with the latest announcements, circulars, and news from the school administration.
           </p>
         </div>

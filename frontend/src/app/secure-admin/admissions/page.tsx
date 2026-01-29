@@ -19,7 +19,7 @@ interface AdmissionSettings {
 
 interface AdmissionStep {
   id?: number;
-  step_number: number;
+  order: number;
   title: string;
   description: string;
 }
@@ -44,8 +44,8 @@ export default function AdmissionsManagementPage() {
   const fetchData = async () => {
     try {
       const [settingsRes, stepsRes] = await Promise.all([
-        api.get('/api/admin/content/admissions/settings/'),
-        api.get('/api/admin/content/admissions/steps/')
+        api.get('/api/v1/admissions/admin/settings/'),
+        api.get('/api/v1/admissions/admin/steps/')
       ]);
       setSettings(settingsRes.data);
       setInitialSettings(settingsRes.data);
@@ -73,7 +73,7 @@ export default function AdmissionsManagementPage() {
     setMessage('');
 
     try {
-      await api.put('/api/admin/content/admissions/settings/', settings);
+      await api.put('/api/v1/admissions/admin/settings/', settings);
       setMessage('Settings saved successfully!');
       setTimeout(() => setMessage(''), 3000);
       setInitialSettings(settings);
@@ -95,9 +95,9 @@ export default function AdmissionsManagementPage() {
     
     try {
       if (editingStep.id) {
-        await api.put(`/api/admin/content/admissions/steps/${editingStep.id}/`, editingStep);
+        await api.put(`/api/v1/admissions/admin/steps/${editingStep.id}/`, editingStep);
       } else {
-        await api.post('/api/admin/content/admissions/steps/', editingStep);
+        await api.post('/api/v1/admissions/admin/steps/', editingStep);
       }
       fetchData();
       setShowStepModal(false);
@@ -115,7 +115,7 @@ export default function AdmissionsManagementPage() {
     if (!deleteId) return;
     
     try {
-      await api.delete(`/api/admin/content/admissions/steps/${deleteId}/`);
+      await api.delete(`/api/v1/admissions/admin/steps/${deleteId}/`);
       fetchData();
     } catch (error) {
        console.error('Error deleting step:', error);
@@ -290,17 +290,6 @@ export default function AdmissionsManagementPage() {
             <p className="text-xs text-gray-500">URL to the external application form (e.g., Google Form)</p>
         </div>
 
-        {/* Contact Info */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Admission Contact Info</label>
-          <textarea
-            value={settings?.contact_info || ''}
-            onChange={(e) => handleSettingsChange('contact_info', e.target.value)}
-            rows={3}
-            placeholder="Phone numbers, emails, timings..."
-            className={`w-full px-4 py-2.5 bg-white/5 border rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50`}
-          />
-        </div>
 
         <div className="flex justify-end pt-4">
           {saveSettingsButton}
@@ -313,7 +302,7 @@ export default function AdmissionsManagementPage() {
           <h2 className="text-lg font-semibold text-white">Admission Steps</h2>
           <button
             onClick={() => {
-              const newStep = { step_number: steps.length + 1, title: '', description: '' };
+              const newStep = { order: steps.length + 1, title: '', description: '' };
               setEditingStep(newStep);
               setInitialStepData(newStep);
               setShowStepModal(true);
@@ -331,7 +320,7 @@ export default function AdmissionsManagementPage() {
           {steps.map((step) => (
             <div key={step.id} className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl">
               <div className="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
-                {step.step_number}
+                {step.order}
               </div>
               <div className="flex-1">
                 <h3 className="font-medium text-white">{step.title}</h3>
@@ -393,8 +382,8 @@ export default function AdmissionsManagementPage() {
                 <input
                   type="number"
                   required
-                  value={editingStep.step_number}
-                  onChange={(e) => setEditingStep({ ...editingStep, step_number: parseInt(e.target.value) })}
+                  value={editingStep.order}
+                  onChange={(e) => setEditingStep({ ...editingStep, order: parseInt(e.target.value) })}
                   className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                 />
               </div>

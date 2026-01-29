@@ -7,9 +7,9 @@ async function getLayoutData(): Promise<LayoutData | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const res = await fetch(`${apiUrl}/api/public/layout/`, { 
+    const res = await fetch(`${apiUrl}/api/v1/school-info/layout/`, { 
       cache: 'force-cache',
-      next: { revalidate: 300 } 
+      next: { revalidate: 1 } 
     });
 
     if (!res.ok) {

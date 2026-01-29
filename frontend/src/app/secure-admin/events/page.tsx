@@ -33,7 +33,7 @@ export default function EventsPage() {
 
   const fetchEvents = async () => {
     try {
-      const response = await api.get('/api/admin/content/events/');
+      const response = await api.get('/api/v1/communication/admin/events/');
       setEvents(response.data);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -59,7 +59,7 @@ export default function EventsPage() {
     setSaving(true);
     
     try {
-      await api.delete(`/api/admin/content/events/${deleteId}/`);
+      await api.delete(`/api/v1/communication/admin/events/${deleteId}/`);
       setEvents(events.filter(n => n.id !== deleteId));
     } catch (error) {
       console.error('Error deleting event:', error);
@@ -91,11 +91,11 @@ export default function EventsPage() {
       }
 
       if (currentEvent.id) {
-        await api.put(`/api/admin/content/events/${currentEvent.id}/`, formData, {
+        await api.put(`/api/v1/communication/admin/events/${currentEvent.id}/`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        await api.post('/api/admin/content/events/', formData, {
+        await api.post('/api/v1/communication/admin/events/', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       }
@@ -149,7 +149,7 @@ export default function EventsPage() {
             <div className="w-24 h-24 bg-white/5 rounded-lg overflow-hidden flex-shrink-0 relative">
                 {event.image ? (
                     <Image 
-                      src={event.image} 
+                      src={`${event.image}${event.image.includes('?') ? '&' : '?'}t=${new Date().getTime()}`} 
                       alt={event.title} 
                       fill
                       className="object-cover"

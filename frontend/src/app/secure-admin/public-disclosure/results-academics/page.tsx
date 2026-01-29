@@ -31,7 +31,7 @@ export default function ResultsAcademicsPage() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/api/admin/content/results-academics/');
+      const response = await api.get('/api/v1/school-info/admin/results/');
       setItems(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -76,7 +76,7 @@ export default function ResultsAcademicsPage() {
       }
 
       if (editingItem.id) {
-        await api.put(`/api/admin/content/results-academics/${editingItem.id}/`, formData, {
+        await api.put(`/api/v1/school-info/admin/results/${editingItem.id}/`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
@@ -86,7 +86,7 @@ export default function ResultsAcademicsPage() {
           setSaving(false);
           return;
         }
-        await api.post('/api/admin/content/results-academics/', formData, {
+        await api.post('/api/v1/school-info/admin/results/', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       }
@@ -114,7 +114,7 @@ export default function ResultsAcademicsPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/results-academics/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/results/${deleteId}/`);
       await fetchData();
       setMessage({ type: 'success', text: 'Document deleted successfully' });
     } catch (error) {

@@ -32,10 +32,8 @@ export default function GalleryGrid({ categories, images: initialImages, initial
   const fetchImages = async (category: string, pageNum: number, append: boolean) => {
     setLoading(true);
     try {
-      const url = new URL(`${apiUrl}/api/public/gallery/`);
-      if (category !== 'all') {
-        url.searchParams.append('category', category);
-      }
+      const url = new URL(`${apiUrl}/api/v1/gallery/`);
+      if (category && category !== 'all') url.searchParams.append('category', category);
       url.searchParams.append('page', pageNum.toString());
       url.searchParams.append('limit', '50');
 

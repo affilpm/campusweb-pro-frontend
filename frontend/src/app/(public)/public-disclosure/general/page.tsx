@@ -10,16 +10,16 @@ async function getPageData(): Promise<PageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
     // Fetch general info
-    const res = await fetch(`${apiUrl}/api/public/general-info/`, {
+    const res = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
-      next: { revalidate: 300 }
+      next: { revalidate: 1 }
     });
     
     if (!res.ok) throw new Error('Failed to fetch');
     const data = await res.json();
     
     return {
-      general_info: data || [],
+      general_info: data.general_info || [],
     };
   } catch (error) {
     console.error('Error fetching data:', error);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import MaintenanceView from './maintenance-view';
 
 interface ErrorRetryProps {
   title?: string;
@@ -18,9 +19,30 @@ export default function ErrorRetry({
 }: ErrorRetryProps) {
   const [retryCount, setRetryCount] = useState(0);
   const [countdown, setCountdown] = useState(5);
+  const [showMaintenance, setShowMaintenance] = useState(false);
+
+  useEffect(() => {
+    // Load retry count from session storage on mount
+    const savedCount = sessionStorage.getItem('retry_count');
+    if (savedCount) {
+        setRetryCount(parseInt(savedCount, 10));
+    }
+  }, []);
 
   const handleRetry = () => {
-    setRetryCount(prev => prev + 1);
+    const newCount = retryCount + 1;
+    setRetryCount(newCount);
+    sessionStorage.setItem('retry_count', newCount.toString());
+    
+    // If we've retried 3 times without success, switch to maintenance view
+    if (newCount >= 3) {
+        setShowMaintenance(true);
+        // Clear count after showing maintenance comfortably? 
+        // Or keep it so they stay in maintenance until session ends.
+        // Let's keep it.
+        return;
+    }
+
     if (onRetry) {
         onRetry();
     } else {
@@ -30,15 +52,20 @@ export default function ErrorRetry({
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (autoRetry && countdown > 0) {
+    if (autoRetry && countdown > 0 && !showMaintenance) {
       timer = setInterval(() => {
         setCountdown(prev => prev - 1);
       }, 1000);
-    } else if (autoRetry && countdown === 0) {
+    } else if (autoRetry && countdown === 0 && !showMaintenance) {
       handleRetry();
     }
     return () => clearInterval(timer);
-  }, [autoRetry, countdown]);
+  }, [autoRetry, countdown, showMaintenance]);
+
+  // Escalation: Show Maintenance View if retries fail
+  if (showMaintenance) {
+      return <MaintenanceView />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
@@ -77,7 +104,7 @@ export default function ErrorRetry({
         
         <div className="mt-6 pt-6 border-t border-gray-100">
            <p className="text-xs text-gray-400">
-             If the problem persists, please contact support.
+             Attempt {retryCount + 1} of 3
            </p>
         </div>
       </motion.div>

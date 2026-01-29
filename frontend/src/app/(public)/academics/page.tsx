@@ -7,9 +7,9 @@ import AnimatedSection from '@/components/ui/animated-section';
 async function getAcademicsData(): Promise<AcademicsPageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/academics/`, {
+    const res = await fetch(`${apiUrl}/api/v1/academics/page/`, {
       cache: 'force-cache',
-      next: { revalidate: 300 } // Revalidate every minute
+      next: { revalidate: 1 } // Revalidate every second
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();
@@ -56,44 +56,38 @@ export default async function AcademicsPage() {
   }
 
   return (
-    <main className="overflow-hidden bg-white">
+    <main className="overflow-hidden bg-white min-h-screen">
       {/* Hero Section */}
       {(data.hero_title || data.hero_subtitle) && (
-        <section className="relative pt-32 pb-24 md:pb-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white overflow-hidden">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-full blur-3xl" />
+        <section className="relative bg-gradient-to-br from-teal-900 via-emerald-900 to-green-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-3xl" />
           </div>
 
-          {/* Decorative grid pattern */}
-          <div className="absolute inset-0 opacity-5" style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
-
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <AnimatedSection className="max-w-4xl mx-auto text-center">
+          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <AnimatedSection>
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white/90 text-sm font-medium mb-6">
+                <svg className="w-4 h-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                Academic Excellence
+              </div>
+              
               {data.hero_title && (
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight tracking-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
                   {data.hero_title}
                 </h1>
               )}
               
               {data.hero_subtitle && (
-                <p className="text-lg sm:text-xl lg:text-2xl text-purple-100/90 max-w-3xl mx-auto leading-relaxed font-light">
+                <p className="text-xl text-emerald-100 max-w-3xl mx-auto leading-relaxed">
                   {data.hero_subtitle}
                 </p>
               )}
             </AnimatedSection>
-          </div>
-
-          {/* Bottom wave */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-              <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
-            </svg>
           </div>
         </section>
       )}
@@ -127,7 +121,7 @@ export default async function AcademicsPage() {
                 {data.curriculum_image && (
                   <AnimatedSection direction="right" delay={0.2}>
                     <div className="relative">
-                      <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur-2xl" />
+                      <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 to-emerald-500/20 rounded-3xl blur-2xl" />
                       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                         <Image 
                           src={data.curriculum_image} 
@@ -138,7 +132,7 @@ export default async function AcademicsPage() {
                         />
                       </div>
                       {/* Decorative element */}
-                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-amber-400 rounded-2xl -z-10 hidden lg:block" />
+                      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-teal-400 rounded-2xl -z-10 hidden lg:block" />
                     </div>
                   </AnimatedSection>
                 )}
@@ -157,56 +151,56 @@ export default async function AcademicsPage() {
                 {data.class_categories.map((category, idx) => (
                   <AnimatedSection key={category.id} delay={idx * 0.1} direction="up">
                     <div className="group h-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                      {/* Category Image */}
-                      {category.image && (
-                        <div className="relative h-48 overflow-hidden">
-                          <Image 
-                            src={category.image} 
-                            alt={category.name}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                          {category.classes_range && (
-                            <div className="absolute bottom-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-indigo-600">
-                              {category.classes_range}
+                          {/* Category Image */}
+                          {category.image && (
+                            <div className="relative h-48 overflow-hidden">
+                              <Image 
+                                src={category.image} 
+                                alt={category.name}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                              {category.classes_range && (
+                                <div className="absolute bottom-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-emerald-600">
+                                  {category.classes_range}
+                                </div>
+                              )}
                             </div>
                           )}
-                        </div>
-                      )}
-                      
-                      {/* Content */}
-                      <div className="p-6">
-                        {category.name && (
-                          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors">
-                            {category.name}
-                          </h3>
-                        )}
-                        
-                        {!category.image && category.classes_range && (
-                          <div className="inline-block px-3 py-1 bg-indigo-50 rounded-full text-sm font-semibold text-indigo-600 mb-3">
-                            {category.classes_range}
-                          </div>
-                        )}
-                        
-                        {category.description && (
-                          <p className="text-gray-600 mb-4 line-clamp-3">{category.description}</p>
-                        )}
-                        
-                        {/* Subjects */}
-                        {category.subjects && category.subjects.length > 0 && (
-                          <div className="pt-4 border-t border-gray-100">
-                            <div className="flex flex-wrap gap-2">
-                              {category.subjects.slice(0, 4).map((subject) => (
-                                <span 
-                                  key={subject.id}
-                                  className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-sm rounded-full font-medium"
-                                >
-                                  {subject.icon && <span className="text-xs">{subject.icon}</span>}
-                                  {subject.name}
-                                </span>
-                              ))}
+                          
+                          {/* Content */}
+                          <div className="p-6">
+                            {category.name && (
+                              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                                {category.name}
+                              </h3>
+                            )}
+                            
+                            {!category.image && category.classes_range && (
+                              <div className="inline-block px-3 py-1 bg-emerald-50 rounded-full text-sm font-semibold text-emerald-600 mb-3">
+                                {category.classes_range}
+                              </div>
+                            )}
+                            
+                            {category.description && (
+                              <p className="text-gray-600 mb-4 line-clamp-3">{category.description}</p>
+                            )}
+                            
+                            {/* Subjects */}
+                            {category.subjects && category.subjects.length > 0 && (
+                              <div className="pt-4 border-t border-gray-100">
+                                <div className="flex flex-wrap gap-2">
+                                  {category.subjects.slice(0, 4).map((subject) => (
+                                    <span 
+                                      key={subject.id}
+                                      className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-teal-50 to-emerald-50 text-emerald-700 text-sm rounded-full font-medium"
+                                    >
+                                      {subject.icon && <span className="text-xs">{subject.icon}</span>}
+                                      {subject.name}
+                                    </span>
+                                  ))}
                               {category.subjects.length > 4 && (
                                 <span className="px-3 py-1 bg-gray-100 text-gray-500 text-sm rounded-full">
                                   +{category.subjects.length - 4} more
@@ -227,11 +221,11 @@ export default async function AcademicsPage() {
 
       {/* Teaching Methodology */}
       {data.methodology_content && (
-        <section className="py-16 md:py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 text-white relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-teal-900 via-emerald-800 to-green-900 text-white relative overflow-hidden">
           {/* Background decorations */}
           <div className="absolute inset-0">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl" />
           </div>
 
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -245,9 +239,9 @@ export default async function AcademicsPage() {
                 
                 <div className="relative">
                   {/* Large quote mark */}
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-9xl text-purple-400/20 font-serif leading-none select-none hidden md:block">"</div>
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-9xl text-emerald-400/20 font-serif leading-none select-none hidden md:block">"</div>
                   
-                  <div className="text-lg sm:text-xl text-purple-100 leading-relaxed space-y-4 relative z-10">
+                  <div className="text-lg sm:text-xl text-emerald-100 leading-relaxed space-y-4 relative z-10">
                     {data.methodology_content.split('\n').map((para, idx) => (
                       <p key={idx}>{para}</p>
                     ))}

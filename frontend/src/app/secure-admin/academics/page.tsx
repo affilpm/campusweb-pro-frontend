@@ -8,6 +8,9 @@ import ImageUpload from '@/components/admin/image-upload';
 interface AcademicsPage {
   hero_title: string;
   hero_subtitle: string;
+  hero_image: string | null;
+  overview_title: string;
+  overview_content: string;
   curriculum_title: string;
   curriculum_content: string;
   curriculum_image: string | null;
@@ -33,6 +36,8 @@ interface Subject {
   description: string;
   icon: string;
   categories: number[]; // Array of category IDs (ManyToMany)
+  is_core: boolean;
+  order: number;
   is_active: boolean;
 }
 
@@ -45,6 +50,9 @@ export default function AcademicsAdminPage() {
   const [pageData, setPageData] = useState<AcademicsPage>({
     hero_title: '',
     hero_subtitle: '',
+    hero_image: null,
+    overview_title: '',
+    overview_content: '',
     curriculum_title: '',
     curriculum_content: '',
     curriculum_image: null,
@@ -54,6 +62,7 @@ export default function AcademicsAdminPage() {
     calendar_file: null,
   });
   const [initialPageData, setInitialPageData] = useState<AcademicsPage | null>(null);
+  const [newHeroImage, setNewHeroImage] = useState<File | null>(null);
   const [newCurriculumImage, setNewCurriculumImage] = useState<File | null>(null);
   const [newCalendarFile, setNewCalendarFile] = useState<File | null>(null);
 
@@ -92,9 +101,9 @@ export default function AcademicsAdminPage() {
   const fetchAllData = async () => {
     try {
       const [pageRes, categoriesRes, subjectsRes] = await Promise.all([
-        api.get('/api/admin/content/academics/page/').catch(() => ({ data: null })),
-        api.get('/api/admin/content/academics/categories/').catch(() => ({ data: [] })),
-        api.get('/api/admin/content/academics/subjects/').catch(() => ({ data: [] })),
+        api.get('/api/v1/academics/admin/page/').catch(() => ({ data: null })),
+        api.get('/api/v1/academics/admin/categories/').catch(() => ({ data: [] })),
+        api.get('/api/v1/academics/admin/subjects/').catch(() => ({ data: [] })),
       ]);
       
       if (pageRes.data) {
@@ -125,11 +134,17 @@ export default function AcademicsAdminPage() {
     try {
       const formData = new FormData();
       Object.entries(pageData).forEach(([key, value]) => {
-        if (value !== null && key !== 'curriculum_image' && key !== 'calendar_file') {
-          formData.append(key, value);
+        // Only append if not strictly null and not an existing URL (string starting with http)
+        // and excluded from direct field mapping because they are handled as files
+        const imageFields = ['hero_image', 'curriculum_image', 'calendar_file'];
+        if (value !== null && !imageFields.includes(key)) {
+          formData.append(key, value as string);
         }
       });
       
+      if (newHeroImage) {
+        formData.append('hero_image', newHeroImage);
+      }
       if (newCurriculumImage) {
         formData.append('curriculum_image', newCurriculumImage);
       }
@@ -137,11 +152,12 @@ export default function AcademicsAdminPage() {
         formData.append('calendar_file', newCalendarFile);
       }
 
-      const response = await api.put('/api/admin/content/academics/page/', formData, {
+      const response = await api.put('/api/v1/academics/admin/page/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       
       setPageData(response.data);
+      setNewHeroImage(null);
       setNewCurriculumImage(null);
       setNewCalendarFile(null);
       setMessage({ type: 'success', text: 'Academics page updated successfully' });
@@ -168,18 +184,18 @@ export default function AcademicsAdminPage() {
       formData.append('classes_range', editingCategory.classes_range);
       formData.append('order', String(editingCategory.order));
       formData.append('is_active', String(editingCategory.is_active));
-      
+
       if (newCategoryImage) {
         formData.append('image', newCategoryImage);
       }
 
       if (editingCategory.id) {
-        const response = await api.put(`/api/admin/content/academics/categories/${editingCategory.id}/`, formData, {
+        const response = await api.put(`/api/v1/academics/admin/categories/${editingCategory.id}/`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         setCategories(prev => prev.map(c => c.id === editingCategory.id ? response.data : c));
       } else {
-        const response = await api.post('/api/admin/content/academics/categories/', formData, {
+        const response = await api.post('/api/v1/academics/admin/categories/', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         setCategories(prev => [...prev, response.data]);
@@ -202,11 +218,11 @@ export default function AcademicsAdminPage() {
     setSaving(true);
     try {
       if (deleteParams.type === 'categories') {
-        await api.delete(`/api/admin/content/academics/categories/${deleteParams.id}/`);
+        await api.delete(`/api/v1/academics/admin/categories/${deleteParams.id}/`);
         setCategories(prev => prev.filter(c => c.id !== deleteParams.id));
         setMessage({ type: 'success', text: 'Category deleted' });
       } else {
-        await api.delete(`/api/admin/content/academics/subjects/${deleteParams.id}/`);
+        await api.delete(`/api/v1/academics/admin/subjects/${deleteParams.id}/`);
         setSubjects(prev => prev.filter(s => s.id !== deleteParams.id));
         setMessage({ type: 'success', text: 'Subject deleted' });
       }
@@ -233,14 +249,16 @@ export default function AcademicsAdminPage() {
         description: editingSubject.description,
         icon: editingSubject.icon,
         categories: editingSubject.categories, // Send array of category IDs
+        is_core: editingSubject.is_core,
+        order: editingSubject.order,
         is_active: editingSubject.is_active,
       };
 
       if (editingSubject.id) {
-        const response = await api.put(`/api/admin/content/academics/subjects/${editingSubject.id}/`, payload);
+        const response = await api.put(`/api/v1/academics/admin/subjects/${editingSubject.id}/`, payload);
         setSubjects(prev => prev.map(s => s.id === editingSubject.id ? response.data : s));
       } else {
-        const response = await api.post('/api/admin/content/academics/subjects/', payload);
+        const response = await api.post('/api/v1/academics/admin/subjects/', payload);
         setSubjects(prev => [...prev, response.data]);
       }
       setEditingSubject(null);
@@ -373,6 +391,44 @@ export default function AcademicsAdminPage() {
                   rows={2}
                   className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                   placeholder="Excellence in Education"
+                />
+              </div>
+              <div>
+                <ImageUpload
+                  label="Hero Image"
+                  currentImage={pageData.hero_image}
+                  onChange={(file) => setNewHeroImage(file)}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Overview Section */}
+          <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Overview Section</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300">Overview Title *</label>
+                <input
+                  type="text"
+                  name="overview_title"
+                  required
+                  value={pageData.overview_title}
+                  onChange={handlePageChange}
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                  placeholder="Academic Excellence"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300">Overview Content *</label>
+                <textarea
+                  name="overview_content"
+                  required
+                  value={pageData.overview_content}
+                  onChange={handlePageChange}
+                  rows={4}
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                  placeholder="Describe the academic overview..."
                 />
               </div>
             </div>
@@ -629,7 +685,7 @@ export default function AcademicsAdminPage() {
                   {category.image && (
                     <div className="h-32 overflow-hidden relative">
                       <Image 
-                        src={category.image} 
+                        src={`${category.image}${category.image.includes('?') ? '&' : '?'}t=${new Date().getTime()}`} 
                         alt={category.name} 
                         fill
                         className="object-cover"
@@ -682,7 +738,7 @@ export default function AcademicsAdminPage() {
             <h2 className="text-lg font-semibold text-white">Subjects</h2>
             <button
               onClick={() => {
-                const newSub = { name: '', description: '', icon: '', categories: [], is_active: true };
+                const newSub: Subject = { name: '', description: '', icon: '', categories: [], is_core: true, order: subjects.length + 1, is_active: true };
                 setEditingSubject(newSub);
                 setInitialSubjectData(newSub);
               }}
@@ -762,15 +818,38 @@ export default function AcademicsAdminPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Status</label>
-                    <select
-                      value={editingSubject.is_active ? 'active' : 'inactive'}
-                      onChange={(e) => setEditingSubject({ ...editingSubject, is_active: e.target.value === 'active' })}
+                    <label className="text-sm font-medium text-gray-300">Order *</label>
+                    <input
+                      type="number"
+                      required
+                      value={editingSubject.order}
+                      onChange={(e) => setEditingSubject({ ...editingSubject, order: parseInt(e.target.value) })}
                       className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-300">Status</label>
+                      <select
+                        value={editingSubject.is_active ? 'active' : 'inactive'}
+                        onChange={(e) => setEditingSubject({ ...editingSubject, is_active: e.target.value === 'active' })}
+                        className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                      >
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-300">Core Subject</label>
+                      <select
+                        value={editingSubject.is_core ? 'true' : 'false'}
+                        onChange={(e) => setEditingSubject({ ...editingSubject, is_core: e.target.value === 'true' })}
+                        className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                      >
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

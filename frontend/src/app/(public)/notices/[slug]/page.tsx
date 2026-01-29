@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const res = await fetch(`${apiUrl}/api/public/notices/${slug}/`);
+    const res = await fetch(`${apiUrl}/api/v1/communication/notices/${slug}/`);
     if (!res.ok) return { title: 'Notice Not Found' };
     
     const notice: Notice = await res.json();
@@ -33,8 +33,8 @@ async function getData(slug: string) {
   
   try {
     // Consistent caching strategy matching other pages (no force-cache)
-    const noticeRes = await fetch(`${apiUrl}/api/public/notices/${slug}/`, { 
-      next: { revalidate: 300 } // ISR: revalidate every 5 minutes
+    const noticeRes = await fetch(`${apiUrl}/api/v1/communication/notices/${slug}/`, { 
+      next: { revalidate: 1 } // ISR: revalidate every 1 second
     });
 
     if (!noticeRes.ok) return null; // Handle 404 gracefully

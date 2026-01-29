@@ -33,7 +33,7 @@ export default function ContactPageAdmin() {
 
   const fetchData = async () => {
     try {
-      const res = await api.get('/api/admin/content/contact/');
+      const res = await api.get('/api/v1/school-info/admin/contact/');
       if (res.data) {
         setData(res.data);
       }
@@ -56,7 +56,7 @@ export default function ContactPageAdmin() {
     setMessage(null);
 
     try {
-      await api.put('/api/admin/content/contact/', data);
+      await api.put('/api/v1/school-info/admin/contact/', data);
       setMessage({ type: 'success', text: 'Changes saved successfully!' });
     } catch (error) {
       console.error('Error saving changes:', error);
