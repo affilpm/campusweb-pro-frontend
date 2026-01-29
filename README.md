@@ -1,91 +1,133 @@
-# School Admin Portal & Frontend
+# 🔐 School Management System (Test Phase)
 
-A modern, responsive school management portal built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. This application serves as the public-facing website and includes a secure admin panel for content management.
+A secure, production-ready school management system built with **Django + DRF** backend and **Next.js** frontend.
 
-## 🚀 Features
+> [!WARNING]
+> **TEST PHASE**: The frontend and backend are currently split into separate repositories for testing a major refactor. Please follow the "Repositories & Branches" section below closely.
 
-*   **Public Website:** Beautiful, responsive pages for Home, About, Academics, Admissions, and more.
-*   **Secure Admin Portal:** Protected route (`/secure-admin`) for managing school data.
-*   **Media Gallery:** Optimized image serving using **Cloudflare R2**.
-*   **Dynamic Content:** Fetches data from a Django backend.
-*   **Modern UI:** Built with Tailwind CSS, Framer Motion animations, and specific UI components.
+## 📋 Table of Contents
 
-## 🛠️ Tech Stack
+- [Repositories & Branches](#repositories--branches)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Deployment (Critical Info)](#deployment-critical-info)
 
-*   **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-*   **Language:** [TypeScript](https://www.typescriptlang.org/)
-*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-*   **Icons:** [Lucide React](https://lucide.dev/)
-*   **HTTP Client:** [Axios](https://axios-http.com/)
-*   **Formatting:** Prettier & ESLint
+## 🕸 Repositories & Branches
 
-## 🏁 Getting Started
+The project is currently split into two separate repositories.
 
-### Prerequisites
+| Component | Repository | Active Branch |
+|-----------|------------|---------------|
+| **Backend** | `affilpm/school` | `new-test-phase-code-refactored-backend-and-frontend-changed` |
+| **Frontend** | `affilpm/school-frontend` | `new-test-phase-code-refactored-backend-and-frontend-changed` |
 
-*   Node.js 18.17 or later
-*   npm or yarn
+**Note**: The backend deployment is currently set to `[skip ci]` to prevent crashing the production database until a manual reset is performed.
 
-### Installation
+## 🏗 Architecture
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/affilpm/school-frontend.git
-    cd school-frontend/frontend
-    ```
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         SYSTEM ARCHITECTURE                         │
+└─────────────────────────────────────────────────────────────────────┘
 
-2.  Install dependencies:
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
-
-3.  Configure Environment Variables:
-    Create a `.env.local` file in the `frontend` directory:
-    ```env
-    NEXT_PUBLIC_API_URL=https://api.affils.site
-    ```
-
-4.  Run the development server:
-    ```bash
-    npm run dev
-    ```
-
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+┌─────────────────┐       HTTP/REST        ┌─────────────────────────┐
+│   Next.js       │ ◄────────────────────► │   Django + DRF          │
+│   Frontend      │    withCredentials     │   Backend               │
+│   (Port 3000)   │                        │   (Port 8000)           │
+├─────────────────┤                        ├─────────────────────────┤
+│ • Admin Login   │                        │ • JWT Authentication    │
+│ • Dashboard     │                        │ • SimpleJWT             │
+│ • Zustand Store │                        │ • Postgres DB           │
+│ • Axios Client  │                        │ • Tenant-Aware Models   │
+└─────────────────┘                        └─────────────────────────┘
+```
 
 ## 📁 Project Structure
 
-```bash
-frontend/
-├── src/
-│   ├── app/                 # Next.js App Router pages
-│   │   ├── secure-admin/    # Protected Admin Routes
-│   │   └── ...              # Public Routes
-│   ├── components/          # Reusable UI components
-│   ├── contexts/            # React Context (Auth, etc.)
-│   ├── lib/                 # Utilities and API clients
-│   └── styles/              # Global styles
-├── public/                  # Static assets (images, fonts)
-└── next.config.ts           # Next.js configuration
+```
+.
+├── backend/                    # Django Backend (In `school` repo)
+│   ├── apps/                   # Django Apps (academics, core, etc.)
+│   ├── config/                 # Settings & Configuration
+│   ├── .env                    # Environment variables
+│   └── Dockerfile              # Setup for containerization
+│
+└── frontend/                   # Next.js Frontend (In `school-frontend` repo)
+    ├── src/
+    │   ├── app/                # App Router (Admin & Public)
+    │   ├── components/         # Reusable Components
+    │   └── lib/                # API & Types
+    └── package.json
 ```
 
-## 🚀 Deployment
+## 🚀 Getting Started
 
-This project is optimized for deployment on **Vercel**.
+### Backend Setup (Django)
 
-1.  Push your code to GitHub.
-2.  Import the project into Vercel.
-3.  Set the Root Directory to `frontend`.
-4.  Add the Environment Variable `NEXT_PUBLIC_API_URL`.
-5.  Deploy!
+1. **Clone the backend repo and switch branch**:
+   ```bash
+   git clone https://github.com/affilpm/school.git backend-repo
+   cd backend-repo
+   git checkout new-test-phase-code-refactored-backend-and-frontend-changed
+   ```
 
-## 🔐 Authentication & Cookies
+2. **Setup Environment**:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
-The Admin Portal uses **HttpOnly Cookies** for secure authentication.
-*   **Local Development:** Ensure your browser accepts third-party cookies from `localhost` if your backend is hosted remotely.
-*   **Production:** The frontend and backend communicate securely over HTTPS.
+3. **Run Migrations & Server**:
+   ```bash
+   # WARNING: This will set up the new database structure
+   python manage.py migrate
+   python manage.py runserver
+   ```
 
-## 📄 License
+### Frontend Setup (Next.js)
 
-This project is private and proprietary.
+1. **Clone the frontend repo and switch branch**:
+   ```bash
+   git clone https://github.com/affilpm/school-frontend.git frontend-repo
+   cd frontend-repo
+   git checkout new-test-phase-code-refactored-backend-and-frontend-changed
+   ```
+
+2. **Install & Run**:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+## 🚢 Deployment (Critical Info)
+
+### ⚠️ Database Refactor Notice
+
+The database structure has been **completely refactored**. Standard migration strategies will fail.
+
+**For the first deployment of this phase, you MUST reset the production database:**
+
+1. **SSH into the server**:
+   ```bash
+   ssh root@your-server-ip
+   ```
+
+2. **Stop and Wipe**:
+   ```bash
+   cd ~/school
+   docker compose down
+   # CAUTION: This deletes all data
+   docker volume rm school_postgres_data
+   ```
+
+3. **Pull & Start**:
+   ```bash
+   git pull origin new-test-phase-code-refactored-backend-and-frontend-changed
+   # Ensure docker-compose.yml pulls the correct image tag if changed
+   docker compose up -d --build
+   ```
+
+---
+**License**: MIT
