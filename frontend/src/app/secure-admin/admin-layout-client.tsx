@@ -17,7 +17,6 @@ const navItems = [
   { name: 'Stats', href: '/secure-admin/stats', icon: 'chart' },
   { name: 'About', href: '/secure-admin/about', icon: 'info' },
   { name: 'Academics', href: '/secure-admin/academics', icon: 'book' },
-  { name: 'Results & Academics', href: '/secure-admin/public-disclosure/results-academics', icon: 'chart' },
   { name: 'Principal', href: '/secure-admin/principal', icon: 'user' },
   { name: 'Notices', href: '/secure-admin/notices', icon: 'bell' },
   { name: 'Events', href: '/secure-admin/events', icon: 'calendar' },

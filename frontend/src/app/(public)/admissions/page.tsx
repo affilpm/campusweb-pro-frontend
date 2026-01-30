@@ -7,7 +7,7 @@ async function getAdmissionsData(): Promise<AdmissionSettings | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/admissions/public/init/`, {
-      next: { revalidate: 1 },
+      next: { revalidate: 300 },
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();

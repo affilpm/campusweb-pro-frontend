@@ -34,7 +34,7 @@ async function getData(slug: string) {
   try {
     // Consistent caching strategy matching other pages (no force-cache)
     const noticeRes = await fetch(`${apiUrl}/api/v1/communication/notices/${slug}/`, { 
-      next: { revalidate: 1 } // ISR: revalidate every 1 second
+      next: { revalidate: 300 } // ISR: revalidate every 5 minutes
     });
 
     if (!noticeRes.ok) return null; // Handle 404 gracefully

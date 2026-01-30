@@ -51,9 +51,9 @@ export default function FacilitiesSection({ facilities, initialCount = 6 }: Faci
               >
                 {/* Image Background */}
                 <div className="absolute inset-0 bg-gray-200">
-                  {facility.image ? (
+                  {(facility.cover_image || facility.image) ? (
                     <Image
-                      src={facility.image}
+                      src={facility.cover_image || facility.image || ''}
                       alt={facility.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

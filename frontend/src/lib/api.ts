@@ -101,13 +101,18 @@ client.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return client(originalRequest);
         
-      } catch (refreshError) {
-        // Refresh failed (Session expired) -> Logout user
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
-          window.location.href = '/secure-admin/login'; // Redirect to login
+      } catch (refreshError: any) {
+        // Refresh failed
+        // Only logout if it's definitely an auth error (Session expired/Invalid)
+        if (refreshError.response && (refreshError.response.status === 401 || refreshError.response.status === 403)) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+            window.location.href = '/secure-admin/login'; 
+          }
         }
+        // If it's a network error (timeout) or server error (500), 
+        // DO NOT logout. Just reject so the UI can show a temporary error.
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

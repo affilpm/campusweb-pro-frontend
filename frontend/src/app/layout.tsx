@@ -24,7 +24,7 @@ async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/layout/`, {
-      next: { revalidate: 3600 }
+      next: { revalidate: 300 }
     });
     if (!res.ok) return null;
     const data = await res.json();
@@ -38,7 +38,7 @@ async function getContactData(): Promise<ContactPageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/contact/`, {
-      next: { revalidate: 3600 }
+      next: { revalidate: 300 }
     });
     if (!res.ok) return null;
     return res.json();

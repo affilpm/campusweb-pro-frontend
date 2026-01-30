@@ -351,6 +351,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                       fill
                       className="object-contain"
                       sizes="56px"
+                      priority
                     />
                   </div>
                 ) : (

@@ -14,7 +14,7 @@ async function getFacilitiesData(): Promise<FacilitiesPageData | null> {
     
     // Fetch homepage data which contains facilities
     const homeRes = await fetch(`${apiUrl}/api/v1/landing/home/`, {
-      next: { revalidate: 1 },
+      next: { revalidate: 300 },
     });
     
     if (!homeRes.ok) throw new Error('Failed to fetch data');

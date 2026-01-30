@@ -12,7 +12,7 @@ async function getPageData(): Promise<PageData | null> {
     // Fetch general info
     const res = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
-      next: { revalidate: 1 }
+      next: { revalidate: 300 }
     });
     
     if (!res.ok) throw new Error('Failed to fetch');

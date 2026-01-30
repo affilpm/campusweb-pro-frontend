@@ -18,7 +18,7 @@ async function getPageData(): Promise<PageData | null> {
     // Fetch fees
     const feesRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
-      next: { revalidate: 1 },
+      next: { revalidate: 300 },
     });
     
     const feesData = feesRes.ok ? await feesRes.json() : {};

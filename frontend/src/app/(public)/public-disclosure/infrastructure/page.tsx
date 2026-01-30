@@ -18,7 +18,7 @@ async function getPageData(): Promise<PageData | null> {
     // Fetch infrastructure
     const infraRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
-      next: { revalidate: 1 },
+      next: { revalidate: 300 },
     });
     
     const infraData = infraRes.ok ? await infraRes.json() : {};

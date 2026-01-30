@@ -22,7 +22,7 @@ async function getGalleryData(): Promise<GalleryData | null> {
     // Explicitly set limit to 50 to match frontend expectation
     const res = await fetch(`${apiUrl}/api/v1/gallery/?limit=50`, {
       cache: 'force-cache',
-      next: { revalidate: 1 }, // ISR: revalidate every 1 second
+      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
     
     if (!res.ok) throw new Error('Failed to fetch');

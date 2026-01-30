@@ -9,7 +9,7 @@ async function getLayoutData(): Promise<LayoutData | null> {
   try {
     const res = await fetch(`${apiUrl}/api/v1/school-info/layout/`, { 
       cache: 'force-cache',
-      next: { revalidate: 1 } 
+      next: { revalidate: 300 } 
     });
 
     if (!res.ok) {

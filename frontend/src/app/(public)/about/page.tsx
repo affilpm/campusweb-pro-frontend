@@ -9,7 +9,7 @@ async function getAboutData(): Promise<AboutPageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/school-info/about/`, {
       cache: 'force-cache',
-      next: { revalidate: 1 } // Revalidate every second
+      next: { revalidate: 300 } // Revalidate every 5 minutes
     });
     if (!res.ok) throw new Error('Failed to fetch');
     return res.json();

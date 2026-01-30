@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import api from '@/lib/api';
+import FileUpload from '@/components/admin/file-upload';
 
 interface ResultsAcademicsItem {
   id?: number;
   title: string;
-  file: string | File | null;
+  file: string | null;
   order: number;
   is_active: boolean;
   created_at?: string;
@@ -22,7 +23,6 @@ export default function ResultsAcademicsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -50,15 +50,6 @@ export default function ResultsAcademicsPage() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-      if (errors.file) {
-        setErrors((prev) => ({ ...prev, file: [] }));
-      }
-    }
-  };
-
   const saveItem = async () => {
     if (!editingItem) return;
     setSaving(true);
@@ -76,9 +67,7 @@ export default function ResultsAcademicsPage() {
       }
 
       if (editingItem.id) {
-        await api.put(`/api/v1/school-info/admin/results/${editingItem.id}/`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
+        await api.put(`/api/v1/school-info/admin/results/${editingItem.id}/`, formData);
       } else {
         if (!selectedFile) {
           setErrors({ file: ['File is required'] });
@@ -86,9 +75,7 @@ export default function ResultsAcademicsPage() {
           setSaving(false);
           return;
         }
-        await api.post('/api/v1/school-info/admin/results/', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
+        await api.post('/api/v1/school-info/admin/results/', formData);
       }
       await fetchData();
       setEditingItem(null);
@@ -134,14 +121,6 @@ export default function ResultsAcademicsPage() {
       order: items.length + 1,
       is_active: true,
     };
-  };
-
-  const getFileName = (filePath: string | File | null): string => {
-    if (!filePath) return '';
-    if (typeof filePath === 'string') {
-      return filePath.split('/').pop() || '';
-    }
-    return filePath.name;
   };
 
   if (loading) return <div className="text-center p-8 text-gray-400">Loading...</div>;
@@ -213,12 +192,12 @@ export default function ResultsAcademicsPage() {
                     <td className="py-4 px-4 text-gray-300 font-medium">{index + 1}</td>
                     <td className="py-4 px-4 text-white font-medium">{item.title}</td>
                     <td className="py-4 px-4">
-                      {item.file && typeof item.file === 'string' && (
+                      {item.file && (
                         <a
                           href={item.file}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg transition-colors text-sm"
+                          className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg transition-colors text-sm"
                         >
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -304,47 +283,14 @@ export default function ResultsAcademicsPage() {
                 )}
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">File (PDF, DOC, etc.) *</label>
-                <div className="space-y-2">
-                  {editingItem.id && editingItem.file && typeof editingItem.file === 'string' && !selectedFile && (
-                    <div className="flex items-center gap-2 p-3 bg-white/5 rounded-lg border border-white/10">
-                      <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      <span className="text-sm text-gray-300 truncate flex-1">{getFileName(editingItem.file)}</span>
-                    </div>
-                  )}
-                  
-                  {selectedFile && (
-                    <div className="flex items-center gap-2 p-3 bg-green-500/10 rounded-lg border border-green-500/30">
-                      <svg className="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span className="text-sm text-green-400 truncate flex-1">{selectedFile.name}</span>
-                    </div>
-                  )}
-                  
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileChange}
-                    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png"
-                    className="hidden"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-dashed border-white/20 rounded-xl text-gray-300 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                    </svg>
-                    {editingItem.id ? 'Replace File' : 'Upload File'}
-                  </button>
-                </div>
+              <div>
+                <FileUpload
+                  label="File (PDF, DOC, etc.) *"
+                  currentFile={editingItem.file}
+                  onChange={(file) => setSelectedFile(file)}
+                />
                 {errors.file && (
-                  <p className="text-xs text-red-400">{errors.file[0]}</p>
+                  <p className="text-xs text-red-400 mt-1">{errors.file[0]}</p>
                 )}
               </div>
 

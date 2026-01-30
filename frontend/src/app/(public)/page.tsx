@@ -14,12 +14,11 @@ import GallerySection from '@/components/home/gallery-section';
 import CTASection from '@/components/home/cta-section';
 import TestimonialsSection from '@/components/home/testimonials-section';
 import PublicDisclosureSection from '@/components/home/public-disclosure-section';
-import ResultsAcademicsSection from '@/components/home/results-academics-section';
 // Fetch homepage data from Django API with ISR
 async function getHomepageData(): Promise<HomepageData> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const res = await fetch(`${apiUrl}/api/v1/landing/home/`, {
-    next: { revalidate: 1 }, // ISR: revalidate every 1 second
+    next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
   });
   
   if (!res.ok) {
@@ -141,8 +140,6 @@ export default async function HomePage() {
       {/* CTA Section - Parallax background */}
       <CTASection admissionOpen={admission?.is_open ?? false} />
 
-      {/* Results & Academics Section - Documents */}
-      <ResultsAcademicsSection documents={results_academics} />
 
       {/* Testimonials Section - Interactive carousel */}
       <TestimonialsSection testimonials={testimonials} />

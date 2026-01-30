@@ -19,7 +19,7 @@ async function getPageData(): Promise<PageData | null> {
     // Fetch documents (from disclosure endpoint)
     const docRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
-      next: { revalidate: 1 },
+      next: { revalidate: 300 },
     });
     
     const docData = docRes.ok ? await docRes.json() : {};

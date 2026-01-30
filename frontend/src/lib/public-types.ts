@@ -97,6 +97,7 @@ export interface Facility {
   description: string;
   icon: string;
   cover_image: string | null;
+  image?: string | null;
   gallery_images?: FacilityGalleryImage[];
 }
 
