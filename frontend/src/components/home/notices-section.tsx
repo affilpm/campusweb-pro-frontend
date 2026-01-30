@@ -78,7 +78,9 @@ export default function NoticesSection({ notices }: NoticesSectionProps) {
             </div>
 
             {/* Notices Ticker */}
-            <div className="flex-1 w-full relative h-[50px] sm:h-[60px] overflow-hidden">
+            {/* Ticker Content */}
+            {/* Ticker Content */}
+            <div className="w-full relative h-12 sm:h-[60px] overflow-hidden sm:flex-1">
               {notices.map((notice, index) => (
                 <motion.div
                   key={notice.id}
@@ -91,19 +93,19 @@ export default function NoticesSection({ notices }: NoticesSectionProps) {
                   }}
                   transition={{ duration: 0.4 }}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 w-full pr-4">
-                    <span className="text-amber-600 font-medium text-xs sm:text-sm whitespace-nowrap">
+                  <div className="flex flex-row items-center gap-2 sm:gap-4 w-full h-full pr-0 sm:pr-4">
+                    <span className="flex-shrink-0 text-amber-600 font-medium text-xs sm:text-sm whitespace-nowrap bg-amber-100 px-2 py-0.5 rounded-full sm:bg-transparent sm:p-0 sm:rounded-none">
                       {formatDate(notice.publish_date)}
                     </span>
                     <button 
                       onClick={() => setSelectedNotice(notice)}
-                      className="text-left text-gray-800 font-semibold hover:text-amber-700 transition-colors line-clamp-1 text-sm sm:text-base lg:text-lg focus:outline-none"
+                      className="flex-1 text-left text-gray-800 font-semibold hover:text-amber-700 transition-colors truncate text-sm sm:text-base lg:text-lg focus:outline-none min-w-0"
                     >
                       {notice.title}
                     </button>
                     {notice.is_important && (
-                      <span className="hidden sm:inline-flex flex-shrink-0 px-2 py-0.5 bg-red-100 text-red-600 text-xs font-bold rounded uppercase">
-                        Important
+                      <span className="flex-shrink-0 w-2 h-2 sm:w-auto sm:h-auto rounded-full bg-red-500 sm:bg-red-100 sm:text-red-600 sm:px-2 sm:py-0.5 sm:text-xs sm:font-bold sm:rounded sm:uppercase">
+                        <span className="sr-only sm:not-sr-only">Important</span>
                       </span>
                     )}
                   </div>
@@ -112,7 +114,7 @@ export default function NoticesSection({ notices }: NoticesSectionProps) {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto">
+            <div className="flex items-center gap-3 sm:gap-4 self-end sm:self-auto flex-shrink-0">
               <div className="flex gap-1 sm:gap-1.5">
                 {notices.map((_, idx) => (
                   <button
@@ -127,7 +129,7 @@ export default function NoticesSection({ notices }: NoticesSectionProps) {
               </div>
               <Link 
                 href="/notices"
-                className="hidden sm:inline-flex items-center gap-1 text-amber-700 font-semibold text-xs sm:text-sm hover:text-amber-800"
+                className="inline-flex items-center gap-1 text-amber-700 font-semibold text-xs sm:text-sm hover:text-amber-800 whitespace-nowrap"
               >
                 View All
                 <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
