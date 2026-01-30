@@ -104,6 +104,7 @@ export default async function HomePage() {
         data={hero} 
         schoolName={site_settings.school_name} 
         admissionOpen={admission?.is_open ?? false}
+        admissionLabel={admission?.hero_title}
       />
 
       {/* Notices Banner - Animated ticker */}

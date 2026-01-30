@@ -160,6 +160,7 @@ export interface ResultsAcademicsDocument {
 
 export interface AdmissionStatus {
   is_open: boolean;
+  hero_title?: string;
 }
 
 // Achievement

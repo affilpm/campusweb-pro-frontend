@@ -9,9 +9,10 @@ interface HeroSectionProps {
   data: HeroData;
   schoolName: string;
   admissionOpen: boolean;
+  admissionLabel?: string;
 }
 
-export default function HeroSection({ data, schoolName, admissionOpen }: HeroSectionProps) {
+export default function HeroSection({ data, schoolName, admissionOpen, admissionLabel }: HeroSectionProps) {
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -44,7 +45,7 @@ export default function HeroSection({ data, schoolName, admissionOpen }: HeroSec
               {admissionOpen && (
                 <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg">
                   <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse" />
-                  Admissions Open 2025-26
+                  {admissionLabel || 'Admissions Open'}
                 </span>
               )}
             </motion.div>
