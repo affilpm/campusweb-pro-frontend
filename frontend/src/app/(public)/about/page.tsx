@@ -500,8 +500,8 @@ export default async function AboutPage() {
                         {member.name}
                       </h3>
                     )}
-                    {member.designation && (
-                      <p className="text-amber-600 font-medium">{member.designation}</p>
+                    {member.position && (
+                      <p className="text-amber-600 font-medium">{member.position}</p>
                     )}
                     {member.bio && (
                       <p className="text-gray-600 text-sm mt-2 max-w-xs mx-auto line-clamp-3">{member.bio}</p>

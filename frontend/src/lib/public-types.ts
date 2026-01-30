@@ -242,7 +242,7 @@ export interface TimelineEvent {
 // Management Member
 export interface ManagementMember {
   name: string;
-  designation: string;
+  position: string;
   photo: string | null;
   bio: string;
 }
