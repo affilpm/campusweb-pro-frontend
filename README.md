@@ -1,91 +1,239 @@
-# School Admin Portal & Frontend
+# 🔐 School Management System
 
-A modern, responsive school management portal built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. This application serves as the public-facing website and includes a secure admin panel for content management.
+A secure, production-ready school management system built with **Django + DRF** backend and **Next.js** frontend.
 
-## 🚀 Features
+## 📋 Table of Contents
 
-*   **Public Website:** Beautiful, responsive pages for Home, About, Academics, Admissions, and more.
-*   **Secure Admin Portal:** Protected route (`/secure-admin`) for managing school data.
-*   **Media Gallery:** Optimized image serving using **Cloudflare R2**.
-*   **Dynamic Content:** Fetches data from a Django backend.
-*   **Modern UI:** Built with Tailwind CSS, Framer Motion animations, and specific UI components.
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Reference](#api-reference)
+- [Authentication Flow](#authentication-flow)
+- [Security Features](#security-features)
+- [Deployment](#deployment)
 
-## 🛠️ Tech Stack
+## 🏗 Architecture
 
-*   **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-*   **Language:** [TypeScript](https://www.typescriptlang.org/)
-*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-*   **Icons:** [Lucide React](https://lucide.dev/)
-*   **HTTP Client:** [Axios](https://axios-http.com/)
-*   **Formatting:** Prettier & ESLint
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         SYSTEM ARCHITECTURE                         │
+└─────────────────────────────────────────────────────────────────────┘
 
-## 🏁 Getting Started
-
-### Prerequisites
-
-*   Node.js 18.17 or later
-*   npm or yarn
-
-### Installation
-
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/affilpm/school-frontend.git
-    cd school-frontend/frontend
-    ```
-
-2.  Install dependencies:
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
-
-3.  Configure Environment Variables:
-    Create a `.env.local` file in the `frontend` directory:
-    ```env
-    NEXT_PUBLIC_API_URL=https://api.affils.site
-    ```
-
-4.  Run the development server:
-    ```bash
-    npm run dev
-    ```
-
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+┌─────────────────┐       HTTP/REST        ┌─────────────────────────┐
+│   Next.js       │ ◄────────────────────► │   Django + DRF          │
+│   Frontend      │    withCredentials     │   Backend               │
+│   (Port 3000)   │                        │   (Port 8000)           │
+├─────────────────┤                        ├─────────────────────────┤
+│ • Admin Login   │                        │ • JWT Authentication    │
+│ • Dashboard     │                        │ • SimpleJWT             │
+│ • Zustand Store │                        │ • Token Blacklist       │
+│ • Axios Client  │                        │ • Custom AdminUser      │
+└─────────────────┘                        └─────────────────────────┘
+```
 
 ## 📁 Project Structure
 
-```bash
-frontend/
-├── src/
-│   ├── app/                 # Next.js App Router pages
-│   │   ├── secure-admin/    # Protected Admin Routes
-│   │   └── ...              # Public Routes
-│   ├── components/          # Reusable UI components
-│   ├── contexts/            # React Context (Auth, etc.)
-│   ├── lib/                 # Utilities and API clients
-│   └── styles/              # Global styles
-├── public/                  # Static assets (images, fonts)
-└── next.config.ts           # Next.js configuration
+```
+.
+├── backend/                    # Django Backend
+│   ├── apps/                   # Django Apps (academics, authentication, core, etc.)
+│   ├── config/                 # Django project settings
+│   │   ├── settings.py         # Main configuration
+│   │   └── urls.py             # Root URL routing
+│   ├── .env                    # Environment variables
+│   └── Dockerfile              # Setup for containerization
+│
+└── frontend/                   # Next.js Frontend
+    ├── src/
+    │   ├── app/                # App Router (Admin & Public)
+    │   ├── components/         # Reusable Components
+    │   ├── lib/                # API & Types
+    │   └── stores/             # Zustand Stores
+    ├── package.json
+    └── .env.local              # Frontend env variables
 ```
 
-## 🚀 Deployment
+## 🚀 Getting Started
 
-This project is optimized for deployment on **Vercel**.
+### Backend Setup (Django)
 
-1.  Push your code to GitHub.
-2.  Import the project into Vercel.
-3.  Set the Root Directory to `frontend`.
-4.  Add the Environment Variable `NEXT_PUBLIC_API_URL`.
-5.  Deploy!
+1. **Setup Environment**:
+   ```bash
+   cd backend
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   
+   # Install dependencies
+   pip install -r requirements.txt
+   ```
 
-## 🔐 Authentication & Cookies
+2. **Run Migrations & Server**:
+   ```bash
+   python manage.py migrate
+   python manage.py createdefaultadmin
+   python manage.py runserver
+   ```
+   Backend will run at: `http://localhost:8000`
 
-The Admin Portal uses **HttpOnly Cookies** for secure authentication.
-*   **Local Development:** Ensure your browser accepts third-party cookies from `localhost` if your backend is hosted remotely.
-*   **Production:** The frontend and backend communicate securely over HTTPS.
+### Frontend Setup (Next.js)
+
+1. **Install & Run**:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   Frontend will run at: `http://localhost:3000`
+
+### Access the Application
+
+- **Frontend**: http://localhost:3000
+- **Admin Login**: http://localhost:3000/admin/login
+- **Backend API**: http://localhost:8000
+- **Django Admin**: http://localhost:8000/django-admin/
+
+### Default Admin Credentials
+
+| Email | Password |
+|-------|----------|
+| `admin@school.edu` | `<your_password>` |
+
+## 📖 API Reference
+
+### Authentication Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/admin/auth/login/` | Login admin user |
+| POST | `/api/admin/auth/logout/` | Logout (blacklist token) |
+| POST | `/api/admin/auth/refresh/` | Refresh access token |
+| GET | `/api/admin/auth/me/` | Get current user |
+| POST | `/api/admin/auth/verify/` | Verify access token |
+
+### Login Example
+
+**Request:**
+```http
+POST /api/admin/auth/login/
+Content-Type: application/json
+
+{
+  "email": "admin@school.edu",
+  "password": "<your_password>"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "user": {
+    "email": "admin@school.edu",
+    "role": "super_admin"
+  },
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+```
+
+## 🔄 Authentication Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        AUTHENTICATION FLOW                          │
+└─────────────────────────────────────────────────────────────────────┘
+
+1. USER LOGIN
+   ┌──────────┐      POST /api/admin/auth/login/     ┌─────────────────┐
+   │  Next.js │ ─────────────────────────────────► │    Django       │
+   │  Client  │     { email, password }             │    Backend      │
+   └──────────┘                                     └────────┬────────┘
+                                                             │
+2. TOKEN GENERATION (SimpleJWT)                              │
+                                                    ┌────────▼────────┐
+                                                    │ RefreshToken.   │
+                                                    │   for_user()    │
+                                                    └────────┬────────┘
+                                                             │
+3. RESPONSE                                                  │
+   ┌──────────┐  Set-Cookie: refresh_token (HttpOnly) ┌──────▼────────┐
+   │  Next.js │ ◄───────────────────────────────────  │    + access   │
+   │  Client  │  + access token in JSON body          │    token      │
+   └──────────┘                                       └───────────────┘
+
+4. AUTO TOKEN REFRESH (Axios Interceptor)
+   ┌──────────┐  401 Response                    ┌─────────────┐
+   │  Client  │ ◄──────────────────────────────  │    API      │
+   └────┬─────┘                                  └─────────────┘
+        │
+        ▼
+   POST /api/admin/auth/refresh/ (with cookie)
+        │
+        └───────► New access token ───────► Retry original request
+```
+
+## 🔒 Security Features
+
+### Token Security
+| Feature | Implementation |
+|---------|---------------|
+| Access Token Storage | In-memory (Zustand store) |
+| Refresh Token Storage | HTTP-only cookie |
+| Token Algorithm | HS256 |
+| Access Token Expiry | 15 minutes |
+| Refresh Token Expiry | 7 days |
+| Token Blacklist | Enabled (logout invalidation) |
+
+### Cookie Configuration (Django)
+```python
+REFRESH_TOKEN_COOKIE_HTTPONLY = True    # Prevents XSS
+REFRESH_TOKEN_COOKIE_SECURE = True      # HTTPS only (production)
+REFRESH_TOKEN_COOKIE_SAMESITE = 'Lax'   # CSRF protection
+```
+
+## 📝 Environment Variables
+
+### Backend (.env)
+```env
+SECRET_KEY=your-django-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=postgres://...
+CORS_ALLOWED_ORIGINS=http://localhost:3000
+ACCESS_TOKEN_LIFETIME_MINUTES=15
+REFRESH_TOKEN_LIFETIME_DAYS=7
+```
+
+### Frontend (.env.local)
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+## 🚢 Deployment
+
+The project uses a **Hybrid Deployment Strategy** automation via **GitHub Actions** and **Docker Hub**.
+
+### Automated Workflow
+1.  **Push to `main`**: Triggers `.github/workflows/deploy.yml`.
+2.  **Build**: GitHub builds the Docker image and pushes it to [Docker Hub](https://hub.docker.com/r/affil/school-backend).
+3.  **Deploy**: GitHub connects to your DigitalOcean droplet via SSH and runs:
+    ```bash
+    git pull origin main       # Updates config (docker-compose.yml)
+    docker compose pull backend # Downloads new app code
+    docker compose up -d       # Restarts containers
+    ```
+
+### Manual Deployment
+If CI/CD fails, you can deploy manually from your machine:
+```bash
+# 1. Build and Push
+cd backend
+docker build --platform linux/amd64 -t affil/school-backend:latest .
+docker push affil/school-backend:latest
+
+# 2. Update Server
+ssh root@your-server-ip "cd ~/school && docker compose pull && docker compose up -d"
+```
 
 ## 📄 License
 
-This project is private and proprietary.
+MIT License

@@ -36,6 +36,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         set({ isLoading: false });
         if (typeof window !== 'undefined') {
           localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
         }
         return { success: false, message: data.message || 'Login failed' };
       }
@@ -54,7 +55,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       });
 
       return { success: true, message: 'Login successful' };
-    } catch (error: any) {
+    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       set({ isLoading: false });
       const message = error.response?.data?.message || 'An error occurred during login';
       return { success: false, message };
@@ -68,6 +69,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
 
       if (typeof window !== 'undefined') {
         localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
       }
       clearAccessToken();
 
@@ -76,10 +78,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isAuthenticated: false,
         isLoading: false,
       });
-    } catch (error) {
+    } catch {
       // Clear state even on error
       if (typeof window !== 'undefined') {
         localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
       }
       clearAccessToken();
       set({
@@ -134,10 +137,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
              isInitializing = false;
              return;
           }
-        } catch (e: any) {
+        } catch {
           // Token is invalid, remove it
           if (typeof window !== 'undefined') {
             localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
           }
         }
       }
@@ -150,6 +154,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
           if (typeof window !== 'undefined') {
             localStorage.setItem('access_token', refreshData.access);
           }
+          setAccessToken(refreshData.access);
           
           // Get user info with the new access token
           try {
@@ -163,11 +168,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
               isInitializing = false;
               return;
             }
-          } catch (meError) {
+          } catch {
             // Failed to get user info
           }
         }
-      } catch (e) {
+      } catch {
         // Refresh failed
       }
 
@@ -177,7 +182,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
         isAuthenticated: false,
         isLoading: false,
       });
-    } catch (error) {
+    } catch {
       set({
         user: null,
         isAuthenticated: false,

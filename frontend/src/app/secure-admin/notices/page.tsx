@@ -30,7 +30,7 @@ export default function NoticesPage() {
 
   const fetchNotices = async () => {
     try {
-      const response = await api.get('/api/admin/content/notices/');
+      const response = await api.get('/api/v1/communication/admin/notices/');
       setNotices(response.data);
     } catch (error) {
       console.error('Error fetching notices:', error);
@@ -56,7 +56,7 @@ export default function NoticesPage() {
     setSaving(true);
     
     try {
-      await api.delete(`/api/admin/content/notices/${deleteId}/`);
+      await api.delete(`/api/v1/communication/admin/notices/${deleteId}/`);
       setNotices(notices.filter(n => n.id !== deleteId));
     } catch (error) {
       console.error('Error deleting notice:', error);
@@ -94,9 +94,9 @@ export default function NoticesPage() {
       };
 
       if (currentNotice.id) {
-        await api.put(`/api/admin/content/notices/${currentNotice.id}/`, formData, config);
+        await api.put(`/api/v1/communication/admin/notices/${currentNotice.id}/`, formData, config);
       } else {
-        await api.post('/api/admin/content/notices/', formData, config);
+        await api.post('/api/v1/communication/admin/notices/', formData, config);
       }
       
       fetchNotices();

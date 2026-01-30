@@ -29,7 +29,7 @@ export default function GeneralPage() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/api/admin/content/general-info/');
+      const response = await api.get('/api/v1/school-info/admin/general-info/');
       setItems(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -56,9 +56,9 @@ export default function GeneralPage() {
 
     try {
       if (editingItem.id) {
-        await api.put(`/api/admin/content/general-info/${editingItem.id}/`, editingItem);
+        await api.put(`/api/v1/school-info/admin/general-info/${editingItem.id}/`, editingItem);
       } else {
-        await api.post('/api/admin/content/general-info/', editingItem);
+        await api.post('/api/v1/school-info/admin/general-info/', editingItem);
       }
       await fetchData();
       setEditingItem(null);
@@ -83,7 +83,7 @@ export default function GeneralPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/general-info/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/general-info/${deleteId}/`);
       await fetchData();
       setMessage({ type: 'success', text: 'Item deleted successfully' });
     } catch (error) {

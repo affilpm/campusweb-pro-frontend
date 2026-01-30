@@ -16,16 +16,16 @@ async function getPageData(): Promise<PageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
-    // Fetch documents
-    const docRes = await fetch(`${apiUrl}/api/public/documents/`, {
+    // Fetch documents (from disclosure endpoint)
+    const docRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
       next: { revalidate: 300 },
     });
     
-    const docData = docRes.ok ? await docRes.json() : [];
+    const docData = docRes.ok ? await docRes.json() : {};
     
     return {
-      documents: docData,
+      documents: docData.documents || [],
     };
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -33,31 +33,10 @@ async function getPageData(): Promise<PageData | null> {
   }
 }
 
-import { getPageSEO } from '@/lib/seo-api';
-
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = await getPageSEO('documents');
-  const title = 'Documents | Public Disclosure';
-  const description = 'Download official documents, certificates, and files.';
-
-  if (seo) {
-    return {
-      title: seo.title || title,
-      description: seo.meta_description || description,
-      keywords: seo.meta_keywords?.split(',').map(k => k.trim()),
-      openGraph: {
-        title: seo.title || title,
-        description: seo.meta_description || description,
-        images: seo.og_image ? [seo.og_image] : undefined,
-      }
-    };
-  }
-
-  return {
-    title,
-    description,
-  };
-}
+export const metadata: Metadata = {
+  title: 'Documents | Public Disclosure',
+  description: 'Download mandatory documents, certificates, and official files.',
+};
 
 export default async function DocumentsPage() {
   const data = await getPageData();

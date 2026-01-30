@@ -96,8 +96,9 @@ export interface Facility {
   slug: string;
   description: string;
   icon: string;
-  image: string | null;
-  gallery?: FacilityGalleryImage[];
+  cover_image: string | null;
+  image?: string | null;
+  gallery_images?: FacilityGalleryImage[];
 }
 
 export interface AcademicHighlight {
@@ -146,6 +147,15 @@ export interface HomepageData {
   quick_links: QuickLink[];
   general_info: GeneralInfo[];
   admission: AdmissionStatus;
+  results_academics: ResultsAcademicsDocument[];
+}
+
+export interface ResultsAcademicsDocument {
+  id: number;
+  title: string;
+  value: string;
+  file: string | null;
+  order: number;
 }
 
 export interface AdmissionStatus {

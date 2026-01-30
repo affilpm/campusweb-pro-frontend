@@ -20,7 +20,7 @@ export interface FacilityDetail {
   long_description: string;
   icon: string;
   cover_image: string | null;
-  gallery: FacilityImage[];
+  gallery_images: FacilityImage[];
 }
 
 interface FacilityClientProps {
@@ -43,6 +43,7 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
               fill
               priority
               className="object-cover"
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
           </>
@@ -112,14 +113,14 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
                       <p className="font-semibold text-gray-900">{facility.name}</p>
                     </div>
                   </div>
-                  {facility.gallery.length > 0 && (
+                  {facility.gallery_images.length > 0 && (
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                         <span className="text-xl">📷</span>
                       </div>
                       <div>
                         <p className="text-sm text-gray-500">Gallery</p>
-                        <p className="font-semibold text-gray-900">{facility.gallery.length} Photos</p>
+                        <p className="font-semibold text-gray-900">{facility.gallery_images.length} Photos</p>
                       </div>
                     </div>
                   )}
@@ -141,12 +142,12 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
       </section>
 
       {/* Gallery Section */}
-      {facility.gallery.length > 0 && (
+      {facility.gallery_images.length > 0 && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Photo Gallery</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {facility.gallery.map((img, idx) => (
+              {facility.gallery_images.map((img, idx) => (
                 <motion.div
                   key={img.id}
                   initial={{ opacity: 0, scale: 0.9 }}

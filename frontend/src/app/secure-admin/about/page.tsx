@@ -64,7 +64,6 @@ export default function AboutSectionPage() {
     students_count: '',
     teachers_count: '',
   });
-  const [initialAboutData, setInitialAboutData] = useState<AboutSection | null>(null);
   const [newAboutImage, setNewAboutImage] = useState<File | null>(null);
 
   // About Page data (hero, history, infrastructure)
@@ -77,7 +76,6 @@ export default function AboutSectionPage() {
     infrastructure_title: '',
     infrastructure_content: '',
   });
-  const [initialPageData, setInitialPageData] = useState<AboutPage | null>(null);
   const [newHistoryImage, setNewHistoryImage] = useState<File | null>(null);
 
   // Vision & Mission data
@@ -89,7 +87,6 @@ export default function AboutSectionPage() {
     values_title: '',
     values_content: '',
   });
-  const [initialVisionData, setInitialVisionData] = useState<VisionMission | null>(null);
 
   // Timeline data
   const [timeline, setTimeline] = useState<TimelineEvent[]>([]);
@@ -105,7 +102,6 @@ export default function AboutSectionPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [deleteParams, setDeleteParams] = useState<{ type: 'timeline' | 'management'; id: number } | null>(null);
-  const [resetSection, setResetSection] = useState<{ section: string; endpoint: string } | null>(null);
 
   useEffect(() => {
     fetchAllData();
@@ -130,24 +126,16 @@ export default function AboutSectionPage() {
   const fetchAllData = async () => {
     try {
       const [aboutRes, pageRes, visionRes, timelineRes, managementRes] = await Promise.all([
-        api.get('/api/admin/content/home-about/'),
-        api.get('/api/admin/content/about/page/').catch(() => ({ data: null })),
-        api.get('/api/admin/content/vision-mission/').catch(() => ({ data: null })),
-        api.get('/api/admin/content/about/timeline/').catch(() => ({ data: [] })),
-        api.get('/api/admin/content/about/management/').catch(() => ({ data: [] })),
+        api.get('/api/v1/landing/admin/home-about/'),
+        api.get('/api/v1/school-info/admin/about/').catch(() => ({ data: null })),
+        api.get('/api/v1/school-info/admin/vision-mission/').catch(() => ({ data: null })),
+        api.get('/api/v1/school-info/admin/timeline/').catch(() => ({ data: [] })),
+        api.get('/api/v1/school-info/admin/management/').catch(() => ({ data: [] })),
       ]);
       
-      setAboutData(aboutRes.data);
-      setInitialAboutData(aboutRes.data);
-      
-      if (pageRes.data) {
-        setPageData(pageRes.data);
-        setInitialPageData(pageRes.data);
-      }
-      if (visionRes.data) {
-        setVisionData(visionRes.data);
-        setInitialVisionData(visionRes.data);
-      }
+      if (aboutRes.data) setAboutData(aboutRes.data);
+      if (pageRes.data) setPageData(pageRes.data);
+      if (visionRes.data) setVisionData(visionRes.data);
       if (timelineRes.data) setTimeline(Array.isArray(timelineRes.data) ? timelineRes.data : []);
       if (managementRes.data) setManagement(Array.isArray(managementRes.data) ? managementRes.data : []);
     } catch (error) {
@@ -185,12 +173,11 @@ export default function AboutSectionPage() {
         formData.append('image', newAboutImage);
       }
 
-      const response = await api.put('/api/admin/content/home-about/', formData, {
+      const response = await api.put('/api/v1/landing/admin/home-about/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       
       setAboutData(response.data);
-      setInitialAboutData(response.data);
       setNewAboutImage(null);
       setMessage({ type: 'success', text: 'About section updated successfully' });
     } catch (error: any) {
@@ -234,12 +221,11 @@ export default function AboutSectionPage() {
         formData.append('history_image', newHistoryImage);
       }
 
-      const response = await api.put('/api/admin/content/about/page/', formData, {
+      const response = await api.put('/api/v1/school-info/admin/about/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       
       setPageData(response.data);
-      setInitialPageData(response.data);
       setNewHistoryImage(null);
       setMessage({ type: 'success', text: 'Page content updated successfully' });
     } catch (error: any) {
@@ -267,9 +253,8 @@ export default function AboutSectionPage() {
     setMessage(null);
 
     try {
-      const response = await api.put('/api/admin/content/vision-mission/', visionData);
+      const response = await api.put('/api/v1/school-info/admin/vision-mission/', visionData);
       setVisionData(response.data);
-      setInitialVisionData(response.data);
       setMessage({ type: 'success', text: 'Vision & Mission updated successfully' });
     } catch (error) {
       console.error('Error updating vision & mission:', error);
@@ -295,10 +280,10 @@ export default function AboutSectionPage() {
       };
 
       if (editingTimeline.id) {
-        const response = await api.put(`/api/admin/content/about/timeline/${editingTimeline.id}/`, payload);
+        const response = await api.put(`/api/v1/school-info/admin/timeline/${editingTimeline.id}/`, payload);
         setTimeline(prev => prev.map(t => t.id === editingTimeline.id ? response.data : t));
       } else {
-        const response = await api.post('/api/admin/content/about/timeline/', payload);
+        const response = await api.post('/api/v1/school-info/admin/timeline/', payload);
         setTimeline(prev => [...prev, response.data]);
       }
       setEditingTimeline(null);
@@ -336,12 +321,12 @@ export default function AboutSectionPage() {
       }
 
       if (editingMember.id) {
-        const response = await api.put(`/api/admin/content/about/management/${editingMember.id}/`, formData, {
+        const response = await api.put(`/api/v1/school-info/admin/management/${editingMember.id}/`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         setManagement(prev => prev.map(m => m.id === editingMember.id ? response.data : m));
       } else {
-        const response = await api.post('/api/admin/content/about/management/', formData, {
+        const response = await api.post('/api/v1/school-info/admin/management/', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         setManagement(prev => [...prev, response.data]);
@@ -367,11 +352,11 @@ export default function AboutSectionPage() {
     
     try {
       if (deleteParams.type === 'timeline') {
-        await api.delete(`/api/admin/content/about/timeline/${deleteParams.id}/`);
+        await api.delete(`/api/v1/school-info/admin/timeline/${deleteParams.id}/`);
         setTimeline(prev => prev.filter(t => t.id !== deleteParams.id));
         setMessage({ type: 'success', text: 'Timeline event deleted' });
       } else {
-        await api.delete(`/api/admin/content/about/management/${deleteParams.id}/`);
+        await api.delete(`/api/v1/school-info/admin/management/${deleteParams.id}/`);
         setManagement(prev => prev.filter(m => m.id !== deleteParams.id));
         setMessage({ type: 'success', text: 'Team member deleted' });
       }
@@ -381,33 +366,6 @@ export default function AboutSectionPage() {
     } finally {
       setSaving(false);
       setDeleteParams(null);
-    }
-  };
-
-  // Reset section handler
-  const confirmReset = async () => {
-    if (!resetSection) return;
-    setSaving(true);
-    
-    try {
-      const response = await api.post(resetSection.endpoint, { section: resetSection.section });
-      
-      // Update local state based on which section was reset
-      if (resetSection.endpoint.includes('about/page')) {
-        setPageData(response.data.data);
-        setInitialPageData(response.data.data);
-      } else if (resetSection.endpoint.includes('vision-mission')) {
-        setVisionData(response.data.data);
-        setInitialVisionData(response.data.data);
-      }
-      
-      setMessage({ type: 'success', text: response.data.message });
-    } catch (error) {
-       console.error(`Error resetting section:`, error);
-       setMessage({ type: 'error', text: 'Failed to reset section' });
-    } finally {
-      setSaving(false);
-      setResetSection(null);
     }
   };
 
@@ -609,13 +567,6 @@ export default function AboutSectionPage() {
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold text-white">History Section</h2>
-              <button
-                type="button"
-                onClick={() => setResetSection({ section: 'history', endpoint: '/api/admin/content/about/page/reset/' })}
-                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-              >
-                🗑️ Reset Section
-              </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
@@ -658,13 +609,6 @@ export default function AboutSectionPage() {
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold text-white">Infrastructure Section</h2>
-              <button
-                type="button"
-                onClick={() => setResetSection({ section: 'infrastructure', endpoint: '/api/admin/content/about/page/reset/' })}
-                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-              >
-                🗑️ Reset Section
-              </button>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -708,16 +652,7 @@ export default function AboutSectionPage() {
       {activeTab === 'vision' && (
         <form onSubmit={handleVisionSubmit} className="space-y-6">
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-white">Vision</h2>
-              <button
-                type="button"
-                onClick={() => setResetSection({ section: 'vision', endpoint: '/api/admin/content/vision-mission/reset/' })}
-                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-              >
-                🗑️ Reset Section
-              </button>
-            </div>
+            <h2 className="text-lg font-semibold text-white mb-4">Vision</h2>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Vision Title</label>
@@ -745,16 +680,7 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-white">Mission</h2>
-              <button
-                type="button"
-                onClick={() => setResetSection({ section: 'mission', endpoint: '/api/admin/content/vision-mission/reset/' })}
-                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-              >
-                🗑️ Reset Section
-              </button>
-            </div>
+            <h2 className="text-lg font-semibold text-white mb-4">Mission</h2>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Mission Title</label>
@@ -782,16 +708,7 @@ export default function AboutSectionPage() {
           </div>
 
           <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-white">Core Values</h2>
-              <button
-                type="button"
-                onClick={() => setResetSection({ section: 'values', endpoint: '/api/admin/content/vision-mission/reset/' })}
-                className="text-xs px-3 py-1.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-              >
-                🗑️ Reset Section
-              </button>
-            </div>
+            <h2 className="text-lg font-semibold text-white mb-4">Core Values</h2>
             <div className="space-y-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-300">Values Title</label>
@@ -1054,7 +971,6 @@ export default function AboutSectionPage() {
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
                       {member.photo ? (
-
                         <div className="relative w-full h-full">
                           <Image 
                             src={member.photo} 
@@ -1117,35 +1033,6 @@ export default function AboutSectionPage() {
                 className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
               >
                 {saving ? 'Deleting...' : 'Delete'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Reset Section Confirmation Modal */}
-      {resetSection && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
-            <h3 className="text-xl font-bold text-white mb-2">Reset Section</h3>
-            <p className="text-gray-400 mb-6">
-              Are you sure you want to reset the <strong className="text-white">{resetSection.section}</strong> section? 
-              This will clear all content in this section. This action cannot be undone.
-            </p>
-            <div className="flex gap-4 justify-end">
-              <button
-                onClick={() => setResetSection(null)}
-                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-                disabled={saving}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmReset}
-                disabled={saving}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg shadow-red-600/20 transition-all"
-              >
-                {saving ? 'Resetting...' : 'Reset Section'}
               </button>
             </div>
           </div>

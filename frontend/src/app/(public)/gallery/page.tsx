@@ -20,7 +20,7 @@ async function getGalleryData(): Promise<GalleryData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     // Explicitly set limit to 50 to match frontend expectation
-    const res = await fetch(`${apiUrl}/api/public/gallery/?limit=50`, {
+    const res = await fetch(`${apiUrl}/api/v1/gallery/?limit=50`, {
       cache: 'force-cache',
       next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });

@@ -345,8 +345,8 @@ export default function SiteSettingsPage() {
   const fetchData = async () => {
     try {
       const [settingsRes, linksRes] = await Promise.all([
-        api.get('/api/admin/content/settings/'),
-        api.get('/api/admin/content/quick-links/'),
+        api.get('/api/v1/school-info/admin/settings/'),
+        api.get('/api/v1/school-info/admin/quick-links/'),
       ]);
       setSettings(settingsRes.data);
       setInitialSettings(settingsRes.data);
@@ -418,7 +418,7 @@ export default function SiteSettingsPage() {
       }
 
       // Explicitly unset Content-Type to let the browser handle the boundary
-      const response = await api.put('/api/admin/content/settings/', formData, {
+      const response = await api.put('/api/v1/school-info/admin/settings/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', 
         },
@@ -433,7 +433,7 @@ export default function SiteSettingsPage() {
       setNewLogo(null);
       setLogoPreview(null);
       setMessage({ type: 'success', text: 'Settings updated successfully' });
-    } catch (error: any) {
+    } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.error('Error updating settings:', error);
       if (error.response && error.response.status === 400) {
         setErrors(error.response.data);
@@ -458,9 +458,9 @@ export default function SiteSettingsPage() {
     setSaving(true);
     try {
       if (currentLink.id) {
-        await api.patch(`/api/admin/content/quick-links/${currentLink.id}/`, currentLink);
+        await api.patch(`/api/v1/school-info/admin/quick-links/${currentLink.id}/`, currentLink);
       } else {
-        await api.post('/api/admin/content/quick-links/', currentLink);
+        await api.post('/api/v1/school-info/admin/quick-links/', currentLink);
       }
       setIsEditingLink(false);
       resetLinkForm();
@@ -481,7 +481,7 @@ export default function SiteSettingsPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/quick-links/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/quick-links/${deleteId}/`);
       fetchData();
       setMessage({ type: 'success', text: 'Quick link deleted' });
     } catch (error) {
@@ -584,6 +584,7 @@ export default function SiteSettingsPage() {
                     fill
                     className="object-contain"
                     unoptimized={!!logoPreview}
+                    sizes="128px"
                   />
                 ) : (
                   <div className="text-center text-gray-500">
@@ -628,7 +629,7 @@ export default function SiteSettingsPage() {
                     Selected: {newLogo.name}
                   </p>
                   <p className="text-xs text-yellow-500 mt-1 animate-pulse">
-                    ⚠️ Click "Save Changes" at the bottom to apply
+                    ⚠️ Click &quot;Save Changes&quot; at the bottom to apply
                   </p>
                 </div>
               )}

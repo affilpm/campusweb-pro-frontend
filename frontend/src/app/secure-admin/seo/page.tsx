@@ -24,7 +24,7 @@ export default function SEOPage() {
 
   const fetchSeoList = async () => {
     try {
-      const response = await api.get('/api/admin/content/seo/');
+      const response = await api.get('/api/v1/school-info/admin/seo/');
       setSeoList(response.data);
     } catch (error) {
       console.error('Error fetching SEO list:', error);
@@ -49,7 +49,7 @@ export default function SEOPage() {
     setSaving(true);
     
     try {
-      await api.delete(`/api/admin/content/seo/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/seo/${deleteId}/`);
       setSeoList(seoList.filter(item => item.id !== deleteId));
     } catch (error) {
       console.error('Error deleting SEO entry:', error);
@@ -81,9 +81,9 @@ export default function SEOPage() {
       };
 
       if (currentSeo.id) {
-        await api.put(`/api/admin/content/seo/${currentSeo.id}/`, formData, config);
+        await api.put(`/api/v1/school-info/admin/seo/${currentSeo.id}/`, formData, config);
       } else {
-        await api.post('/api/admin/content/seo/', formData, config);
+        await api.post('/api/v1/school-info/admin/seo/', formData, config);
       }
       
       fetchSeoList();
@@ -124,7 +124,7 @@ export default function SEOPage() {
 
 
         {/* Missing Pages Alert */}
-        {seoList.length > 0 && Array.from(['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'documents']).filter(slug => !seoList.some(s => s.page_slug === slug)).length > 0 && (
+        {seoList.length > 0 && Array.from(['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'public-disclosure']).filter(slug => !seoList.some(s => s.page_slug === slug)).length > 0 && (
            <div className="mb-6 bg-amber-500/10 border border-amber-500/20 rounded-xl p-4">
              <div className="flex items-start gap-3">
                <svg className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -136,7 +136,7 @@ export default function SEOPage() {
                    The following key pages are using hardcoded defaults. Click a tag to create a custom override:
                  </p>
                  <div className="flex flex-wrap gap-2">
-                   {['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'documents']
+                   {['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'public-disclosure']
                      .filter(slug => !seoList.some(s => s.page_slug === slug))
                      .map(slug => (
                        <button
@@ -208,7 +208,7 @@ export default function SEOPage() {
           <div className="text-center py-12 text-gray-500 bg-slate-800/20 rounded-xl border border-white/5">
             <p className="mb-4">No custom SEO overrides found.</p>
             <div className="flex flex-wrap justify-center gap-2">
-                 {['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'documents'].map(slug => (
+                 {['home', 'about', 'admissions', 'academics', 'contact', 'notices', 'events', 'gallery', 'facilities', 'public-disclosure'].map(slug => (
                    <button
                      key={slug}
                      onClick={() => {

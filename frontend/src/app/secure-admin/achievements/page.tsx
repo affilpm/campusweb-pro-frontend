@@ -31,7 +31,7 @@ export default function AchievementsManagementPage() {
 
   const fetchData = async () => {
     try {
-      const res = await api.get('/api/admin/content/achievements/');
+      const res = await api.get('/api/v1/school-info/admin/achievements/');
       setAchievements(res.data);
     } catch (error) {
       console.error('Error fetching achievements:', error);
@@ -63,9 +63,9 @@ export default function AchievementsManagementPage() {
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
       if (editing.id) {
-        await api.put(`/api/admin/content/achievements/${editing.id}/`, formData, config);
+        await api.put(`/api/v1/school-info/admin/achievements/${editing.id}/`, formData, config);
       } else {
-        await api.post('/api/admin/content/achievements/', formData, config);
+        await api.post('/api/v1/school-info/admin/achievements/', formData, config);
       }
       fetchData();
       setShowModal(false);
@@ -87,7 +87,7 @@ export default function AchievementsManagementPage() {
     if (!deleteId) return;
     
     try {
-      await api.delete(`/api/admin/content/achievements/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/achievements/${deleteId}/`);
       fetchData();
     } catch (error) {
       console.error('Error deleting achievement:', error);

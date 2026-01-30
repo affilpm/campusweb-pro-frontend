@@ -16,15 +16,15 @@ async function getPageData(): Promise<PageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
     // Fetch infrastructure
-    const infraRes = await fetch(`${apiUrl}/api/public/infrastructure/`, {
+    const infraRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
       next: { revalidate: 300 },
     });
     
-    const infraData = infraRes.ok ? await infraRes.json() : [];
+    const infraData = infraRes.ok ? await infraRes.json() : {};
     
     return {
-      infrastructure: infraData,
+      infrastructure: infraData.infrastructure || [],
     };
   } catch (error) {
     console.error('Error fetching data:', error);

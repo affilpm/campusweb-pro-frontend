@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 interface ImageUploadProps {
@@ -13,6 +13,17 @@ interface ImageUploadProps {
 export default function ImageUpload({ label, currentImage, onChange, onRemove }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(currentImage);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync preview with currentImage when it changes from external source (e.g. after upload)
+  useEffect(() => {
+    if (currentImage) {
+      // Add timestamp to bypass browser cache for the same URL
+      const separator = currentImage.includes('?') ? '&' : '?';
+      setPreview(`${currentImage}${separator}t=${new Date().getTime()}`);
+    } else {
+      setPreview(null);
+    }
+  }, [currentImage]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -42,7 +53,8 @@ export default function ImageUpload({ label, currentImage, onChange, onRemove }:
               alt="Preview" 
               fill 
               className="object-cover" 
-              unoptimized={preview?.startsWith('blob:')}
+              unoptimized={true}
+              sizes="(max-width: 768px) 100vw, 400px"
             />
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <button

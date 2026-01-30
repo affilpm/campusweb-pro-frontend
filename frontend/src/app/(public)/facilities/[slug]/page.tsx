@@ -14,8 +14,8 @@ async function getFacility(slug: string): Promise<FacilityDetail | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
-    const res = await fetch(`${apiUrl}/api/public/facilities/${slug}/`, {
-      next: { revalidate: 300 } // ISR: revalidate every 5 minutes
+    const res = await fetch(`${apiUrl}/api/v1/school-info/facilities/${slug}/`, {
+      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
     
     if (!res.ok) return null;

@@ -13,7 +13,7 @@ async function getFacilitiesData(): Promise<FacilitiesPageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
     // Fetch homepage data which contains facilities
-    const homeRes = await fetch(`${apiUrl}/api/public/home/`, {
+    const homeRes = await fetch(`${apiUrl}/api/v1/landing/home/`, {
       next: { revalidate: 300 },
     });
     
@@ -108,9 +108,9 @@ export default async function FacilitiesPage() {
                 >
                   {/* Image or Icon Header */}
                   <div className="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center relative overflow-hidden">
-                    {facility.image ? (
+                    {facility.cover_image ? (
                       <Image 
-                        src={facility.image} 
+                        src={facility.cover_image} 
                         alt={facility.name}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"

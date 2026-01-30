@@ -29,7 +29,7 @@ export default function HeroSectionPage() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get('/api/admin/content/hero/');
+      const response = await api.get('/api/v1/landing/admin/hero/');
       setData(response.data);
       setInitialData(response.data);
     } catch (error) {
@@ -64,7 +64,7 @@ export default function HeroSectionPage() {
         formData.append('image', newImage);
       }
 
-      const response = await api.put('/api/admin/content/hero/', formData, {
+      const response = await api.put('/api/v1/landing/admin/hero/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

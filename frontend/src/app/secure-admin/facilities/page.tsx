@@ -53,7 +53,7 @@ export default function FacilitiesPage() {
 
   const fetchFacilities = async () => {
     try {
-      const response = await api.get('/api/admin/content/facilities/');
+      const response = await api.get('/api/v1/school-info/admin/facilities/');
       setFacilities(response.data);
     } catch (error) {
       console.error('Error fetching facilities:', error);
@@ -77,7 +77,7 @@ export default function FacilitiesPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      await api.delete(`/api/admin/content/facilities/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/facilities/${deleteId}/`);
       setFacilities(facilities.filter(f => f.id !== deleteId));
       setMessage({ type: 'success', text: 'Facility deleted' });
     } catch (error) {
@@ -90,7 +90,7 @@ export default function FacilitiesPage() {
 
   const toggleActive = async (facility: Facility) => {
     try {
-      await api.patch(`/api/admin/content/facilities/${facility.id}/`, {
+      await api.patch(`/api/v1/school-info/admin/facilities/${facility.id}/`, {
         is_active: !facility.is_active
       });
       setFacilities(facilities.map(f => 
@@ -120,11 +120,11 @@ export default function FacilitiesPage() {
       }
 
       if (currentFacility.id) {
-        await api.put(`/api/admin/content/facilities/${currentFacility.id}/`, formData, {
+        await api.put(`/api/v1/school-info/admin/facilities/${currentFacility.id}/`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       } else {
-        await api.post('/api/admin/content/facilities/', formData, {
+        await api.post('/api/v1/school-info/admin/facilities/', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
       }

@@ -13,7 +13,7 @@ const client = axios.create({
   baseURL: API_URL, // Use environment variable
   withCredentials: true, // IMPORTANT: Sends HttpOnly cookies
   headers: {
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json', // Content-Type should be determined by payload (e.g. FormData)
   },
 });
 
@@ -81,7 +81,9 @@ client.interceptors.response.use(
           throw new Error('No refresh token available');
         }
         
-        const { data } = await client.post('/api/admin/auth/refresh/', { refresh: refreshToken });
+        const { data } = await client.post('/api/v1/auth/refresh/', { refresh: refreshToken }, {
+          headers: { 'Content-Type': 'application/json' }
+        });
         
         // Save new Access Token
         const newToken = data.access;
@@ -99,13 +101,18 @@ client.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return client(originalRequest);
         
-      } catch (refreshError) {
-        // Refresh failed (Session expired) -> Logout user
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
-          window.location.href = '/secure-admin/login'; // Redirect to login
+      } catch (refreshError: any) {
+        // Refresh failed
+        // Only logout if it's definitely an auth error (Session expired/Invalid)
+        if (refreshError.response && (refreshError.response.status === 401 || refreshError.response.status === 403)) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+            window.location.href = '/secure-admin/login'; 
+          }
         }
+        // If it's a network error (timeout) or server error (500), 
+        // DO NOT logout. Just reject so the UI can show a temporary error.
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -141,7 +148,7 @@ export const getAccessToken = () => {
 // Exporting as authApi to match existing imports in the codebase
 export const authApi = {
   login: async (email: string, password: string) => {
-    const response = await client.post('/api/admin/auth/login/', { email, password });
+    const response = await client.post('/api/v1/auth/login/', { email, password });
     if (response.data.access) {
       localStorage.setItem('access_token', response.data.access);
       if (response.data.refresh) {
@@ -154,7 +161,8 @@ export const authApi = {
 
   logout: async () => {
     try {
-        await client.post('/api/admin/auth/logout/');
+        const refreshToken = localStorage.getItem('refresh_token');
+        await client.post('/api/v1/auth/logout/', { refresh: refreshToken });
     } catch (e) {
         // Ignore logout errors
     }
@@ -163,7 +171,7 @@ export const authApi = {
   },
 
   verify: async () => {
-    const response = await client.post('/api/admin/auth/verify/');
+    const response = await client.post('/api/v1/auth/verify/');
     return { success: true, ...response.data };
   },
 
@@ -173,7 +181,9 @@ export const authApi = {
         throw new Error('No refresh token available');
       }
       
-      const response = await client.post('/api/admin/auth/refresh/', { refresh: refreshToken });
+      const response = await client.post('/api/v1/auth/refresh/', { refresh: refreshToken }, {
+        headers: { 'Content-Type': 'application/json' }
+      });
       if (response.data.access) {
           localStorage.setItem('access_token', response.data.access);
           // Update refresh token if a new one is returned (rotation)
@@ -187,7 +197,7 @@ export const authApi = {
 
   getMe: async () => {
     // Check if we have a token first to rely on interceptor
-    const response = await client.get('/api/admin/auth/me/');
+    const response = await client.get('/api/v1/auth/me/');
     // Shim for compatibility
     const data = response.data;
     // If data has 'user' property, use it, otherwise assume data is the user

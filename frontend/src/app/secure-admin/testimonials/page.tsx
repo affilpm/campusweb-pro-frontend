@@ -33,7 +33,7 @@ export default function TestimonialsManagementPage() {
 
   const fetchData = async () => {
     try {
-      const res = await api.get('/api/admin/content/testimonials/');
+      const res = await api.get('/api/v1/school-info/admin/testimonials/');
       setTestimonials(res.data);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
@@ -65,9 +65,9 @@ export default function TestimonialsManagementPage() {
       const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
       if (editing.id) {
-        await api.put(`/api/admin/content/testimonials/${editing.id}/`, formData, config);
+        await api.put(`/api/v1/school-info/admin/testimonials/${editing.id}/`, formData, config);
       } else {
-        await api.post('/api/admin/content/testimonials/', formData, config);
+        await api.post('/api/v1/school-info/admin/testimonials/', formData, config);
       }
       fetchData();
       setShowModal(false);
@@ -89,7 +89,7 @@ export default function TestimonialsManagementPage() {
     if (!deleteId) return;
     
     try {
-      await api.delete(`/api/admin/content/testimonials/${deleteId}/`);
+      await api.delete(`/api/v1/school-info/admin/testimonials/${deleteId}/`);
       fetchData();
     } catch (error) {
       console.error('Error deleting testimonial:', error);
@@ -178,7 +178,7 @@ export default function TestimonialsManagementPage() {
               </div>
             </div>
             
-            <p className="text-sm text-gray-400 mb-4 line-clamp-3 italic">"{testimonial.content}"</p>
+            <p className="text-sm text-gray-400 mb-4 line-clamp-3 italic">&quot;{testimonial.content}&quot;</p>
             
             <div className="flex justify-between items-center pt-4 border-t border-white/5">
               <span className={`px-2 py-1 rounded text-xs border ${

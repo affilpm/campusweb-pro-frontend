@@ -6,7 +6,7 @@ import Link from 'next/link';
 async function getAdmissionsData(): Promise<AdmissionSettings | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/admissions/`, {
+    const res = await fetch(`${apiUrl}/api/v1/admissions/public/init/`, {
       next: { revalidate: 300 },
     });
     if (!res.ok) throw new Error('Failed to fetch');
@@ -53,14 +53,14 @@ export default async function AdmissionsPage() {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
           {/* Status Badge */}
           <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 ${
             data.is_open 

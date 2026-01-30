@@ -17,15 +17,15 @@ async function getPageData(): Promise<PageData | null> {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
     // Fetch results & academics
-    const resultsRes = await fetch(`${apiUrl}/api/public/results-academics/`, {
+    const resultsRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
       cache: 'force-cache',
       next: { revalidate: 300 },
     });
     
-    const resultsData = resultsRes.ok ? await resultsRes.json() : [];
+    const resultsData = resultsRes.ok ? await resultsRes.json() : {};
     
     return {
-      results_academics: resultsData,
+      results_academics: resultsData.results || [],
     };
   } catch (error) {
     console.error('Error fetching data:', error);
