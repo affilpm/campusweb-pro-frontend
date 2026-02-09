@@ -22,7 +22,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-4/3">
               {data.image ? (
                 <Image 
                   src={data.image} 
@@ -32,7 +32,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               ) : (
-                <div className="w-full aspect-[4/3] bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                <div className="w-full aspect-4/3 bg-linear-to-br from-blue-100 to-blue-200 flex items-center justify-center">
                   <span className="text-6xl sm:text-8xl opacity-50">🏫</span>
                 </div>
               )}

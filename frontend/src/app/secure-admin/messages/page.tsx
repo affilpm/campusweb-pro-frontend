@@ -121,14 +121,14 @@ export default function ContactSubmissionsPage() {
                 >
                   <div className="flex items-start gap-3">
                     {!submission.is_read && (
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+                      <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 shrink-0" />
                     )}
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between">
                         <p className={`font-medium truncate ${!submission.is_read ? 'text-white' : 'text-gray-300'}`}>
                           {submission.name}
                         </p>
-                        <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
+                        <span className="text-xs text-gray-500 shrink-0 ml-2">
                           {formatDate(submission.created_at).split(',')[0]}
                         </span>
                       </div>
@@ -217,7 +217,7 @@ export default function ContactSubmissionsPage() {
         </div>
       </div>
       {deleteId && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

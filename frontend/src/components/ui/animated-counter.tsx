@@ -53,7 +53,7 @@ export default function AnimatedCounter({ value, label, suffix = '', className =
         initial={{ scale: 0.5, opacity: 0 }}
         animate={isInView ? { scale: 1, opacity: 1 } : {}}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent"
+        className="text-4xl md:text-5xl font-bold bg-linear-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent"
       >
         {displayContent}{hasPlus ? '+' : ''}{suffix}
       </motion.div>

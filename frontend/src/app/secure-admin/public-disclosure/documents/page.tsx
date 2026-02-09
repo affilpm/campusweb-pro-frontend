@@ -331,7 +331,7 @@ export default function DocumentsPage() {
                 <button
                   onClick={saveItem}
                   disabled={saving || !editingItem.title || (!editingItem.id && !selectedFile)}
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+                  className="flex-1 px-4 py-2.5 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
                 >
                   {saving ? 'Saving...' : 'Save'}
                 </button>
@@ -341,7 +341,7 @@ export default function DocumentsPage() {
         </div>
       )}
       {deleteId && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

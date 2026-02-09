@@ -146,7 +146,7 @@ export default function EventsPage() {
       <div className="grid gap-4">
         {events.map((event) => (
           <div key={event.id} className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-xl p-4 flex gap-4">
-            <div className="w-24 h-24 bg-white/5 rounded-lg overflow-hidden flex-shrink-0 relative">
+            <div className="w-24 h-24 bg-white/5 rounded-lg overflow-hidden shrink-0 relative">
                 {event.image ? (
                     <Image 
                       src={`${event.image}${event.image.includes('?') ? '&' : '?'}t=${new Date().getTime()}`} 
@@ -357,7 +357,7 @@ export default function EventsPage() {
         </div>
       )}
       {deleteId && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

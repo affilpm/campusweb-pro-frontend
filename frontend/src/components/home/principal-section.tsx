@@ -35,7 +35,7 @@ export default function PrincipalSection({ data }: PrincipalSectionProps) {
                   sizes="(max-width: 768px) 100vw, 40vw"
                 />
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+                <div className="absolute inset-0 bg-linear-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
                   <span className="text-6xl md:text-8xl text-white/30 font-bold">{data.name?.charAt(0) || 'P'}</span>
                 </div>
               )}

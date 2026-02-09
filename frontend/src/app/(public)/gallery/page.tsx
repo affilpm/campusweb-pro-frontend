@@ -1,8 +1,8 @@
-import { Metadata } from 'next';
-import { GalleryImage } from '@/lib/public-types';
-import { getPageSEO } from '@/lib/seo-api';
-import AnimatedSection from '@/components/ui/animated-section';
-import GalleryGrid from '@/components/gallery/gallery-grid';
+import { Metadata } from "next";
+import { GalleryImage } from "@/lib/public-types";
+import { getPageSEO } from "@/lib/seo-api";
+import AnimatedSection from "@/components/ui/animated-section";
+import GalleryGrid from "@/components/gallery/gallery-grid";
 
 interface GalleryCategory {
   id: number;
@@ -18,33 +18,31 @@ interface GalleryData {
 // Fetch gallery data with ISR caching
 async function getGalleryData(): Promise<GalleryData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     // Explicitly set limit to 50 to match frontend expectation
     const res = await fetch(`${apiUrl}/api/v1/gallery/?limit=50`, {
-      cache: 'force-cache',
+      cache: "force-cache",
       next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
-    
-    if (!res.ok) throw new Error('Failed to fetch');
+
+    if (!res.ok) throw new Error("Failed to fetch");
     return res.json();
   } catch (error) {
-    console.error('Error fetching gallery data:', error);
+    console.error("Error fetching gallery data:", error);
     return null;
   }
 }
 
-
-
 // Generate metadata for SEO
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = await getPageSEO('gallery');
-  
+  const seo = await getPageSEO("gallery");
+
   return {
-    title: seo?.title || 'Photo Gallery',
-    description: seo?.meta_description || 'View our school photo gallery',
+    title: seo?.title || "Photo Gallery",
+    description: seo?.meta_description || "View our school photo gallery",
     openGraph: {
-      title: seo?.title || 'Photo Gallery',
-      description: seo?.meta_description || 'View our school photo gallery',
+      title: seo?.title || "Photo Gallery",
+      description: seo?.meta_description || "View our school photo gallery",
       images: seo?.og_image ? [seo.og_image] : undefined,
     },
   };
@@ -52,13 +50,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GalleryPage() {
   const galleryData = await getGalleryData();
-  
+
   if (!galleryData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">📷</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Gallery Coming Soon</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Gallery Coming Soon
+          </h1>
           <p className="text-gray-600">Check back later for photos!</p>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default async function GalleryPage() {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-purple-900 via-violet-800 to-indigo-900 text-white overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-linear-to-br from-purple-900 via-violet-800 to-indigo-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500 rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
@@ -90,9 +90,9 @@ export default async function GalleryPage() {
       </section>
 
       {/* Gallery Grid - Client Component for interactivity */}
-      <GalleryGrid 
-        categories={galleryData.categories} 
-        images={galleryData.images} 
+      <GalleryGrid
+        categories={galleryData.categories}
+        images={galleryData.images}
       />
     </main>
   );

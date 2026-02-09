@@ -39,7 +39,7 @@ export default function LoadingSpinner({
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <div className={`${size === 'lg' ? 'w-4 h-4' : size === 'md' ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full`} />
+          <div className={`${size === 'lg' ? 'w-4 h-4' : size === 'md' ? 'w-2.5 h-2.5' : 'w-2 h-2'} bg-linear-to-r from-blue-500 to-indigo-600 rounded-full`} />
         </motion.div>
         
         {/* Orbiting dot */}
@@ -73,7 +73,7 @@ export default function LoadingSpinner({
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-100 flex items-center justify-center bg-white/80 backdrop-blur-sm">
         {spinner}
       </div>
     );
@@ -87,10 +87,10 @@ export function PageLoadingSkeleton() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero skeleton with shimmer effect */}
-      <div className="relative pt-12 pb-16 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-800 overflow-hidden">
+      <div className="relative pt-12 pb-16 bg-linear-to-br from-blue-900 via-indigo-900 to-blue-800 overflow-hidden">
         {/* Shimmer overlay */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+          className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent"
           animate={{ x: ['-100%', '100%'] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
         />
@@ -132,7 +132,7 @@ export function PageLoadingSkeleton() {
 export function NavigationLoader({ logo }: { logo?: string | null }) {
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -159,7 +159,7 @@ export function NavigationLoader({ logo }: { logo?: string | null }) {
                 sizes="64px"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                 <span className="text-3xl">🎓</span>
               </div>
             )}

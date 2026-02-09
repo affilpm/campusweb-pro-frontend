@@ -20,7 +20,7 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 pt-32 pb-20 px-4">
+      <div className="bg-linear-to-br from-slate-900 via-blue-950 to-indigo-950 pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Terms of Use</h1>
           <p className="text-blue-100 text-lg max-w-2xl mx-auto">

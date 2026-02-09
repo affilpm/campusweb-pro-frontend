@@ -165,7 +165,7 @@ export default function HeroSectionPage() {
               !data.title ||
               !data.subtitle
             }
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+            className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
           >
             {saving ? 'Saving...' : 'Save Changes'}
           </button>

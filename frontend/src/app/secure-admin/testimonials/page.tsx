@@ -142,7 +142,7 @@ export default function TestimonialsManagementPage() {
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className="bg-slate-800/50 backdrop-blur-xl border border-white/10 rounded-xl p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-700 border border-white/10 flex-shrink-0">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-700 border border-white/10 shrink-0">
                 {testimonial.photo ? (
 
                   <div className="relative w-full h-full">
@@ -235,7 +235,7 @@ export default function TestimonialsManagementPage() {
             className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-lg flex flex-col max-h-[90vh] shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6 border-b border-white/10 flex items-center justify-between flex-shrink-0">
+            <div className="p-6 border-b border-white/10 flex items-center justify-between shrink-0">
               <h2 className="text-xl font-bold text-white">
                 {editing.id ? 'Edit Testimonial' : 'Add Testimonial'}
               </h2>
@@ -336,7 +336,7 @@ export default function TestimonialsManagementPage() {
               </div>
             </div>
 
-            <div className="p-6 border-t border-white/10 flex justify-end gap-3 flex-shrink-0">
+            <div className="p-6 border-t border-white/10 flex justify-end gap-3 shrink-0">
               <button
                 onClick={() => {
                   setShowModal(false);
@@ -364,7 +364,7 @@ export default function TestimonialsManagementPage() {
         </div>
       )}
       {deleteId && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

@@ -34,7 +34,7 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
     <main className="bg-white min-h-screen">
 
       {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
+      <section className="relative h-[50vh] min-h-[400px] bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
         {facility.cover_image ? (
           <>
             <Image 
@@ -45,7 +45,7 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
               className="object-cover"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/20" />
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -167,7 +167,7 @@ export default function FacilityClient({ facility }: FacilityClientProps) {
                   />
                   
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Caption on Hover */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">

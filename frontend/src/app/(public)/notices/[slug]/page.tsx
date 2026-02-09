@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Notice } from '@/lib/public-types';
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Notice } from "@/lib/public-types";
 
 interface PageProps {
   params: Promise<{
@@ -10,42 +10,47 @@ interface PageProps {
 }
 
 // Generate metadata for the notice page
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-  
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   try {
     const res = await fetch(`${apiUrl}/api/v1/communication/notices/${slug}/`);
-    if (!res.ok) return { title: 'Notice Not Found' };
-    
+    if (!res.ok) return { title: "Notice Not Found" };
+
     const notice: Notice = await res.json();
     return {
       title: `${notice.title} | Notice`,
       description: notice.content.substring(0, 160),
     };
   } catch (error) {
-    return { title: 'Notice' };
+    return { title: "Notice" };
   }
 }
 
 async function getData(slug: string) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-  
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   try {
     // Consistent caching strategy matching other pages (no force-cache)
-    const noticeRes = await fetch(`${apiUrl}/api/v1/communication/notices/${slug}/`, { 
-      next: { revalidate: 300 } // ISR: revalidate every 5 minutes
-    });
+    const noticeRes = await fetch(
+      `${apiUrl}/api/v1/communication/notices/${slug}/`,
+      {
+        next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
+      },
+    );
 
     if (!noticeRes.ok) return null; // Handle 404 gracefully
 
     const notice: Notice = await noticeRes.json();
 
     return {
-      notice
+      notice,
     };
   } catch (error) {
-    console.error('Error fetching notice detail data:', error);
+    console.error("Error fetching notice detail data:", error);
     return null;
   }
 }
@@ -61,26 +66,36 @@ export default async function NoticeDetailPage({ params }: PageProps) {
   const { notice } = data;
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="flex-grow pt-40 pb-12 sm:pb-20">
+      <div className="grow pt-40 pb-12 sm:pb-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <div className="mb-8">
-            <Link 
-              href="/notices" 
+            <Link
+              href="/notices"
               className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-amber-600 transition-colors"
             >
-              <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               Back to All Notices
             </Link>
@@ -117,20 +132,34 @@ export default async function NoticeDetailPage({ params }: PageProps) {
                   <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
                     Attached Document
                   </h3>
-                  <a 
-                    href={notice.attachment} 
-                    target="_blank" 
+                  <a
+                    href={notice.attachment}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center p-4 rounded-xl border border-gray-200 bg-gray-50 hover:bg-white hover:border-amber-400 hover:shadow-md transition-all group"
                   >
                     <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
-                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
                       </svg>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 group-hover:text-amber-700">Download Attachment</p>
-                      <p className="text-xs text-gray-500 mt-0.5">Click to view or download</p>
+                      <p className="font-medium text-gray-900 group-hover:text-amber-700">
+                        Download Attachment
+                      </p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        Click to view or download
+                      </p>
                     </div>
                   </a>
                 </div>

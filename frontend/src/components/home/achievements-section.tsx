@@ -13,7 +13,7 @@ export default function AchievementsSection({ achievements }: AchievementsSectio
   }
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 to-indigo-950 relative overflow-hidden">
+    <section className="py-24 bg-linear-to-br from-slate-900 to-indigo-950 relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
@@ -45,14 +45,14 @@ export default function AchievementsSection({ achievements }: AchievementsSectio
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                       <svg className="w-20 h-20 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>
                     </div>
                   )}
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-t from-slate-950 via-slate-950/80 to-transparent" />
                   
                   {/* Year Badge */}
                   {achievement.year && (

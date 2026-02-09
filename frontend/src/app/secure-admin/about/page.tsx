@@ -420,7 +420,7 @@ export default function AboutSectionPage() {
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all ${
               activeTab === tab.id
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
+                ? 'bg-linear-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
                 : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
           >
@@ -524,7 +524,7 @@ export default function AboutSectionPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+              className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -640,7 +640,7 @@ export default function AboutSectionPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+              className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -739,7 +739,7 @@ export default function AboutSectionPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+              className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all"
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
@@ -969,7 +969,7 @@ export default function AboutSectionPage() {
               management.sort((a, b) => a.order - b.order).map((member) => (
                 <div key={member.id} className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-4 hover:border-purple-500/30 transition-colors">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full overflow-hidden bg-linear-to-br from-purple-500 to-indigo-600 flex items-center justify-center shrink-0">
                       {member.photo ? (
                         <div className="relative w-full h-full">
                           <Image 
@@ -1013,7 +1013,7 @@ export default function AboutSectionPage() {
         </div>
       )}
       {deleteParams && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

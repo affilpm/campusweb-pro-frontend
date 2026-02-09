@@ -575,7 +575,7 @@ export default function SiteSettingsPage() {
           <h2 className="text-lg font-semibold text-white mb-4">School Logo</h2>
           <div className="flex items-start gap-6">
             {/* Logo Preview */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <div className="w-32 h-32 relative rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
                 {logoPreview || settings.school_logo ? (
                   <Image 
@@ -863,7 +863,7 @@ export default function SiteSettingsPage() {
               !settings.phone ||
               !settings.email
             }
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg disabled:opacity-50 transition-all flex items-center gap-2"
           >
             {saving ? (
               <>
@@ -1040,7 +1040,7 @@ export default function SiteSettingsPage() {
       )}
 
       {deleteId && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 max-w-md w-full shadow-2xl transform scale-100 transition-all">
             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete</h3>
             <p className="text-gray-400 mb-6">

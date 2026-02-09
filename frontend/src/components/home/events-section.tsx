@@ -118,7 +118,7 @@ export default function EventsSection({ events }: EventsSectionProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group snap-start"
+                  className="shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group snap-start"
                   onClick={() => setSelectedEvent(event)}
                 >
                   {/* Image */}
@@ -197,7 +197,7 @@ export default function EventsSection({ events }: EventsSectionProps) {
             className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto flex flex-col"
           >
             {/* Modal Image */}
-            <div className="relative h-48 sm:h-64 bg-gray-100 flex-shrink-0">
+            <div className="relative h-48 sm:h-64 bg-gray-100 shrink-0">
                {selectedEvent.image ? (
                 <Image 
                   src={selectedEvent.image} 

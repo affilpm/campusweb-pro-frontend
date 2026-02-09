@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
-import { SiteSettings, QuickLink } from '@/lib/public-types';
+import { Metadata } from "next";
+import { SiteSettings, QuickLink } from "@/lib/public-types";
 
 interface ResultsAcademicsItem {
   id: number;
@@ -14,28 +14,28 @@ interface PageData {
 
 async function getPageData(): Promise<PageData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     // Fetch results & academics
     const resultsRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {
-      cache: 'force-cache',
+      cache: "force-cache",
       next: { revalidate: 300 },
     });
-    
+
     const resultsData = resultsRes.ok ? await resultsRes.json() : {};
-    
+
     return {
       results_academics: resultsData.results || [],
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
     return null;
   }
 }
 
 export const metadata: Metadata = {
-  title: 'Results & Academics | Public Disclosure',
-  description: 'Download academic results, reports, and related documents.',
+  title: "Results & Academics | Public Disclosure",
+  description: "Download academic results, reports, and related documents.",
 };
 
 export default async function ResultsAcademicsPage() {
@@ -43,7 +43,7 @@ export default async function ResultsAcademicsPage() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-50 to-blue-50">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent mb-4"></div>
           <p className="text-gray-600">Loading...</p>
@@ -56,26 +56,38 @@ export default async function ResultsAcademicsPage() {
 
   return (
     <main className="overflow-hidden bg-white">
-
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
+      <section className="relative pt-32 pb-16 md:pb-20 bg-linear-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s' }} />
+          <div
+            className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDuration: "4s" }}
+          />
+          <div
+            className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDuration: "6s" }}
+          />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             {/* Breadcrumb */}
             <div className="inline-flex items-center gap-2 text-sm text-blue-200 mb-6">
-              <a href="/" className="hover:text-white transition-colors">Home</a>
+              <a href="/" className="hover:text-white transition-colors">
+                Home
+              </a>
               <span>/</span>
-              <a href="/public-disclosure" className="hover:text-white transition-colors">Public Disclosure</a>
+              <a
+                href="/public-disclosure"
+                className="hover:text-white transition-colors"
+              >
+                Public Disclosure
+              </a>
               <span>/</span>
               <span className="text-white">Results & Academics</span>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight tracking-tight">
               Results & Academics
             </h1>
@@ -87,8 +99,16 @@ export default async function ResultsAcademicsPage() {
 
         {/* Bottom wave */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
-            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+          <svg
+            viewBox="0 0 1440 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-auto"
+          >
+            <path
+              d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+              fill="white"
+            />
           </svg>
         </div>
       </section>
@@ -99,14 +119,16 @@ export default async function ResultsAcademicsPage() {
           <div className="max-w-4xl mx-auto">
             {resultsAcademics.length === 0 ? (
               <div className="text-center py-16 bg-gray-50 rounded-2xl">
-                <p className="text-gray-500 text-lg">No documents available at this time.</p>
+                <p className="text-gray-500 text-lg">
+                  No documents available at this time.
+                </p>
               </div>
             ) : (
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white">
+                      <tr className="bg-linear-to-r from-emerald-500 to-teal-600 text-white">
                         <th className="py-4 px-6 text-left text-sm font-semibold uppercase tracking-wider w-24">
                           Sl.No.
                         </th>
@@ -120,8 +142,8 @@ export default async function ResultsAcademicsPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {resultsAcademics.map((item, index) => (
-                        <tr 
-                          key={item.id} 
+                        <tr
+                          key={item.id}
                           className="hover:bg-emerald-50/50 transition-colors"
                         >
                           <td className="py-5 px-6 text-gray-900 font-semibold text-center">
@@ -135,10 +157,20 @@ export default async function ResultsAcademicsPage() {
                               href={item.file}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg"
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg"
                             >
-                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                                />
                               </svg>
                               Download
                             </a>
@@ -153,7 +185,6 @@ export default async function ResultsAcademicsPage() {
           </div>
         </div>
       </section>
-
     </main>
   );
 }

@@ -64,7 +64,7 @@ export default function GallerySection({ images }: GallerySectionProps) {
               </div>
               
               {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 sm:p-4 lg:p-6">
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 sm:p-4 lg:p-6">
                 <h3 className="text-white font-semibold text-sm sm:text-base lg:text-lg mb-0.5 sm:mb-1 line-clamp-1">{image.title}</h3>
                 {image.caption && (
                   <p className="text-white/80 text-xs sm:text-sm line-clamp-1 hidden sm:block">{image.caption}</p>

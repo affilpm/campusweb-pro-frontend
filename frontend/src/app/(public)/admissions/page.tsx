@@ -1,32 +1,36 @@
-import { Metadata } from 'next';
-import { AdmissionSettings } from '@/lib/public-types';
-import { getPageSEO } from '@/lib/seo-api';
-import Link from 'next/link';
+import { Metadata } from "next";
+import { AdmissionSettings } from "@/lib/public-types";
+import { getPageSEO } from "@/lib/seo-api";
+import Link from "next/link";
 
 async function getAdmissionsData(): Promise<AdmissionSettings | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
     const res = await fetch(`${apiUrl}/api/v1/admissions/public/init/`, {
       next: { revalidate: 300 },
     });
-    if (!res.ok) throw new Error('Failed to fetch');
+    if (!res.ok) throw new Error("Failed to fetch");
     return res.json();
   } catch (error) {
-    console.error('Error fetching admissions data:', error);
+    console.error("Error fetching admissions data:", error);
     return null;
   }
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const seo = await getPageSEO('admissions');
-  
+  const seo = await getPageSEO("admissions");
+
   if (seo) {
     return {
-      title: seo.title || 'Admissions | School',
-      description: seo.meta_description || 'Apply for admission. Learn about our admission process, eligibility, and fee structure.',
-      keywords: seo.meta_keywords ? seo.meta_keywords.split(',').map(k => k.trim()) : undefined,
+      title: seo.title || "Admissions | School",
+      description:
+        seo.meta_description ||
+        "Apply for admission. Learn about our admission process, eligibility, and fee structure.",
+      keywords: seo.meta_keywords
+        ? seo.meta_keywords.split(",").map((k) => k.trim())
+        : undefined,
       openGraph: {
-        title: seo.title || 'Admissions',
+        title: seo.title || "Admissions",
         description: seo.meta_description,
         images: seo.og_image ? [seo.og_image] : undefined,
       },
@@ -34,8 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: 'Admissions | School',
-    description: 'Apply for admission. Learn about our admission process, eligibility, and fee structure.',
+    title: "Admissions | School",
+    description:
+      "Apply for admission. Learn about our admission process, eligibility, and fee structure.",
   };
 }
 
@@ -53,7 +58,7 @@ export default async function AdmissionsPage() {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+      <section className="relative bg-linear-to-br from-blue-900 via-blue-800 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl" />
@@ -62,33 +67,48 @@ export default async function AdmissionsPage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center">
           {/* Status Badge */}
-          <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 ${
-            data.is_open 
-              ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
-              : 'bg-red-500/20 text-red-300 border border-red-500/30'
-          }`}>
-            <span className={`w-2 h-2 rounded-full ${data.is_open ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`} />
-            {data.is_open ? 'Admissions Open' : 'Admissions Currently Closed'}
+          <div
+            className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-8 ${
+              data.is_open
+                ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                : "bg-red-500/20 text-red-300 border border-red-500/30"
+            }`}
+          >
+            <span
+              className={`w-2 h-2 rounded-full ${data.is_open ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
+            />
+            {data.is_open ? "Admissions Open" : "Admissions Currently Closed"}
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-            {data.hero_title || 'Admission Process'}
+            {data.hero_title || "Admission Process"}
           </h1>
-          
+
           <p className="text-xl lg:text-2xl text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed">
-            {data.hero_subtitle || 'Join our vibrant community of learners. We nurture young minds to achieve their full potential.'}
+            {data.hero_subtitle ||
+              "Join our vibrant community of learners. We nurture young minds to achieve their full potential."}
           </p>
 
           {data.is_open && data.application_form_link && (
-            <a 
+            <a
               href={data.application_form_link}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-10 py-5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
             >
               Apply Online
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </a>
           )}
@@ -104,7 +124,7 @@ export default async function AdmissionsPage() {
                 Overview
               </div>
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                {data.overview_title || 'Admission Process'}
+                {data.overview_title || "Admission Process"}
               </h2>
               {data.overview_content && (
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto whitespace-pre-line">
@@ -117,14 +137,14 @@ export default async function AdmissionsPage() {
             {data.steps && data.steps.length > 0 && (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mt-12">
                 {data.steps.map((step, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="relative bg-gray-50 rounded-2xl p-8 lg:p-10 border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                   >
                     <div className="w-14 h-14 bg-blue-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold mb-6 shadow-lg">
                       {step.step_number}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-gray-900 mb-4">
                       {step.title}
                     </h3>
@@ -148,21 +168,34 @@ export default async function AdmissionsPage() {
               <div className="bg-white rounded-2xl p-10 lg:p-12 shadow-sm border border-gray-100">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg
+                      className="w-7 h-7 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
                     </svg>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">
-                    {data.eligibility_title || 'Eligibility Criteria'}
+                    {data.eligibility_title || "Eligibility Criteria"}
                   </h3>
                 </div>
                 <div className="prose prose-lg text-gray-600 max-w-none">
-                  {data.eligibility_content.split('\n').filter(Boolean).map((line, idx) => (
-                    <div key={idx} className="flex gap-3 mb-4">
-                      <span className="text-blue-500 font-bold mt-1">•</span>
-                      <p className="m-0">{line}</p>
-                    </div>
-                  ))}
+                  {data.eligibility_content
+                    .split("\n")
+                    .filter(Boolean)
+                    .map((line, idx) => (
+                      <div key={idx} className="flex gap-3 mb-4">
+                        <span className="text-blue-500 font-bold mt-1">•</span>
+                        <p className="m-0">{line}</p>
+                      </div>
+                    ))}
                 </div>
               </div>
             )}
@@ -172,8 +205,18 @@ export default async function AdmissionsPage() {
               <div className="bg-white rounded-2xl p-10 lg:p-12 shadow-sm border border-gray-100">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center">
-                    <svg className="w-7 h-7 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg
+                      className="w-7 h-7 text-amber-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
                     </svg>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">
@@ -181,14 +224,27 @@ export default async function AdmissionsPage() {
                   </h3>
                 </div>
                 <div className="space-y-4">
-                  {data.documents_required.split('\n').filter(Boolean).map((line, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <p className="text-gray-600">{line}</p>
-                    </div>
-                  ))}
+                  {data.documents_required
+                    .split("\n")
+                    .filter(Boolean)
+                    .map((line, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <svg
+                          className="w-5 h-5 text-green-500 mt-1 shrink-0"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        <p className="text-gray-600">{line}</p>
+                      </div>
+                    ))}
                 </div>
               </div>
             )}
@@ -203,10 +259,9 @@ export default async function AdmissionsPage() {
             Have Questions?
           </h2>
           <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-            Our admissions team is here to help. Reach out to us for any queries.
+            Our admissions team is here to help. Reach out to us for any
+            queries.
           </p>
-          
-
 
           <div className="flex justify-center">
             <Link
@@ -214,14 +269,23 @@ export default async function AdmissionsPage() {
               className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
             >
               Contact Us
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </Link>
           </div>
         </div>
       </section>
-
     </main>
   );
 }
