@@ -78,8 +78,6 @@ export default function NoticesSection({ notices }: NoticesSectionProps) {
             </div>
 
             {/* Notices Ticker */}
-            {/* Ticker Content */}
-            {/* Ticker Content */}
             <div className="w-full relative h-12 sm:h-[60px] overflow-hidden sm:flex-1">
               {notices.map((notice, index) => (
                 <motion.div

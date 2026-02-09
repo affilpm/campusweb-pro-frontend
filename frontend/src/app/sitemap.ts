@@ -21,7 +21,7 @@ async function getNotices(): Promise<Notice[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/notices/`, { 
-      next: { revalidate: 300 } // Revalidate every 5 minutes
+      next: { revalidate: 3600 }
     });
     if (!res.ok) return [];
     return await res.json();
@@ -34,7 +34,7 @@ async function getFacilities(): Promise<Facility[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/home/`, { 
-      next: { revalidate: 300 }
+      next: { revalidate: 3600 }
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -48,7 +48,7 @@ async function getEvents(): Promise<Event[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/public/events/`, { 
-      next: { revalidate: 300 }
+      next: { revalidate: 3600 }
     });
     if (!res.ok) return [];
     return await res.json();
