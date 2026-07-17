@@ -210,30 +210,15 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ## 🚢 Deployment
 
-The project uses a **Hybrid Deployment Strategy** automation via **GitHub Actions** and **Docker Hub**.
+The frontend is a standard **Next.js** application and can be easily deployed to **Vercel**, **Netlify**, or any Node.js hosting provider. It does not require Docker or complex container orchestration.
 
-### Automated Workflow
-1.  **Push to `main`**: Triggers `.github/workflows/deploy.yml`.
-2.  **Build**: GitHub builds the Docker image and pushes it to [Docker Hub](https://hub.docker.com/r/affil/school-backend).
-3.  **Deploy**: GitHub connects to your DigitalOcean droplet via SSH and runs:
-    ```bash
-    git pull origin main       # Updates config (docker-compose.yml)
-    docker compose pull backend # Downloads new app code
-    docker compose up -d       # Restarts containers
-    ```
+### Deploying to Vercel (Recommended)
 
-### Manual Deployment
-If CI/CD fails, you can deploy manually from your machine:
-```bash
-# 1. Build and Push
-cd backend
-docker build --platform linux/amd64 -t affil/school-backend:latest .
-docker push affil/school-backend:latest
-
-# 2. Update Server
-ssh root@your-server-ip "cd ~/school && docker compose pull && docker compose up -d"
-```
-
-## 📄 License
-
-MIT License
+1. Push your code to your GitHub repository (`campusweb-pro-frontend`).
+2. Log in to [Vercel](https://vercel.com) and click **Add New Project**.
+3. Import your `campusweb-pro-frontend` repository.
+4. In the **Environment Variables** section, add the following key-value pairs:
+   * `NEXT_PUBLIC_API_URL` = `https://your-backend-api-domain.com`
+   * `NEXT_PUBLIC_R2_URL` = `https://your-media-r2-domain.com`
+   * `NEXT_PUBLIC_APP_URL` = `https://your-frontend-domain.com`
+5. Click **Deploy**. Vercel will build and serve your Next.js application automatically with built-in SSL.
