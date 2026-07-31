@@ -223,7 +223,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                   }
                 } catch {
                   phones = siteSettings.phone
-                    .split(/[,;]+/)
+                    .split(/[\r\n,;]+/)
                     .map((p) => p.trim())
                     .filter(Boolean);
                 }

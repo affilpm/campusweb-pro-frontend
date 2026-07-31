@@ -185,12 +185,22 @@ export default function Footer({ siteSettings, quickLinks }: FooterProps) {
                     </svg>
                   </div>
                   {(() => {
-                      let phones = [siteSettings.phone];
-                      try {
-                          const parsed = JSON.parse(siteSettings.phone);
-                          if (Array.isArray(parsed)) phones = parsed;
-                          else phones = [String(parsed)];
-                      } catch(e) { /* treat as string */ }
+                      let phones: string[] = [];
+                      if (siteSettings.phone) {
+                          try {
+                              const parsed = JSON.parse(siteSettings.phone);
+                              if (Array.isArray(parsed)) {
+                                  phones = parsed.map(String).map((p) => p.trim()).filter(Boolean);
+                              } else if (parsed) {
+                                  phones = [String(parsed).trim()];
+                              }
+                          } catch {
+                              phones = siteSettings.phone
+                                  .split(/[\r\n,;]+/)
+                                  .map((p) => p.trim())
+                                  .filter(Boolean);
+                          }
+                      }
                       
                       return (
                         <div className="flex flex-col">
