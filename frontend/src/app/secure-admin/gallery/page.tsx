@@ -247,7 +247,7 @@ export default function GalleryPage() {
                 src={img.image} 
                 alt={img.title} 
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">

@@ -83,7 +83,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                           src={testimonial.photo} 
                           alt={testimonial.name}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="64px"
                         />
                       ) : (

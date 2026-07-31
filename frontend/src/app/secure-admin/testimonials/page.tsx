@@ -150,7 +150,7 @@ export default function TestimonialsManagementPage() {
                       src={testimonial.photo} 
                       alt={testimonial.name} 
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       sizes="48px"
                     />
                   </div>

@@ -31,7 +31,7 @@ export default function PrincipalSection({ data }: PrincipalSectionProps) {
                   src={data.photo} 
                   alt={data.name}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 40vw"
                 />
               ) : (

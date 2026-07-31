@@ -28,7 +28,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
                   src={data.image} 
                   alt="About our school"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               ) : (

@@ -976,7 +976,7 @@ export default function AboutSectionPage() {
                             src={member.photo} 
                             alt={member.name} 
                             fill
-                            className="object-cover"
+                            className="object-contain"
                             sizes="64px"
                           />
                         </div>

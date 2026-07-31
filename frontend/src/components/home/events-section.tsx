@@ -128,7 +128,7 @@ export default function EventsSection({ events }: EventsSectionProps) {
                         src={event.image} 
                         alt={event.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     ) : (
@@ -203,7 +203,7 @@ export default function EventsSection({ events }: EventsSectionProps) {
                   src={selectedEvent.image} 
                   alt={selectedEvent.title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 100vw, 800px"
                 />
               ) : (

@@ -19,11 +19,27 @@ export default function Header({ siteSettings }: HeaderProps) {
     null,
   );
   const [isPhoneDropdownOpen, setIsPhoneDropdownOpen] = useState(false);
+  const phoneDropdownRef = useRef<HTMLDivElement>(null);
 
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const lastToggleTime = useRef<number>(0);
+
+  // Close phone dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        phoneDropdownRef.current &&
+        !phoneDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsPhoneDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
   // Scroll handler
   useEffect(() => {
@@ -196,18 +212,28 @@ export default function Header({ siteSettings }: HeaderProps) {
         <div className="container mx-auto px-4 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-6">
             {(() => {
-              let phones = [siteSettings.phone];
-              try {
-                const parsed = JSON.parse(siteSettings.phone);
-                if (Array.isArray(parsed)) phones = parsed;
-                else phones = [String(parsed)];
-              } catch {
-                /* treat as string */
+              let phones: string[] = [];
+              if (siteSettings.phone) {
+                try {
+                  const parsed = JSON.parse(siteSettings.phone);
+                  if (Array.isArray(parsed)) {
+                    phones = parsed.map(String).map((p) => p.trim()).filter(Boolean);
+                  } else if (parsed) {
+                    phones = [String(parsed).trim()];
+                  }
+                } catch {
+                  phones = siteSettings.phone
+                    .split(/[,;]+/)
+                    .map((p) => p.trim())
+                    .filter(Boolean);
+                }
               }
+
+              if (phones.length === 0) return null;
 
               if (phones.length > 1) {
                 return (
-                  <div className="relative">
+                  <div className="relative" ref={phoneDropdownRef}>
                     <button
                       onClick={() =>
                         setIsPhoneDropdownOpen(!isPhoneDropdownOpen)

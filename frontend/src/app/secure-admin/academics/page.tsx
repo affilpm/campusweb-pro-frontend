@@ -688,7 +688,7 @@ export default function AcademicsAdminPage() {
                         src={`${category.image}${category.image.includes('?') ? '&' : '?'}t=${new Date().getTime()}`} 
                         alt={category.name} 
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="(max-width: 768px) 100vw, 300px"
                       />
                     </div>

@@ -52,7 +52,7 @@ export default function ImageUpload({ label, currentImage, onChange, onRemove }:
               src={preview} 
               alt="Preview" 
               fill 
-              className="object-cover" 
+              className="object-contain" 
               unoptimized={true}
               sizes="(max-width: 768px) 100vw, 400px"
             />

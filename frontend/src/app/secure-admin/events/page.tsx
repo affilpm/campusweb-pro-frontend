@@ -152,7 +152,7 @@ export default function EventsPage() {
                       src={`${event.image}${event.image.includes('?') ? '&' : '?'}t=${new Date().getTime()}`} 
                       alt={event.title} 
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       sizes="96px"
                     />
                 ) : (

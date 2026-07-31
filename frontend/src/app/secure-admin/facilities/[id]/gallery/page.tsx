@@ -297,7 +297,7 @@ export default function FacilityGalleryPage() {
                     src={image.image}
                     alt={image.caption || "Gallery image"}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   />
                 </div>

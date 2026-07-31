@@ -175,7 +175,7 @@ export default async function AboutPage() {
                             src={data.about_section.image}
                             alt={data.about_section.title || ""}
                             fill
-                            className="object-cover"
+                            className="object-contain"
                             sizes="(max-width: 1024px) 100vw, 50vw"
                           />
                         </div>
@@ -241,7 +241,7 @@ export default async function AboutPage() {
                           src={data.history_image}
                           alt={data.history_title || "Our History"}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 50vw"
                         />
                       </div>
@@ -391,7 +391,7 @@ export default async function AboutPage() {
                           src={data.principal.photo}
                           alt={data.principal.name || ""}
                           fill
-                          className="object-cover"
+                          className="object-contain"
                           sizes="(max-width: 768px) 100vw, 33vw"
                         />
                       ) : (
@@ -583,7 +583,7 @@ export default async function AboutPage() {
                             src={member.photo}
                             alt={member.name || ""}
                             fill
-                            className="object-cover"
+                            className="object-contain"
                             sizes="(max-width: 768px) 160px, 200px"
                           />
                         ) : (

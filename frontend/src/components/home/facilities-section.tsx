@@ -59,7 +59,7 @@ export default function FacilitiesSection({
                       alt={facility.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-contain transition-transform duration-700 group-hover:scale-105"
                     />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center bg-linear-to-br from-emerald-500 to-cyan-600">
