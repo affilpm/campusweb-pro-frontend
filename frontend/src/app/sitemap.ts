@@ -20,7 +20,7 @@ interface Event {
 async function getNotices(): Promise<Notice[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/notices/`, { 
+    const res = await fetch(`${apiUrl}/api/v1/communication/notices/`, { 
       next: { revalidate: 3600 }
     });
     if (!res.ok) return [];
@@ -33,7 +33,7 @@ async function getNotices(): Promise<Notice[]> {
 async function getFacilities(): Promise<Facility[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/home/`, { 
+    const res = await fetch(`${apiUrl}/api/v1/landing/home/`, { 
       next: { revalidate: 3600 }
     });
     if (!res.ok) return [];
@@ -47,7 +47,7 @@ async function getFacilities(): Promise<Facility[]> {
 async function getEvents(): Promise<Event[]> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/events/`, { 
+    const res = await fetch(`${apiUrl}/api/v1/communication/events/`, { 
       next: { revalidate: 3600 }
     });
     if (!res.ok) return [];

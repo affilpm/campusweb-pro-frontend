@@ -25,7 +25,7 @@ export default function ContactForm({ apiUrl }: ContactFormProps) {
     setError('');
     
     try {
-      await axios.post(`${apiUrl}/api/public/contact/submit/`, formData);
+      await axios.post(`${apiUrl}/api/v1/school-info/contact/`, formData);
       setSuccess(true);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch {

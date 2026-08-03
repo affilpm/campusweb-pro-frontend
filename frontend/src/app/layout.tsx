@@ -23,7 +23,7 @@ import { SiteSettings, ContactPageData } from "@/lib/public-types";
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/layout/`, {
+    const res = await fetch(`${apiUrl}/api/v1/school-info/layout/`, {
       next: { revalidate: 300 }
     });
     if (!res.ok) return null;
@@ -37,7 +37,7 @@ async function getSiteSettings(): Promise<SiteSettings | null> {
 async function getContactData(): Promise<ContactPageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    const res = await fetch(`${apiUrl}/api/public/contact/`, {
+    const res = await fetch(`${apiUrl}/api/v1/school-info/contact/`, {
       next: { revalidate: 300 }
     });
     if (!res.ok) return null;
