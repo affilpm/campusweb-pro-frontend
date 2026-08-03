@@ -6,7 +6,7 @@ import AnimatedSection from "@/components/ui/animated-section";
 
 async function getAcademicsData(): Promise<AcademicsPageData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
     const res = await fetch(`${apiUrl}/api/v1/academics/page/`, {
       cache: "force-cache",
       next: { revalidate: 300 }, // Revalidate every 5 minutes

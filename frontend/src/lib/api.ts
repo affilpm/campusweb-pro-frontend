@@ -6,7 +6,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // API Base URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
 
 // 1. Setup Axios to support Cookies (Credential mode)
 const client = axios.create({

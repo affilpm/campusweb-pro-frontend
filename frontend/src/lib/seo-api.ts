@@ -4,7 +4,7 @@ import { PageSEO } from './public-types';
 
 export const getPageSEO = async (slug: string): Promise<PageSEO | null> => {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
     // Using native fetch for Better Next.js caching support
     const res = await fetch(`${apiUrl}/api/v1/school-info/seo/${slug}/`, {
       next: { revalidate: 300 },
