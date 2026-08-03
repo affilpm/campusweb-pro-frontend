@@ -14,18 +14,23 @@ import GallerySection from "@/components/home/gallery-section";
 import CTASection from "@/components/home/cta-section";
 import TestimonialsSection from "@/components/home/testimonials-section";
 import PublicDisclosureSection from "@/components/home/public-disclosure-section";
-// Fetch homepage data from Django API with ISR
-async function getHomepageData(): Promise<HomepageData> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-  const res = await fetch(`${apiUrl}/api/v1/landing/home/`, {
-    next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
-  });
+async function getHomepageData(): Promise<HomepageData | null> {
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const res = await fetch(`${apiUrl}/api/v1/landing/home/`, {
+      next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch homepage data");
+    if (!res.ok) {
+      console.error("Failed to fetch homepage data", res.status);
+      return null;
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+    return null;
   }
-
-  return res.json();
 }
 
 // Dynamic metadata based on site settings
@@ -103,6 +108,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const data = await getHomepageData();
+
+  if (!data) {
+    return (
+      <main className="overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
   const {
     site_settings,
