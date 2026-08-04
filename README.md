@@ -1,6 +1,6 @@
-# 🔐 School Management System - Frontend
+# 🔐 Public School Website - Frontend
 
-A secure, production-ready frontend for the School Management System, built with **Next.js 16 (React 19)**, **Tailwind CSS v4**, and **Zustand 5**.
+A secure, production-ready frontend for the Public School Website, built with **Next.js 16 (React 19)**, **Tailwind CSS v4**, and **Zustand 5**.
 
 > Note: This repository contains only the Frontend code. The backend is handled separately via Django/DRF.
 
