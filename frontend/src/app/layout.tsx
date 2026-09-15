@@ -71,7 +71,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const schoolName = settings?.school_name || "Novel School";
   const schoolDescription = settings?.school_description || settings?.school_motto || "Excellence in education";
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://novelschoolindia.com';
-  
+
   return {
     metadataBase: new URL(siteUrl),
     title: {
@@ -125,12 +125,12 @@ export default async function RootLayout({
 }>) {
   const settings = await getSiteSettings();
   const contactData = await getContactData();
-  
+
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://novelschoolindia.com';
 
   // Extract coordinates if available
   const coordinates = contactData?.map_embed_code ? extractCoordinates(contactData.map_embed_code) : null;
-  
+
   // Parse potential multiple phone numbers
   let telephone: string | string[] = settings?.phone || "";
   if (settings?.phone) {

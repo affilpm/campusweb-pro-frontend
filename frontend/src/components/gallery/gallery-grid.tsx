@@ -26,7 +26,7 @@ export default function GalleryGrid({ categories, images: initialImages, initial
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialImages.length >= 50); // Assumption based on limit
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   // Fetch images when category changes or load more is clicked
   const fetchImages = async (category: string, pageNum: number, append: boolean) => {

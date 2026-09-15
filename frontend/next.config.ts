@@ -14,16 +14,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_R2_URL ? new URL(process.env.NEXT_PUBLIC_R2_URL).hostname : 'media.novelschoolindia.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'novelschoolindia.com',
+        hostname: process.env.NEXT_PUBLIC_R2_URL ? new URL(process.env.NEXT_PUBLIC_R2_URL).hostname : '',
       },
     ],
   },
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8001');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     return [
       {
         source: '/api/:path*',
@@ -40,9 +36,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // reactCompiler: true, // Commenting out experimental feature if causing issues, or leave it if works
   experimental: {
-    // reactCompiler: true, // Usually it's in experimental
+    staticGenerationMaxConcurrency: 1,
   },
 };
 

@@ -8,7 +8,7 @@ import ContactForm from "@/components/contact/contact-form";
 // Fetch contact data with ISR caching
 async function getContactData(): Promise<ContactPageData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/school-info/contact/`, {
       cache: "force-cache",
       next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const data = await getContactData();
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   if (!data) {
     return (

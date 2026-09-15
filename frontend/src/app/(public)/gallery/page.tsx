@@ -18,7 +18,7 @@ interface GalleryData {
 // Fetch gallery data with ISR caching
 async function getGalleryData(): Promise<GalleryData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     // Explicitly set limit to 50 to match frontend expectation
     const res = await fetch(`${apiUrl}/api/v1/gallery/?limit=50`, {
       cache: "force-cache",

@@ -19,7 +19,7 @@ interface Event {
 
 async function getNotices(): Promise<Notice[]> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/communication/notices/`, { 
       next: { revalidate: 3600 }
     });
@@ -32,7 +32,7 @@ async function getNotices(): Promise<Notice[]> {
 
 async function getFacilities(): Promise<Facility[]> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/landing/home/`, { 
       next: { revalidate: 3600 }
     });
@@ -46,7 +46,7 @@ async function getFacilities(): Promise<Facility[]> {
 
 async function getEvents(): Promise<Event[]> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/communication/events/`, { 
       next: { revalidate: 3600 }
     });

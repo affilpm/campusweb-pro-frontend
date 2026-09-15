@@ -4,7 +4,7 @@ import Footer from '@/components/home/footer';
 import { LayoutData } from '@/lib/public-types';
 
 async function getLayoutData(): Promise<LayoutData | null> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   
   try {
     const res = await fetch(`${apiUrl}/api/v1/school-info/layout/`, { 

@@ -13,7 +13,7 @@ interface PageData {
 
 async function getPageData(): Promise<PageData | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
     // Fetch fees
     const feesRes = await fetch(`${apiUrl}/api/v1/school-info/disclosure/`, {

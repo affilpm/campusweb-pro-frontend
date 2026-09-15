@@ -4,7 +4,7 @@ import { getPageSEO } from '@/lib/seo-api'
 
 async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     const res = await fetch(`${apiUrl}/api/v1/school-info/layout/`, {
         next: { revalidate: 300 }
     });
