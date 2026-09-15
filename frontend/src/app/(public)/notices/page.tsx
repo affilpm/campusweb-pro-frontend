@@ -27,7 +27,7 @@ async function getData() {
 
   try {
     // Matching gallery/facilities caching strategy (no force-cache, just revalidate)
-    const res = await fetch(`${apiUrl}/api/v1/communication/notices/?page=1`, {
+    const res = await fetch(`${apiUrl}/api/v1/communication/notices/?page=1&bust=1`, {
       next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
 

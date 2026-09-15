@@ -17,7 +17,7 @@ import PublicDisclosureSection from "@/components/home/public-disclosure-section
 async function getHomepageData(): Promise<HomepageData | null> {
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? 'https://backendgreenvalley.affilpm.com' : 'http://localhost:8000');
-    const res = await fetch(`${apiUrl}/api/v1/landing/home/`, {
+    const res = await fetch(`${apiUrl}/api/v1/landing/home/?bust=1`, {
       next: { revalidate: 300 }, // ISR: revalidate every 5 minutes
     });
 
