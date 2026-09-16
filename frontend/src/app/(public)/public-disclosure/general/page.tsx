@@ -52,16 +52,14 @@ export default async function GeneralInfoPage() {
   return (
     <main className="overflow-hidden bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pb-20 bg-linear-to-br from-slate-900 via-blue-900 to-indigo-900 text-white overflow-hidden">
+      <section className="relative bg-linear-to-br from-slate-900 via-blue-900 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 text-white overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"
-            style={{ animationDuration: "4s" }}
+            className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
           />
           <div
-            className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"
-            style={{ animationDuration: "6s" }}
+            className="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl"
           />
         </div>
 
@@ -90,21 +88,6 @@ export default async function GeneralInfoPage() {
               Essential information about our institution
             </p>
           </div>
-        </div>
-
-        {/* Bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 120"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto"
-          >
-            <path
-              d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-              fill="white"
-            />
-          </svg>
         </div>
       </section>
 

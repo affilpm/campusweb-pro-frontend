@@ -68,7 +68,7 @@ export default async function GalleryPage() {
   return (
     <main className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-linear-to-br from-purple-900 via-violet-800 to-indigo-900 text-white overflow-hidden">
+      <section className="relative bg-linear-to-br from-purple-900 via-violet-800 to-indigo-900 pt-32 pb-20 lg:pt-40 lg:pb-28 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-72 h-72 bg-pink-500 rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400 rounded-full blur-3xl" />
